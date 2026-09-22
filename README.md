@@ -1,8 +1,14 @@
-# LIX CITY v0.3
-Mobile-first playable prototype for Cellix.
+# LIX CITY v0.4
+Playable mobile prototype.
 
-## Important
-- Keep the supplied `lix.png`, `coin.png`, and `cellix-logo.webp` unchanged.
-- Upload/replace only `index.html`, `style.css`, and `app.js` if those assets already exist in the repository.
-- This version is still a prototype. Data uses browser localStorage and is not yet server-secure/cloud-saved.
-- v0.3 adds clearer city progression, XP progress, city map, three game entry points, missions, and pet progression while preserving the supplied assets.
+New in v0.4:
+- Real touch-based Target mini-game
+- Runner mini-game with controls
+- Catch & Bomb mini-game with coins and bombs
+- Daily Spin with 24h cooldown
+- Existing city, missions, pet, XP and level systems retained
+
+Important:
+- Keep `lix.png`, `coin.png`, and `cellix-logo.webp` unchanged.
+- Replace only `index.html`, `style.css`, `app.js`, and `README.md`.
+- This is still a browser prototype using localStorage, not server-secure/cloud-save production code.
