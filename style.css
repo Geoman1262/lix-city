@@ -21,10 +21,10 @@
 .city-world .road-v:after{content:"";position:absolute;top:0;bottom:0;left:39px;width:4px;background:#f8efc6}
 .city-building{position:absolute;width:180px;height:150px;border-radius:18px 18px 12px 12px;z-index:6;filter:drop-shadow(0 12px 8px #27445a30)}
 .city-building .roof{position:absolute;left:-10px;right:-10px;top:-35px;height:55px;background:#fff;border-radius:20px 20px 6px 6px;transform:skewX(-12deg);box-shadow:0 7px 0 #d7e4ed}
-.city-building .front{position:absolute;inset:0;border-radius:16px;background:linear-gradient(135deg,#fff,#dcecf8);border:4px solid #c9dce8;overflow:hidden}
-.city-building .window{position:absolute;width:28px;height:32px;background:#79c9f5;border:3px solid #fff;border-radius:6px}
-.city-building .door{position:absolute;bottom:0;left:calc(50% - 20px);width:40px;height:56px;background:#477aa0;border-radius:10px 10px 0 0;border:3px solid #fff}
-.city-building .label{position:absolute;left:0;right:0;bottom:8px;text-align:center;font-weight:900;font-size:14px;color:#17304b;text-shadow:0 1px #fff}
+.city-building .front{position:absolute;inset:0;border-radius:16px;background:linear-gradient(180deg,#dff4ff 0%,#b7d8ed 58%,#91b8d0 100%);border:4px solid #d9edf8;overflow:hidden;box-shadow:inset 0 10px 0 #ffffff55,inset 0 -12px 0 #527a9555}
+.city-building .window{position:absolute;width:28px;height:32px;background:linear-gradient(145deg,#d9f6ff,#4ca8dc);border:3px solid #fff;border-radius:7px;box-shadow:inset 0 0 0 2px #65b9e5,0 3px 5px #18344a35}
+.city-building .door{position:absolute;bottom:0;left:calc(50% - 20px);width:40px;height:56px;background:linear-gradient(90deg,#245579,#5d99bd,#245579);border-radius:10px 10px 0 0;border:3px solid #fff;box-shadow:0 -2px 8px #17304b33}
+.city-building .label{position:absolute;left:7px;right:7px;bottom:7px;text-align:center;font-weight:900;font-size:12px;color:#fff;background:#17304bd9;border-radius:8px;padding:4px 3px;text-shadow:none;z-index:3}
 .b-house{left:70px;top:95px}.b-center{left:650px;top:110px}.b-store{left:70px;top:300px}.b-park{left:70px;top:545px}.b-energy{left:650px;top:545px}
 .b-house .front{background:linear-gradient(135deg,#fff7e8,#e9f4ff)}.b-house .roof{background:#e85f62}
 .b-center .roof{background:#7b8cff}.b-store .roof{background:#5dc68a}.b-park .roof{background:#75c96d}.b-energy .roof{background:#ffc84a}
@@ -47,7 +47,7 @@
 .city-panel.show{display:block}
 .city-panel h3{margin:0 0 4px}.city-panel p{margin:5px 0;color:#68778a;font-size:13px}
 .city-panel .close{position:absolute;right:10px;top:8px;background:#eaf3fb;color:#17304b;border-radius:10px;width:32px;height:32px}
-.city-build-hit{position:absolute;z-index:20;cursor:pointer}
+.city-build-hit{position:absolute;z-index:20;cursor:pointer;background:transparent!important;border:0!important;padding:0!important;margin:0!important;box-shadow:none!important;appearance:none;-webkit-appearance:none;color:transparent!important;outline:none!important}
 .bh-house{left:60px;top:80px;width:200px;height:190px}.bh-center{left:640px;top:90px;width:200px;height:190px}
 .bh-store{left:60px;top:280px;width:200px;height:190px}.bh-park{left:60px;top:525px;width:200px;height:190px}.bh-energy{left:640px;top:525px;width:200px;height:190px}
 .collect-ring{position:absolute;z-index:8;pointer-events:none;width:68px;height:68px;border:3px solid #fff;border-radius:50%;animation:ring .5s ease-out forwards}
@@ -80,3 +80,12 @@
 .wc1{left:350px;top:260px}.wc2{left:680px;top:300px}.wc3{left:285px;top:470px}.wc4{left:850px;top:450px}.wc5{left:530px;top:700px}
 .ws1{left:410px;top:320px}.ws2{left:625px;top:320px}
 .world-lix{width:78px}
+
+/* v0.12 building polish */
+.b-house .front{background:linear-gradient(180deg,#fff1d6 0%,#e9b875 58%,#c9894d 100%)}
+.b-center .front{background:linear-gradient(180deg,#e5e8ff 0%,#9aa8ed 58%,#6674bd 100%)}
+.b-store .front{background:linear-gradient(180deg,#e5fff0 0%,#9cddb9 58%,#5baa7f 100%)}
+.b-park .front{background:linear-gradient(180deg,#e9ffe6 0%,#a8d98e 58%,#6ea95b 100%)}
+.b-energy .front{background:linear-gradient(180deg,#fff8d7 0%,#f1cf62 58%,#c89b28 100%)}
+.b-house .roof{box-shadow:0 7px 0 #b94e53,0 10px 14px #27445a30}.b-center .roof{box-shadow:0 7px 0 #5967ca,0 10px 14px #27445a30}.b-store .roof{box-shadow:0 7px 0 #419d69,0 10px 14px #27445a30}.b-park .roof{box-shadow:0 7px 0 #589c52,0 10px 14px #27445a30}.b-energy .roof{box-shadow:0 7px 0 #d39e24,0 10px 14px #27445a30}
+.locked-building{opacity:.58}
