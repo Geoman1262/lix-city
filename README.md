@@ -1,19 +1,7 @@
-# LIX CITY v0.33 — Pets & Stable Major Update
+# LIX CITY v0.34 — Social & Leaderboards
 
-Major update for the LIX CITY web game.
+Major update after v0.33. Adds the Social City interface, player profile, Player ID, city visits, likes/profile hooks, and leaderboard presentation. Social unlocks at Player Level 30; leaderboards unlock at Level 10.
 
-## Pets & Stable
-- Lix Stable unlocks at Player Level 20.
-- Dog, Cat and Horse companion slots (Dog starts owned; additional pets can be unlocked later).
-- Name your active pet.
-- Pet happiness from 0–100.
-- Food costs 20 Coins; Ball costs 100 Coins.
-- Feeding/playing grants Pet XP and can raise Pet Level to 10.
-- Daily Play once per 24h grants +1 Energy and player XP.
-- One active pet can follow Lix in the city.
-- Pet data is saved with the stable save key.
+The current web prototype uses local storage. Real cross-device multiplayer, server-side scores, and secure global leaderboards require the planned backend/cloud service and are not claimed as live in this version.
 
-## Existing systems preserved
-Energy regeneration, countdown, Daily Missions, Mission Refresh, Daily Spin, Daily Streak, Games, Game Upgrades, House/City progression and Lix Customization.
-
-Save key: `lixcity_player_save_v1`
+Save key remains `lixcity_player_save_v1`.
