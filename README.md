@@ -1,3 +1,8 @@
-LIX CITY v0.22
+LIX CITY v0.23
 
-Dashboard Daily Spin. Built from v0.21. Save key remains lixcity_player_save_v1. Energy logic unchanged.
+Updates:
+- Daily Mission refresh: first refresh each day is free.
+- Additional mission refreshes cost 100 Coins.
+- Refresh replaces only the selected incomplete mission.
+- Same stable save key and Energy system as v0.22/v0.21.
+- Daily Spin returns to Dashboard after use.
