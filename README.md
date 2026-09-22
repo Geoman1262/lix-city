@@ -1,14 +1,16 @@
-# LIX CITY v0.4
-Playable mobile prototype.
+# LIX CITY v0.5
 
-New in v0.4:
-- Real touch-based Target mini-game
-- Runner mini-game with controls
-- Catch & Bomb mini-game with coins and bombs
-- Daily Spin with 24h cooldown
-- Existing city, missions, pet, XP and level systems retained
+Mobile-first game prototype.
 
-Important:
-- Keep `lix.png`, `coin.png`, and `cellix-logo.webp` unchanged.
-- Replace only `index.html`, `style.css`, `app.js`, and `README.md`.
-- This is still a browser prototype using localStorage, not server-secure/cloud-save production code.
+### New
+- Lix now lives inside an interactive city map.
+- Four-way Lix movement with a walking animation.
+- Buildings are positioned in the city and unlock by House/Player Level.
+- v0.4 touch mini-games and Daily Spin retained.
+- v0.4 progress is migrated automatically when possible.
+
+### Assets
+Keep the existing `lix.png` (the new transparent Lix), `coin.png`, and `cellix-logo.webp` in the repository. Do not replace them.
+
+### Important
+This remains a prototype. Player data is browser-local (`localStorage`) and is not yet cloud-saved or server-secure.
