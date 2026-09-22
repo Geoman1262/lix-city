@@ -9,3 +9,7 @@ Built on the stable v0.19 save system.
 - Missions give XP only when claimed
 - No extra completion bonus
 - Lix, Coin, Cellix logo and city assets preserved
+
+
+## v0.21 Energy Fix
+Energy uses a single nextEnergyAt timestamp: +1 Energy every 15 minutes, with no multi-point jump caused by repeated renders or reloads. Save key remains lixcity_player_save_v1.
