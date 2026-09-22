@@ -1,0 +1,21 @@
+{
+  "enabled": true,
+  "products": [
+    {
+      "id": "alfa",
+      "name": "Alfa Recharge",
+      "provider": "Alfa",
+      "price": "",
+      "url": "",
+      "active": false
+    },
+    {
+      "id": "touch",
+      "name": "touch Recharge",
+      "provider": "touch",
+      "price": "",
+      "url": "",
+      "active": false
+    }
+  ]
+}
