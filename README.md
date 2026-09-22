@@ -1,8 +1,8 @@
-# LIX CITY v0.39
+# LIX CITY v0.40
 
 Mobile-first standalone web game by Cellix.
 
-## v0.39 — Installable Web Game
+## v0.40 — Installable Web Game
 - Added PWA manifest.
 - Added service worker for faster repeat loading and basic offline fallback.
 - Added installable standalone display on supported browsers.
@@ -11,3 +11,9 @@ Mobile-first standalone web game by Cellix.
 
 ## Run
 Open the GitHub Pages URL. On supported Android browsers use **Add to Home screen / Install app**.
+
+
+## v0.40
+- Added an in-game Install LIX CITY button.
+- Uses the browser install prompt when available; otherwise shows Android browser instructions.
+- Does not change player save data.
