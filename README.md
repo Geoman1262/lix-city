@@ -1,16 +1,13 @@
-# LIX CITY v0.5
+# LIX CITY v0.6
+Living-city prototype.
 
-Mobile-first game prototype.
+New:
+- More detailed city environment
+- Roads, lanes, trees, lamps, clouds and floating coins
+- Lix remains a transparent PNG asset and moves inside the city
+- Pet can be brought into the city
+- Existing games, progression and spin retained
+- Automatic migration from v0.5 local data
 
-### New
-- Lix now lives inside an interactive city map.
-- Four-way Lix movement with a walking animation.
-- Buildings are positioned in the city and unlock by House/Player Level.
-- v0.4 touch mini-games and Daily Spin retained.
-- v0.4 progress is migrated automatically when possible.
-
-### Assets
-Keep the existing `lix.png` (the new transparent Lix), `coin.png`, and `cellix-logo.webp` in the repository. Do not replace them.
-
-### Important
-This remains a prototype. Player data is browser-local (`localStorage`) and is not yet cloud-saved or server-secure.
+Keep `lix.png`, `coin.png`, and `cellix-logo.webp` unchanged.
+This is still a localStorage prototype; cloud save/server security comes later.
