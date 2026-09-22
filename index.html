@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#1769e8">
-<meta name="version" content="LIX CITY v0.15 STABLE">
+<meta name="version" content="LIX CITY v0.16 GAMES STABLE">
 <title>LIX CITY</title>
 <style>
 *{box-sizing:border-box}:root{--blue:#1769e8;--ink:#17243a;--muted:#68778a;--bg:#eef6ff;--line:#dce7f2}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif}button{font:inherit;border:0;cursor:pointer}.top{position:sticky;top:0;z-index:40;background:#fff;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand img{width:70px;max-height:35px;object-fit:contain}.stats{display:flex;gap:12px;font-weight:700;font-size:14px}.wrap{max-width:760px;margin:auto;padding:16px 16px 94px}.hero{background:linear-gradient(135deg,#1769e8,#4b94ef);border-radius:28px;color:#fff;padding:22px 18px;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:center}.hero h1{font-size:38px;line-height:1.05;margin:8px 0}.hero img{width:100%;max-height:300px;object-fit:contain}.card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:18px;margin-top:16px;box-shadow:0 5px 18px #233d5a0d}.title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.title h2{margin:0;font-size:22px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.tile{background:#f4f8fc;border-radius:20px;padding:16px;min-height:120px}.tile h3{margin:7px 0 3px}.tile small,.muted{color:var(--muted)}.btn{background:var(--blue);color:#fff;border-radius:14px;padding:11px 16px;font-weight:700}.btn.alt{background:#e8f2ff;color:var(--blue)}.btn:disabled{opacity:.45}.row{display:flex;gap:10px;flex-wrap:wrap}.progress{height:12px;background:#e8eef5;border-radius:20px;overflow:hidden}.bar{height:100%;background:var(--blue);border-radius:20px}.mission{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 0;border-bottom:1px solid #edf1f5}.mission:last-child{border-bottom:0}
@@ -220,10 +220,78 @@ function moveLix(dx,dy){
     if(vp){vp.scrollTo({left:Math.max(0,px-280),top:Math.max(0,py-210),behavior:"smooth"});}
   }
 }
-function games(){shell(`<section class="card"><div class="title"><h2>🎮 Lix Games</h2><small>Energy ${S.energy}/${S.maxEnergy}</small></div><div class="game"><h3>🎯 Lix Target</h3><div class="muted">Hit 8 targets in 25 seconds.</div><button class="btn" onclick="targetGame()">PLAY</button></div><div class="game"><h3>🏃 Lix Runner</h3><div class="muted">Move Lix and avoid obstacles for 20 seconds.</div><button class="btn" onclick="runnerGame()">PLAY</button></div><div class="game"><h3>🪙💣 Lix Catch & Bomb</h3><div class="muted">Catch Coins for 20 seconds.</div><button class="btn" onclick="catchGame()">PLAY</button></div></section>`,"games")}
-function targetGame(){if(!energy())return;let h=0,t=25,active=true;function end(w){if(!active)return;active=false;clearInterval(iv);if(w){coins(50);addXP(40);S.missions[0].done=true;S.missions[2].done=true;save();toast("🎯 +50 Coins +40 XP")}else toast("Time's up!");setTimeout(()=>show("games"),400)}function place(){if(!active)return;let b=document.getElementById("targetBoard");if(!b)return;let e=document.createElement("button");e.className="target";e.textContent="🎯";e.style.left=Math.random()*80+8+"%";e.style.top=Math.random()*72+8+"%";e.onclick=()=>{h++;e.remove();document.getElementById("tgHits").textContent=h;h>=8?end(true):place()};b.appendChild(e)}shell(`<section class="card"><div class="title"><h2>🎯 Lix Target</h2><b id="tgTime">25</b>s</div><div class="playarea" id="targetBoard"></div><p class="center">Hits: <b id="tgHits">0</b> / 8</p><button class="btn alt" onclick="show('games')">Exit</button></section>`,"games");let iv=setInterval(()=>{t--;document.getElementById("tgTime").textContent=t;if(t<=0)end(false)},1000);place()}
-function runnerGame(){if(!energy())return;let t=20,l=0,alive=true,d=0;function end(){if(!alive)return;alive=false;clearInterval(iv);clearInterval(obs);coins(60);addXP(50);S.missions[0].done=true;save();toast("🏃 +60 Coins +50 XP");setTimeout(()=>show("games"),400)}shell(`<section class="card"><div class="title"><h2>🏃 Lix Runner</h2><b id="rt">20</b>s</div><div class="runnerArea" id="runner"><div class="lane"></div><img class="runnerLix" id="rlix" src="lix.png"></div><div class="row"><button class="btn" onclick="moveRunner(-1)">⬅️ LEFT</button><button class="btn" onclick="moveRunner(1)">RIGHT ➡️</button></div><p>Distance: <b id="dist">0</b> m</p></section>`,"games");window.moveRunner=z=>{l=Math.max(0,Math.min(2,l+z));document.getElementById("rlix").style.left=(10+l*35)+"%"};let obs=setInterval(()=>{let o=document.createElement("div");o.className="obstacle";o.style.left=(8+Math.floor(Math.random()*3)*35)+"%";document.getElementById("runner")?.appendChild(o);setTimeout(()=>o.remove(),2200)},850);let iv=setInterval(()=>{t--;d+=15;document.getElementById("rt").textContent=t;document.getElementById("dist").textContent=d;if(t<=0)end()},1000)}
-function catchGame(){if(!energy())return;let t=20,total=0,alive=true;function cleanup(){clearInterval(iv);clearInterval(sp);coins(total);addXP(60);S.missions[0].done=true;save()}function end(msg){if(!alive)return;alive=false;cleanup();toast(msg);setTimeout(()=>show("games"),500)}function spawn(){if(!alive)return;let e=document.createElement("button"),bomb=Math.random()<.18;e.className="fall "+(bomb?"":"coin-img");if(bomb)e.textContent="💣";else e.innerHTML='<img src="coin.png" style="width:42px;height:42px;object-fit:contain">' ;e.style.left=Math.random()*88+"%";e.style.top=Math.random()*80+"%";e.onclick=()=>bomb?end("💣 Bomb! You keep "+total+" Coins"):(total+=Math.random()<.2?5:1,e.remove(),document.getElementById("ct").textContent=total);document.getElementById("catch")?.appendChild(e);setTimeout(()=>e.remove(),1500)}shell(`<section class="card"><div class="title"><h2>🪙💣 Catch & Bomb</h2><b id="ctt">20</b>s</div><div class="catchArea" id="catch"></div><p><img class="coin-icon small" src="coin.png"> Collected: <b id="ct">0</b> Coins</p><button class="btn alt" onclick="show('games')">Exit</button></section>`,"games");let sp=setInterval(spawn,500),iv=setInterval(()=>{t--;document.getElementById("ctt").textContent=t;if(t<=0)end("🪙 Round complete! +"+total+" Coins")},1000)}
+function gameCfg(name){
+  const cfg={
+    target:[
+      {need:10,time:30,xp:40,coins:50},
+      {need:15,time:30,xp:45,coins:60},
+      {need:20,time:30,xp:50,coins:75},
+      {need:25,time:25,xp:55,coins:90},
+      {need:30,time:25,xp:60,coins:110}
+    ],
+    runner:[
+      {dist:300,time:20,xp:50,coins:60},
+      {dist:500,time:24,xp:55,coins:75},
+      {dist:750,time:28,xp:60,coins:95},
+      {dist:1000,time:32,xp:65,coins:120},
+      {dist:1500,time:38,xp:70,coins:150}
+    ],
+    catch:[
+      {coins:50,time:30,xp:60},
+      {coins:80,time:40,xp:65},
+      {coins:120,time:50,xp:70},
+      {coins:170,time:60,xp:75},
+      {coins:250,time:75,xp:80}
+    ]
+  };
+  const lv=Math.max(1,Math.min(5,Number(S.game?.[name])||1));
+  return {level:lv,...cfg[name][lv-1]};
+}
+function gameWin(name,earnedCoins,xp){
+  const old=Math.max(1,Math.min(5,Number(S.game?.[name])||1));
+  if(earnedCoins>0) S.coins+=earnedCoins;
+  addXP(xp);
+  S.missions[0].done=true;
+  if(name==='target') S.missions[2].done=true;
+  if(old<5){S.game[name]=old+1;toast('🏆 Win! Game Level '+(old+1)+' unlocked');}
+  else toast('🏆 Win! Max Game Level 5');
+  save();
+}
+function games(){
+  const t=gameCfg('target'),r=gameCfg('runner'),c=gameCfg('catch');
+  shell(`<section class="card"><div class="title"><h2>🎮 Lix Games</h2><small>⚡ ${S.energy}/${S.maxEnergy}</small></div>
+  <div class="game"><div class="title"><h3>🎯 Lix Target</h3><b>Lv.${t.level}</b></div><div class="muted">Hit ${t.need} targets in ${t.time} seconds.</div><p>Reward: 🪙 ${t.coins} + ⭐ ${t.xp} XP</p><button class="btn" onclick="targetGame()">PLAY</button></div>
+  <div class="game"><div class="title"><h3>🏃 Lix Runner</h3><b>Lv.${r.level}</b></div><div class="muted">Reach ${r.dist}m in ${r.time} seconds and avoid obstacles.</div><p>Reward: 🪙 ${r.coins} + ⭐ ${r.xp} XP</p><button class="btn" onclick="runnerGame()">PLAY</button></div>
+  <div class="game"><div class="title"><h3>🪙💣 Lix Catch & Bomb</h3><b>Lv.${c.level}</b></div><div class="muted">Collect ${c.coins} Coins before time runs out. Bombs end the round.</div><p>Reward: ⭐ ${c.xp} XP + all collected Coins</p><button class="btn" onclick="catchGame()">PLAY</button></div>
+  </section>`,'games');
+}
+function targetGame(){
+  if(!energy())return;
+  const c=gameCfg('target'); let hits=0,time=c.time,active=true,iv;
+  function end(win){if(!active)return;active=false;clearInterval(iv);if(win){gameWin('target',c.coins,c.xp)}else toast('⏱️ Time up — Energy lost, no reward');setTimeout(()=>show('games'),550)}
+  function place(){if(!active)return;const b=document.getElementById('targetBoard');if(!b)return;const e=document.createElement('button');e.className='target';e.textContent='🎯';e.style.left=(Math.random()*82+5)+'%';e.style.top=(Math.random()*70+5)+'%';e.onclick=()=>{hits++;e.remove();const h=document.getElementById('tgHits');if(h)h.textContent=hits;if(hits>=c.need)end(true);else place()};b.appendChild(e)}
+  shell(`<section class="card"><div class="title"><h2>🎯 Lix Target • Lv.${c.level}</h2><b id="tgTime">${c.time}</b>s</div><div class="playarea" id="targetBoard"></div><p class="center">Hits: <b id="tgHits">0</b> / ${c.need}</p><button class="btn alt" onclick="show('games')">Exit</button></section>`,'games');
+  iv=setInterval(()=>{if(!active)return;time--;const el=document.getElementById('tgTime');if(el)el.textContent=time;if(time<=0)end(false)},1000);place();
+}
+function runnerGame(){
+  if(!energy())return;
+  const c=gameCfg('runner'); let time=c.time,distance=0,lane=1,active=true,iv,obsTimer;
+  function finish(win,msg){if(!active)return;active=false;clearInterval(iv);clearInterval(obsTimer);if(win){gameWin('runner',c.coins,c.xp);toast('🏃 '+c.dist+'m complete!')}else toast(msg||'💥 Crash — Energy lost, no reward');setTimeout(()=>show('games'),600)}
+  function moveRunner(z){if(!active)return;lane=Math.max(0,Math.min(2,lane+z));const el=document.getElementById('rlix');if(el)el.style.left=(8+lane*35)+'%'}
+  window.moveRunner=moveRunner;
+  function spawn(){if(!active)return;const o=document.createElement('div');o.className='obstacle';const ol=Math.floor(Math.random()*3);o.dataset.lane=ol;o.style.left=(8+ol*35)+'%';o.style.top='-65px';document.getElementById('runner')?.appendChild(o);let y=-65;const fall=setInterval(()=>{if(!active){clearInterval(fall);o.remove();return}y+=6;o.style.top=y+'px';if(y>250){clearInterval(fall);o.remove();return}if(y>205&&y<285&&Number(o.dataset.lane)===lane){clearInterval(fall);o.remove();finish(false,'💥 Lix hit an obstacle — no reward')}} ,45)}
+  shell(`<section class="card"><div class="title"><h2>🏃 Lix Runner • Lv.${c.level}</h2><b id="rt">${c.time}</b>s</div><div class="runnerArea" id="runner"><div class="lane"></div><img class="runnerLix" id="rlix" src="lix.png"></div><div class="row"><button class="btn" onclick="moveRunner(-1)">⬅️ LEFT</button><button class="btn" onclick="moveRunner(1)">RIGHT ➡️</button></div><p>Distance: <b id="dist">0</b> / ${c.dist} m</p><button class="btn alt" onclick="finish(false,'Round ended — Energy lost, no reward')">Exit</button></section>`,'games');
+  obsTimer=setInterval(spawn,Math.max(520,850-c.level*55));
+  iv=setInterval(()=>{if(!active)return;time--;distance+=Math.ceil(c.dist/c.time);const rt=document.getElementById('rt'),d=document.getElementById('dist');if(rt)rt.textContent=time;if(d)d.textContent=Math.min(distance,c.dist);if(distance>=c.dist)finish(true);else if(time<=0)finish(false,'⏱️ Time up — Energy lost, no reward')},1000);
+}
+function catchGame(){
+  if(!energy())return;
+  const c=gameCfg('catch'); let time=c.time,total=0,active=true,sp,iv;
+  function finish(win,msg){if(!active)return;active=false;clearInterval(iv);clearInterval(sp);if(win){gameWin('catch',total,c.xp);toast('🪙 Round complete! +'+total+' Coins +'+c.xp+' XP')}else{save();toast(msg||'💣 Bomb! Collected Coins kept, no XP reward')}setTimeout(()=>show('games'),650)}
+  function spawn(){if(!active)return;const e=document.createElement('button'),bomb=Math.random()<Math.min(.3,.15+c.level*.02);e.className='fall '+(bomb?'':'coin-img');e.style.left=Math.random()*88+'%';e.style.top=Math.random()*80+'%';if(bomb){e.textContent='💣'}else{e.innerHTML='<img src="coin.png" style="width:42px;height:42px;object-fit:contain">'}e.onclick=()=>{if(bomb){finish(false,'💣 Bomb! Your collected Coins are kept')}else{total+=Math.random()<.2?5:1;e.remove();const ct=document.getElementById('ct');if(ct)ct.textContent=total;if(total>=c.coins)finish(true)}};document.getElementById('catch')?.appendChild(e);setTimeout(()=>e.remove(),1500)}
+  shell(`<section class="card"><div class="title"><h2>🪙💣 Catch & Bomb • Lv.${c.level}</h2><b id="ctt">${c.time}</b>s</div><div class="catchArea" id="catch"></div><p><img class="coin-icon small" src="coin.png"> Collected: <b id="ct">0</b> / ${c.coins}</p><button class="btn alt" onclick="finish(false,'Round ended — collected Coins are kept')">Exit</button></section>`,'games');
+  sp=setInterval(spawn,Math.max(320,520-c.level*25));iv=setInterval(()=>{if(!active)return;time--;const el=document.getElementById('ctt');if(el)el.textContent=time;if(time<=0)finish(false,'⏱️ Time up — collected Coins are kept, no XP reward')},1000);
+}
 function pets(){let ready=Date.now()-S.petPlayed>=86400000;shell(`<section class="card"><div class="title"><h2>🐾 Lix Stable</h2><small>Pet Level ${S.pet}</small></div><div class="tile"><div style="font-size:56px">🐶</div><h3>Happy Dog</h3><small>Develop your pet with food and toys.</small></div></section><section class="card"><div class="grid"><div class="tile"><h3>🍖 Basic Food</h3><small>20 Coins</small><br><button class="btn" onclick="petBuy(20)">Buy</button></div><div class="tile"><h3>⚽ Ball</h3><small>100 Coins</small><br><button class="btn" onclick="petBuy(100)">Buy</button></div></div></section><section class="card"><div class="title"><h2>❤️ Daily Play</h2><small>${ready?"Ready":"once / 24h"}</small></div><p>Happy Pet → +1 Energy once per 24h + Pet XP once per 24h.</p><button class="btn" ${ready?"":"disabled"} onclick="petPlay()">${ready?"PLAY WITH PET":"PLAY AGAIN TOMORROW"}</button><button class="btn alt" onclick="takePetToCity()" style="margin-left:8px">🏙️ Pet in City</button></section>`,"pets")}
 function petBuy(n){if(!spend(n))return;S.pet=Math.min(10,S.pet+1);save();toast("🐶 Pet Level "+S.pet);show("pets")}function petPlay(){if(Date.now()-S.petPlayed<86400000)return;S.petPlayed=Date.now();S.energy=Math.min(S.maxEnergy,S.energy+1);addXP(25+S.pet*5);S.missions[3].done=true;save();toast("❤️ Happy Pet! +1 Energy");show("pets")}function takePetToCity(){S.city=S.city||{};S.city.pet=true;save();toast("🐶 Your pet joined Lix in the city!");show("city")}
 function spin(){if(Date.now()-S.lastSpin<86400000){toast("🎡 Spin available once every 24h");return}let r=[20,30,50,75,100,1][Math.floor(Math.random()*6)];S.lastSpin=Date.now();r===1?S.tickets++:S.coins+=r;save();toast(r===1?"🎟️ +1 Ticket!":"🎡 +"+r+" Coins!");show("more")}function more(){let ready=Date.now()-S.lastSpin>=86400000;shell(`<section class="card"><div class="title"><h2>☰ More</h2></div><div class="tile center"><h3>🎡 Daily Spin</h3><div class="spin"></div><button class="btn" onclick="spin()" ${ready?"":"disabled"}>${ready?"SPIN NOW":"READY TOMORROW"}</button><p><small>One spin every 24 hours.</small></p></div><div class="tile"><h3>🏆 Leaderboards</h3><small>${S.level>=10?"Unlocked":"Unlock at Player Level 10."}</small></div></section>`,"more")}function render(){show("home")}try{render()}catch(err){document.getElementById("app").innerHTML=`<main style="font-family:Arial,sans-serif;padding:28px;text-align:center;color:#123"><h2>⚠️ LIX CITY</h2><p>تعذّر تحميل اللعبة.</p><button onclick="localStorage.clear();location.reload()" style="padding:14px 20px;border:0;border-radius:12px;background:#1769e8;color:white;font-weight:700">RESET GAME</button><p style="font-size:12px;opacity:.65">${String(err&&err.message||err)}</p></main>`;console.error(err)}
