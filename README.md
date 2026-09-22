@@ -1,13 +1,21 @@
-# LIX CITY v0.6
-Living-city prototype.
+# LIX CITY v0.7
 
-New:
-- More detailed city environment
-- Roads, lanes, trees, lamps, clouds and floating coins
-- Lix remains a transparent PNG asset and moves inside the city
-- Pet can be brought into the city
-- Existing games, progression and spin retained
-- Automatic migration from v0.5 local data
+Coin asset correction.
 
-Keep `lix.png`, `coin.png`, and `cellix-logo.webp` unchanged.
-This is still a localStorage prototype; cloud save/server security comes later.
+This version uses the exact existing `coin.png` asset for:
+- Header Coins counter
+- Coins displayed inside the city
+- Catch & Bomb collectible Coins
+- Coin counter UI
+
+No new Coin artwork was created.
+
+Assets carried forward unchanged:
+- `lix.png` — exact transparent Lix
+- `coin.png` — exact Coin asset
+- `cellix-logo.webp` — Cellix logo
+
+Replace `index.html`, `style.css`, `app.js`, and `README.md` on GitHub.
+Keep all three assets unchanged.
+
+This remains a localStorage prototype; cloud save/server security comes later.
