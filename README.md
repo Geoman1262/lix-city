@@ -1,8 +1,6 @@
-# LIX CITY v0.25 — House Progression
+LIX CITY v0.26 — House Visual Progression
 
-Built on v0.24 Stable.
+Built on v0.25. Adds visual House evolution at levels 1,5,10,15,20,25,30,35,40,45,50.
+Keeps the same save key and all existing progression systems.
 
-- Adds a visible Next Unlocks roadmap based on House / Player Level.
-- Shows upcoming Level 3, 4, 5, 6, and 7 progression content.
-- Does not change the save key, Energy system, Daily Missions, Daily Spin, Daily Streak, games, or assets.
-- Uses the same stable player save: lixcity_player_save_v1.
+Upload the files directly to the repository root.

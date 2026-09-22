@@ -100,6 +100,30 @@
 .b-house .roof{box-shadow:0 7px 0 #b94e53,0 10px 14px #27445a30}.b-center .roof{box-shadow:0 7px 0 #5967ca,0 10px 14px #27445a30}.b-store .roof{box-shadow:0 7px 0 #419d69,0 10px 14px #27445a30}.b-park .roof{box-shadow:0 7px 0 #589c52,0 10px 14px #27445a30}.b-energy .roof{box-shadow:0 7px 0 #d39e24,0 10px 14px #27445a30}
 .locked-building{opacity:.58}
 
+
+/* v0.26 — House visual progression */
+.b-house.stage-1 .roof{background:#e85f62}
+.b-house.stage-1 .front{background:linear-gradient(180deg,#fff1d6 0%,#e9b875 58%,#c9894d 100%)}
+.b-house.stage-5 .roof{background:#5c7fe8;height:50px}
+.b-house.stage-5 .front{background:linear-gradient(180deg,#e9f4ff 0%,#9fc8ed 58%,#5c86b5 100%)}
+.b-house.stage-10 .roof{background:#6c4fd4;height:54px}
+.b-house.stage-10 .front{background:linear-gradient(180deg,#f3ecff 0%,#bba5ed 58%,#7055a9 100%)}
+.b-house.stage-15 .roof{background:#d68a35;height:58px}
+.b-house.stage-15 .front{background:linear-gradient(180deg,#fff5df 0%,#e8c17e 58%,#ae7838 100%)}
+.b-house.stage-20 .roof{background:#2d9b9b;height:62px}
+.b-house.stage-20 .front{background:linear-gradient(180deg,#e4ffff 0%,#8bd0d0 58%,#438c8c 100%)}
+.b-house.stage-25 .roof{background:#d84d88;height:66px}
+.b-house.stage-25 .front{background:linear-gradient(180deg,#fff0f8 0%,#e6a4c4 58%,#a85d83 100%)}
+.b-house.stage-30 .roof{background:#3f8d68;height:70px}
+.b-house.stage-30 .front{background:linear-gradient(180deg,#effff5 0%,#a8d8b8 58%,#5d956f 100%)}
+.b-house.stage-35 .roof{background:#455a9d;height:74px}
+.b-house.stage-35 .front{background:linear-gradient(180deg,#eef2ff 0%,#a8b6e2 58%,#5c6d9e 100%)}
+.b-house.stage-40 .roof{background:#b94b3f;height:78px}
+.b-house.stage-40 .front{background:linear-gradient(180deg,#fff0eb 0%,#e4a398 58%,#a05b51 100%)}
+.b-house.stage-45 .roof{background:#8a5a9e;height:82px}
+.b-house.stage-45 .front{background:linear-gradient(180deg,#fff0ff 0%,#c9a4d2 58%,#835f8e 100%)}
+.b-house.stage-50 .roof{background:#c99a25;height:86px;box-shadow:0 8px 0 #8e6c18,0 12px 18px #27445a30}
+.b-house.stage-50 .front{background:linear-gradient(180deg,#fffbe7 0%,#f0d66e 58%,#b7952e 100%)}
 </style>
 </head>
 <body>
@@ -203,7 +227,7 @@ function city(){
   shell(`<section class="card"><div class="title"><h2>🏙️ Lix City</h2><small>House Lv. ${S.house}</small></div>
   <div class="city-viewport" id="cityViewport"><div class="city-world" id="cityWorld">
     <div class="road-h"></div><div class="road-v"></div>
-    <div class="city-building b-house"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🏠 Lix House • Lv.${S.house}</div></div></div>
+    <div class="city-building b-house stage-${Math.max(1,Math.min(50,Math.floor((S.house-1)/5)*5+1))}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🏠 Lix House • Lv.${S.house}</div></div></div>
     <div class="city-building b-center ${S.level<2?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🎮 Game Center ${S.level<2?"🔒":"OPEN"}</div></div></div>
     <div class="city-building b-store ${S.level<4?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🏪 Cellix Store ${S.level<4?"• Lv.4":"OPEN"}</div></div></div>
     <div class="city-building b-park ${S.level<7?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🌳 Lix Park ${S.level<7?"• Lv.7":"OPEN"}</div></div></div>
@@ -226,7 +250,7 @@ function city(){
   <div class="city-scroll-hint">↕️ اسحب الخريطة لاستكشاف المدينة • اضغط المباني للتفاعل</div>
   <div class="city-controls"><button class="round" onclick="moveLix(-3,0)">⬅</button><button class="round" onclick="moveLix(0,-3)">⬆</button><button class="round" onclick="moveLix(0,3)">⬇</button><button class="round" onclick="moveLix(3,0)">➡</button></div>
   <div class="city-note">🪙 اجمع الـCoins من المدينة. كل Coin يعطيك <b>+5 Coins</b> مرة واحدة.</div></section>
-  <section class="card"><div class="title"><h2>🔓 Building Roadmap</h2></div><div class="grid">${[["🏠","Lix House",1],["🎮","Game Center",2],["🏪","Cellix Store",4],["🌳","Lix Park",7],["⚡","Energy Station",8],["🛠️","Lix Workshop",12],["🏬","Lix Market",15],["🎨","Lix Studio",18],["🐾","Lix Stable",20],["🏙️","Lix Plaza",25],["🏆","Lix Arena",40]].map(a=>`<div class="tile ${S.level<a[2]?"locked":""}"><div style="font-size:26px">${a[0]}</div><h3>${a[1]}</h3><small>${S.level<a[2]?"Unlock Level ":"Unlocked • Level "}${a[2]}</small></div>`).join("")}</div></section>`,"city");
+  <section class="card"><div class="title"><h2>🏠 House Evolution</h2><small>Visual upgrade every 5 levels</small></div><p class="muted">Your Lix House changes its exterior as your House / Player Level grows.</p><div class="grid">${[1,5,10,15,20,25,30,35,40,45,50].map(l=>`<div class="tile ${S.level<l?"locked":""}"><h3>🏠 Level ${l}</h3><small>${S.level>=l?"Unlocked":"Unlock at Level "+l}</small></div>`).join("")}</div></section><section class="card"><div class="title"><h2>🔓 Building Roadmap</h2></div><div class="grid">${[["🏠","Lix House",1],["🎮","Game Center",2],["🏪","Cellix Store",4],["🌳","Lix Park",7],["⚡","Energy Station",8],["🛠️","Lix Workshop",12],["🏬","Lix Market",15],["🎨","Lix Studio",18],["🐾","Lix Stable",20],["🏙️","Lix Plaza",25],["🏆","Lix Arena",40]].map(a=>`<div class="tile ${S.level<a[2]?"locked":""}"><div style="font-size:26px">${a[0]}</div><h3>${a[1]}</h3><small>${S.level<a[2]?"Unlock Level ":"Unlocked • Level "}${a[2]}</small></div>`).join("")}</div></section>`,"city");
 }
 function collectCityCoin(el,n,id){
   if(!el || el.dataset.collected==="1" || S.city.collected.includes(id)) return;
