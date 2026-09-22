@@ -442,5 +442,22 @@ function more(){shell(`<section class="card"><div class="title"><h2>☰ More</h2
 function render(){show("home")}try{render()}catch(err){document.getElementById("app").innerHTML=`<main style="font-family:Arial,sans-serif;padding:28px;text-align:center;color:#123"><h2>⚠️ LIX CITY</h2><p>تعذّر تحميل اللعبة.</p><button onclick="localStorage.clear();location.reload()" style="padding:14px 20px;border:0;border-radius:12px;background:#1769e8;color:white;font-weight:700">RESET GAME</button><p style="font-size:12px;opacity:.65">${String(err&&err.message||err)}</p></main>`;console.error(err)}
 
 </script>
+
+<section id="cellixShop" class="panel" style="margin:16px 0; padding:16px; border-radius:18px; background:rgba(255,255,255,.08);">
+  <h2>🛒 Cellix Shop</h2>
+  <p style="opacity:.8">Official Cellix services and offers will appear here. Products open through their official external links.</p>
+  <div id="cellixProducts" style="display:grid;gap:10px"></div>
+</section>
+<script>
+(function(){
+ const products=[
+  {name:'Alfa Recharge',type:'Alfa',price:'External',url:'https://www.alfa.com.lb/'},
+  {name:'touch Recharge',type:'touch',price:'External',url:'https://www.touch.com.lb/'}
+ ];
+ const el=document.getElementById('cellixProducts');
+ if(!el)return;
+ el.innerHTML=products.map(p=>`<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px;border-radius:14px;background:rgba(0,0,0,.16)"><div><b>${p.name}</b><div style="font-size:12px;opacity:.7">${p.type} • ${p.price}</div></div><a href="${p.url}" target="_blank" rel="noopener" style="padding:9px 12px;border-radius:10px;background:#fff;color:#0877ff;text-decoration:none;font-weight:700">BUY NOW</a></div>`).join('');
+})();
+</script>
 </body>
 </html>

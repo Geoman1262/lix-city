@@ -14,3 +14,7 @@ LIX CITY is a standalone mobile-first web game built around Lix, city progressio
 Permanent player save key: `lixcity_player_save_v1`
 
 Game assets: `lix.png`, `coin.png`.
+
+
+## v0.36 — Cellix Shop
+Adds a Cellix Shop area with external official Alfa/touch links. No payment processing or backend is included.
