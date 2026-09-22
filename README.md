@@ -1,6 +1,20 @@
-LIX CITY v0.26 — House Visual Progression
+# LIX CITY v0.31 — Customization Major Update
 
-Built on v0.25. Adds visual House evolution at levels 1,5,10,15,20,25,30,35,40,45,50.
-Keeps the same save key and all existing progression systems.
+## Included
+- Lix clothing, shoes and accessories
+- Buy and equip customization items
+- Home decor purchases
+- XP from customization purchases
+- Level-gated items
+- Stable save key: `lixcity_player_save_v1`
+- Energy regeneration and countdown
+- Daily Missions, Daily Spin, Daily Streak
+- Games and Game Upgrades
+- City / House progression
 
-Upload the files directly to the repository root.
+## Assets
+- `lix.png` — official Lix asset
+- `coin.png` — official Cellix coin asset
+
+## Current release
+v0.31
