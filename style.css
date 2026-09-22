@@ -39,3 +39,16 @@
 .world-sign{position:absolute;background:#17304bd9;color:#fff;padding:7px 11px;border-radius:12px;font-size:12px;font-weight:700;z-index:10}
 .ws1{left:350px;top:405px}.ws2{left:515px;top:405px}
 .city-scroll-hint{font-size:12px;color:#68778a;text-align:center;margin-top:7px}
+
+/* v0.9 interaction layer */
+.city-action{position:absolute;z-index:30;transform:translate(-50%,-100%);background:#17304bf2;color:#fff;border:2px solid #fff;border-radius:14px;padding:8px 12px;font-size:12px;font-weight:800;box-shadow:0 8px 18px #18344a33;display:none}
+.city-action.show{display:block}
+.city-panel{position:absolute;z-index:35;left:50%;bottom:16px;transform:translateX(-50%);width:min(430px,90%);background:#fffffff5;border:2px solid #d9e8f2;border-radius:22px;padding:14px;box-shadow:0 12px 28px #1d405a30;display:none}
+.city-panel.show{display:block}
+.city-panel h3{margin:0 0 4px}.city-panel p{margin:5px 0;color:#68778a;font-size:13px}
+.city-panel .close{position:absolute;right:10px;top:8px;background:#eaf3fb;color:#17304b;border-radius:10px;width:32px;height:32px}
+.city-build-hit{position:absolute;z-index:20;cursor:pointer}
+.bh-house{left:60px;top:80px;width:200px;height:190px}.bh-center{left:640px;top:90px;width:200px;height:190px}
+.bh-store{left:60px;top:280px;width:200px;height:190px}.bh-park{left:60px;top:525px;width:200px;height:190px}.bh-energy{left:640px;top:525px;width:200px;height:190px}
+.collect-ring{position:absolute;z-index:8;pointer-events:none;width:68px;height:68px;border:3px solid #fff;border-radius:50%;animation:ring .5s ease-out forwards}
+@keyframes ring{to{transform:scale(1.7);opacity:0}}

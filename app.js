@@ -1,9 +1,12 @@
-const KEY="lixcity_v06",OLD="lixcity_v05";const D={level:1,xp:0,coins:250,tickets:0,energy:10,maxEnergy:10,house:1,pet:1,petPlayed:0,lastSpin:0,game:{target:1,runner:1,catch:1},missions:[{t:"Play any game",xp:40,done:false},{t:"Earn 50 Coins",xp:40,done:false},{t:"Finish Lix Target",xp:50,done:false},{t:"Feed & play with your Pet",xp:50,done:false},{t:"Visit your City",xp:30,done:false}],city:{x:43,y:48,pet:false}};let S=JSON.parse(localStorage.getItem(KEY)||"null");if(!S){const o=JSON.parse(localStorage.getItem(OLD)||"null");S=o?{...structuredClone(D),...o,city:{x:43,y:48,pet:false}}:structuredClone(D);save()}function save(){localStorage.setItem(KEY,JSON.stringify(S))}function need(l){return Math.round(500*l+300*Math.pow(Math.max(0,l-1),1.35))}function addXP(n){S.xp+=n;while(S.xp>=need(S.level)){S.xp-=need(S.level);S.level++;S.house=S.level;toast("🏠 House / Player Level "+S.level+"!")}save();render()}function spend(n){if(S.coins<n){toast("Not enough Coins");return false}S.coins-=n;save();return true}function energy(){if(S.energy<1){toast("⚡ No Energy");return false}S.energy--;save();render();return true}function coins(n){S.coins+=n;save();render()}function toast(t){let e=document.querySelector(".toast");if(!e)return;e.textContent=t;e.style.display="block";clearTimeout(window.tt);window.tt=setTimeout(()=>e.style.display="none",1800)}function nav(a){return`<div class="nav"><div class="navin"><button class="${a==="home"?"active":""}" onclick="show('home')"><b>🏠</b>Home</button><button class="${a==="city"?"active":""}" onclick="show('city')"><b>🏙️</b>City</button><button class="${a==="games"?"active":""}" onclick="show('games')"><b>🎮</b>Games</button><button class="${a==="pets"?"active":""}" onclick="show('pets')"><b>🐾</b>Pets</button><button class="${a==="more"?"active":""}" onclick="show('more')"><b>☰</b>More</button></div></div>`}function shell(c,a){document.getElementById("app").innerHTML=`<header class="top"><div class="brand"><img src="cellix-logo.webp"></div><div class="stats"><span>⭐ ${S.xp}</span><span><img class="coin-icon" src="coin.png"> ${S.coins}</span><span>⚡ ${S.energy}/${S.maxEnergy}</span></div></header><main class="wrap">${c}</main>${nav(a)}<div class="toast"></div>`}function show(p){({home,city,games,pets,more}[p])()}
+const KEY="lixcity_v06",OLD="lixcity_v05";const D={level:1,xp:0,coins:250,tickets:0,energy:10,maxEnergy:10,house:1,pet:1,petPlayed:0,lastSpin:0,game:{target:1,runner:1,catch:1},missions:[{t:"Play any game",xp:40,done:false},{t:"Earn 50 Coins",xp:40,done:false},{t:"Finish Lix Target",xp:50,done:false},{t:"Feed & play with your Pet",xp:50,done:false},{t:"Visit your City",xp:30,done:false}],city:{x:43,y:48,pet:false,collected:[]}};let S=JSON.parse(localStorage.getItem(KEY)||"null");if(!S){const o=JSON.parse(localStorage.getItem(OLD)||"null");S=o?{...structuredClone(D),...o,city:{x:43,y:48,pet:false,collected:[]}}:structuredClone(D);save()}function save(){localStorage.setItem(KEY,JSON.stringify(S))}function need(l){return Math.round(500*l+300*Math.pow(Math.max(0,l-1),1.35))}function addXP(n){S.xp+=n;while(S.xp>=need(S.level)){S.xp-=need(S.level);S.level++;S.house=S.level;toast("🏠 House / Player Level "+S.level+"!")}save();render()}function spend(n){if(S.coins<n){toast("Not enough Coins");return false}S.coins-=n;save();return true}function energy(){if(S.energy<1){toast("⚡ No Energy");return false}S.energy--;save();render();return true}function coins(n){S.coins+=n;save();render()}function toast(t){let e=document.querySelector(".toast");if(!e)return;e.textContent=t;e.style.display="block";clearTimeout(window.tt);window.tt=setTimeout(()=>e.style.display="none",1800)}function nav(a){return`<div class="nav"><div class="navin"><button class="${a==="home"?"active":""}" onclick="show('home')"><b>🏠</b>Home</button><button class="${a==="city"?"active":""}" onclick="show('city')"><b>🏙️</b>City</button><button class="${a==="games"?"active":""}" onclick="show('games')"><b>🎮</b>Games</button><button class="${a==="pets"?"active":""}" onclick="show('pets')"><b>🐾</b>Pets</button><button class="${a==="more"?"active":""}" onclick="show('more')"><b>☰</b>More</button></div></div>`}function shell(c,a){document.getElementById("app").innerHTML=`<header class="top"><div class="brand"><img src="cellix-logo.webp"></div><div class="stats"><span>⭐ ${S.xp}</span><span><img class="coin-icon" src="coin.png"> ${S.coins}</span><span>⚡ ${S.energy}/${S.maxEnergy}</span></div></header><main class="wrap">${c}</main>${nav(a)}<div class="toast"></div>`}function show(p){({home,city,games,pets,more}[p])()}
 function home(){let n=need(S.level),pct=Math.min(100,S.xp/n*100);shell(`<section class="hero"><div><small>LIX CITY</small><h1>Welcome to your city</h1><p>PLAY → EARN → BUILD → PROGRESS</p><div class="level">HOUSE / PLAYER LEVEL <strong>${S.level}</strong></div></div><img src="lix.png"></section><section class="card"><div class="title"><h2>🏙️ My City</h2><small>House Lv. ${S.house}</small></div><div class="grid"><div class="tile"><div>🏠</div><h3>Lix House</h3><small>Level ${S.house}</small></div><div class="tile ${S.level<2?"locked":""}"><div>🎮</div><h3>Game Center</h3><small>${S.level<2?"Unlock Lv. 2":"Available"}</small></div><div class="tile ${S.level<4?"locked":""}"><div>🏪</div><h3>Cellix Store</h3><small>${S.level<4?"Unlock Lv. 4":"Available"}</small></div><div class="tile"><div>🛣️</div><h3>City Road</h3><small>Starting area</small></div></div></section><section class="card"><div class="title"><h2>📈 Progress</h2><b>Lv. ${S.level}</b></div><div class="progress"><div class="bar" style="width:${pct}%"></div></div><p>${S.xp} / ${n} XP to next level</p><div class="row"><button class="btn" onclick="show('games')">🎮 Play</button><button class="btn alt" onclick="show('city')">🏙️ Enter City</button></div></section><section class="card"><div class="title"><h2>📋 Daily Missions</h2><small>5 missions</small></div>${S.missions.map((m,i)=>`<div class="mission"><span>${m.done?"✅":"⬜"} ${m.t} <small>+${m.xp} XP</small></span>${m.done?"":"<button class='btn alt' onclick='claimMission("+i+")'>Claim</button>"}</div>`).join("")}</section>`,"home")}
 function claimMission(i){if(S.missions[i].done)return;S.missions[i].done=true;addXP(S.missions[i].xp);toast("Mission complete! +"+S.missions[i].xp+" XP")}
 function city(){
   let x=S.city?.x??43, y=S.city?.y??48;
-  const lx=Math.max(100,Math.min(820, x*9.2)), ly=Math.max(120,Math.min(650,y*7.2));
+  if(!S.city) S.city={x,y,pet:false,collected:[]}; if(!Array.isArray(S.city.collected)) S.city.collected=[];
+  if(!Array.isArray(S.city.collected)) S.city.collected=[];
+  const lx=Math.max(100,Math.min(820,x*9.2)), ly=Math.max(120,Math.min(650,y*7.2));
+  const coin=(id,px,py)=>S.city.collected.includes(id)?"":`<img id="coin-${id}" class="world-coin ${px} ${py}" src="coin.png" onclick="collectCityCoin(this,5,'${id}')" alt="Coin">`;
   shell(`<section class="card"><div class="title"><h2>🏙️ Lix City</h2><small>House Lv. ${S.house}</small></div>
   <div class="city-viewport" id="cityViewport"><div class="city-world" id="cityWorld">
     <div class="road-h"></div><div class="road-v"></div>
@@ -12,32 +15,50 @@ function city(){
     <div class="city-building b-store ${S.level<4?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🏪 Cellix Store ${S.level<4?"• Lv.4":"OPEN"}</div></div></div>
     <div class="city-building b-park ${S.level<7?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🌳 Lix Park ${S.level<7?"• Lv.7":"OPEN"}</div></div></div>
     <div class="city-building b-energy ${S.level<8?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">⚡ Energy Station ${S.level<8?"• Lv.8":"OPEN"}</div></div></div>
+
+    <button class="city-build-hit bh-house" onclick="openBuilding('house')"></button>
+    <button class="city-build-hit bh-center" onclick="openBuilding('center')"></button>
+    <button class="city-build-hit bh-store" onclick="openBuilding('store')"></button>
+    <button class="city-build-hit bh-park" onclick="openBuilding('park')"></button>
+    <button class="city-build-hit bh-energy" onclick="openBuilding('energy')"></button>
+
     <span class="world-tree wt1">🌳</span><span class="world-tree wt2">🌲</span><span class="world-tree wt3">🌳</span><span class="world-tree wt4">🌲</span><span class="world-tree wt5">🌳</span>
     <span class="world-lamp wl1">💡</span><span class="world-lamp wl2">💡</span><span class="world-lamp wl3">💡</span><span class="world-lamp wl4">💡</span>
     <span class="world-sign ws1">LIX DISTRICT</span><span class="world-sign ws2">CITY ROAD</span>
-    <img class="world-coin wc1" src="coin.png" onclick="collectCityCoin(this,5)" alt="Coin">
-    <img class="world-coin wc2" src="coin.png" onclick="collectCityCoin(this,5)" alt="Coin">
-    <img class="world-coin wc3" src="coin.png" onclick="collectCityCoin(this,5)" alt="Coin">
-    <img class="world-coin wc4" src="coin.png" onclick="collectCityCoin(this,5)" alt="Coin">
-    <img class="world-coin wc5" src="coin.png" onclick="collectCityCoin(this,5)" alt="Coin">
+    ${coin("c1","wc1","wc1")}${coin("c2","wc2","wc2")}${coin("c3","wc3","wc3")}${coin("c4","wc4","wc4")}${coin("c5","wc5","wc5")}
     <img id="worldLix" class="world-lix" src="lix.png" style="left:${lx}px;top:${ly}px" alt="Lix">
     ${S.city?.pet?'<span id="worldPet" class="world-pet" style="left:'+(lx+75)+'px;top:'+(ly+60)+'px">🐶</span>':""}
+    <div id="cityPanel" class="city-panel"></div>
   </div></div>
-  <div class="city-scroll-hint">↕️ اسحب الخريطة لتستكشف المدينة</div>
+  <div class="city-scroll-hint">↕️ اسحب الخريطة لاستكشاف المدينة • اضغط المباني للتفاعل</div>
   <div class="city-controls"><button class="round" onclick="moveLix(-3,0)">⬅</button><button class="round" onclick="moveLix(0,-3)">⬆</button><button class="round" onclick="moveLix(0,3)">⬇</button><button class="round" onclick="moveLix(3,0)">➡</button></div>
-  <div class="city-note">🪙 الـCoins بالمدينة هي نفس <b>coin.png</b> الرسمي. اضغط على أي Coin تجمعه وتربح 5 Coins.</div></section>
+  <div class="city-note">🪙 اجمع الـCoins من المدينة. كل Coin يعطيك <b>+5 Coins</b> مرة واحدة.</div></section>
   <section class="card"><div class="title"><h2>🔓 Building Roadmap</h2></div><div class="grid">${[["🏠","Lix House",1],["🎮","Game Center",2],["🏪","Cellix Store",4],["🌳","Lix Park",7],["⚡","Energy Station",8],["🛠️","Lix Workshop",12],["🏬","Lix Market",15],["🎨","Lix Studio",18],["🐾","Lix Stable",20],["🏙️","Lix Plaza",25],["🏆","Lix Arena",40]].map(a=>`<div class="tile ${S.level<a[2]?"locked":""}"><div style="font-size:26px">${a[0]}</div><h3>${a[1]}</h3><small>${S.level<a[2]?"Unlock Level ":"Unlocked • Level "}${a[2]}</small></div>`).join("")}</div></section>`,"city");
 }
-function collectCityCoin(el,n){
-  if(!el || el.dataset.collected==="1") return;
-  el.dataset.collected="1";
-  el.style.transition="transform .25s, opacity .25s";
-  el.style.transform="scale(1.7) translateY(-12px)";
-  el.style.opacity="0";
-  coins(n);
-  setTimeout(()=>el.remove(),260);
-  toast("🪙 +"+n+" Coins");
+function collectCityCoin(el,n,id){
+  if(!el || el.dataset.collected==="1" || S.city.collected.includes(id)) return;
+  S.city.collected.push(id); el.dataset.collected="1";
+  const ring=document.createElement("div"); ring.className="collect-ring";
+  ring.style.left=el.offsetLeft+"px"; ring.style.top=el.offsetTop+"px";
+  document.getElementById("cityWorld")?.appendChild(ring);
+  el.style.transition="transform .25s, opacity .25s"; el.style.transform="scale(1.7) translateY(-12px)"; el.style.opacity="0";
+  coins(n); save(); setTimeout(()=>{el.remove();ring.remove()},420); toast("🪙 +"+n+" Coins");
 }
+function openBuilding(type){
+  const p=document.getElementById("cityPanel"); if(!p)return;
+  const cfg={
+    house:[1,"🏠 Lix House","Your home is the heart of Lix City.","Customize your home as you level up.","house"],
+    center:[2,"🎮 Game Center","Play Lix Target, Runner and Catch & Bomb.","Enter the Games tab to play.","games"],
+    store:[4,"🏪 Cellix Store","The Cellix world shop will unlock here.","Unlocks at Player Level 4.","store"],
+    park:[7,"🌳 Lix Park","A social and relaxing city zone.","Unlocks at Player Level 7.","park"],
+    energy:[8,"⚡ Energy Station","A future place to manage Energy.","Unlocks at Player Level 8.","energy"]
+  }[type];
+  const [lv,title,desc,foot,action]=cfg;
+  if(S.level<lv){p.innerHTML=`<button class="close" onclick="closeCityPanel()">×</button><h3>${title}</h3><p>🔒 ${foot}</p>`;p.classList.add("show");return}
+  p.innerHTML=`<button class="close" onclick="closeCityPanel()">×</button><h3>${title}</h3><p>${desc}</p><p>${foot}</p><button class="btn" onclick="${action==="games"?"show('games')":"toast('✨ More content is coming to this building!')};closeCityPanel()">ENTER</button>`;
+  p.classList.add("show");
+}
+function closeCityPanel(){document.getElementById("cityPanel")?.classList.remove("show")}
 function moveLix(dx,dy){
   S.city=S.city||{x:43,y:48,pet:false};
   S.city.x=Math.max(10,Math.min(88,S.city.x+dx));
