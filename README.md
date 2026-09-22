@@ -1,13 +1,4 @@
-# LIX CITY v0.10
+# LIX CITY v0.14
 
-City composition and mobile layout fix.
-
-- Uses the exact approved `lix.png` and `coin.png`.
-- Buildings are smaller and spaced around the city.
-- Roads form a clearer central intersection.
-- City elements no longer stack directly on top of each other.
-- Larger world remains scrollable on mobile.
-- Lix and Pet movement are retained.
-- Interactive buildings and collectible Coins are retained.
-
-Upload all 7 files from this package to GitHub.
+Stable save update. Player progress is stored under one permanent key: `lixcity_player_save_v1`.
+Game versions and cache-busting URLs do not create a new save.
