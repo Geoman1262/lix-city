@@ -1,7 +1,2 @@
-# LIX CITY
-
-Standalone mobile-first prototype.
-
-The exact Lix, Coin and Cellix logo assets supplied by the owner are stored in `assets/` unchanged.
-
-Prototype includes Dashboard, City, House Level, Coins, XP, Energy, 3 game prototypes, Daily Missions and Pet system preview.
+# LIX CITY v0.2
+Mobile-first playable prototype. Exact supplied Lix, Coin and Cellix logo assets are included unchanged.
