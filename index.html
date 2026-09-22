@@ -126,6 +126,14 @@
 .b-house.stage-50 .roof{background:#c99a25;height:86px;box-shadow:0 8px 0 #8e6c18,0 12px 18px #27445a30}
 .b-house.stage-50 .front{background:linear-gradient(180deg,#fffbe7 0%,#f0d66e 58%,#b7952e 100%)}
 .energy-countdown{font-size:11px;color:#657387}.energy-countdown.ready{color:#1769e8;font-weight:800}.tile.locked{opacity:.6}
+
+/* v0.32 city buildings */
+.b-workshop{left:410px;top:105px}.b-market{left:790px;top:315px}.b-studio{left:410px;top:315px}.b-stable{left:790px;top:500px}.b-plaza{left:410px;top:500px}.b-arena{left:105px;top:315px}
+.b-workshop .roof{background:#9b7653}.b-market .roof{background:#d46b9a}.b-studio .roof{background:#8b70d6}.b-stable .roof{background:#9b704f}.b-plaza .roof{background:#4d9fc7}.b-arena .roof{background:#e4ad42}
+.b-workshop .front{background:linear-gradient(180deg,#fff4e5,#cfa77b 58%,#8f6848)}.b-market .front{background:linear-gradient(180deg,#fff0f8,#e3a1c1 58%,#ad5d88)}.b-studio .front{background:linear-gradient(180deg,#f1ecff,#b7a6e8 58%,#7b63b5)}.b-stable .front{background:linear-gradient(180deg,#fff4df,#d6a56e 58%,#96653f)}.b-plaza .front{background:linear-gradient(180deg,#e9fbff,#9fd4e8 58%,#5d9db8)}.b-arena .front{background:linear-gradient(180deg,#fff7d9,#e5c96e 58%,#b08b2c)}
+.b-workshop .roof,.b-market .roof,.b-studio .roof,.b-stable .roof,.b-plaza .roof,.b-arena .roof{box-shadow:0 7px 0 #27445a55,0 10px 14px #27445a30}
+
+.bh-workshop{left:395px;top:90px;width:190px;height:160px}.bh-market{left:775px;top:300px;width:190px;height:160px}.bh-studio{left:395px;top:300px;width:190px;height:160px}.bh-stable{left:775px;top:485px;width:190px;height:160px}.bh-plaza{left:395px;top:485px;width:190px;height:160px}.bh-arena{left:90px;top:300px;width:190px;height:160px}
 </style>
 </head>
 <body>
@@ -243,12 +251,24 @@ function city(){
     <div class="city-building b-store ${S.level<4?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🏪 Cellix Store ${S.level<4?"• Lv.4":"OPEN"}</div></div></div>
     <div class="city-building b-park ${S.level<7?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🌳 Lix Park ${S.level<7?"• Lv.7":"OPEN"}</div></div></div>
     <div class="city-building b-energy ${S.level<8?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">⚡ Energy Station ${S.level<8?"• Lv.8":"OPEN"}</div></div></div>
+    <div class="city-building b-workshop ${S.level<12?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🛠️ Workshop ${S.level<12?"• Lv.12":"OPEN"}</div></div></div>
+    <div class="city-building b-market ${S.level<15?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🏬 Market ${S.level<15?"• Lv.15":"OPEN"}</div></div></div>
+    <div class="city-building b-studio ${S.level<18?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🎨 Studio ${S.level<18?"• Lv.18":"OPEN"}</div></div></div>
+    <div class="city-building b-stable ${S.level<20?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🐾 Stable ${S.level<20?"• Lv.20":"OPEN"}</div></div></div>
+    <div class="city-building b-plaza ${S.level<25?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🏙️ Plaza ${S.level<25?"• Lv.25":"OPEN"}</div></div></div>
+    <div class="city-building b-arena ${S.level<40?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🏆 Arena ${S.level<40?"• Lv.40":"OPEN"}</div></div></div>
 
     <button class="city-build-hit bh-house" onclick="openBuilding('house')"></button>
     <button class="city-build-hit bh-center" onclick="openBuilding('center')"></button>
     <button class="city-build-hit bh-store" onclick="openBuilding('store')"></button>
     <button class="city-build-hit bh-park" onclick="openBuilding('park')"></button>
     <button class="city-build-hit bh-energy" onclick="openBuilding('energy')"></button>
+    <button class="city-build-hit bh-workshop" onclick="openBuilding('workshop')"></button>
+    <button class="city-build-hit bh-market" onclick="openBuilding('market')"></button>
+    <button class="city-build-hit bh-studio" onclick="openBuilding('studio')"></button>
+    <button class="city-build-hit bh-stable" onclick="openBuilding('stable')"></button>
+    <button class="city-build-hit bh-plaza" onclick="openBuilding('plaza')"></button>
+    <button class="city-build-hit bh-arena" onclick="openBuilding('arena')"></button>
 
     <span class="world-tree wt1">🌳</span><span class="world-tree wt2">🌲</span><span class="world-tree wt3">🌳</span><span class="world-tree wt4">🌲</span><span class="world-tree wt5">🌳</span>
     <span class="world-lamp wl1">💡</span><span class="world-lamp wl2">💡</span><span class="world-lamp wl3">💡</span><span class="world-lamp wl4">💡</span>
@@ -279,10 +299,16 @@ function openBuilding(type){
     center:[2,"🎮 Game Center","Play Lix Target, Runner and Catch & Bomb.","Enter the Games tab to play.","games"],
     store:[4,"🏪 Cellix Store","The Cellix world shop will unlock here.","Unlocks at Player Level 4.","store"],
     park:[7,"🌳 Lix Park","A social and relaxing city zone.","Unlocks at Player Level 7.","park"],
-    energy:[8,"⚡ Energy Station","A future place to manage Energy.","Unlocks at Player Level 8.","energy"]
+    energy:[8,"⚡ Energy Station","Manage your Energy progression here.","Unlocks at Player Level 8.","energy"],
+    workshop:[12,"🛠️ Lix Workshop","Upgrade city and game-related development content.","Unlocks at Player Level 12.","workshop"],
+    market:[15,"🏬 Lix Market","A future place for city commerce and special items.","Unlocks at Player Level 15.","market"],
+    studio:[18,"🎨 Lix Studio","Create and unlock advanced Lix and home styles.","Unlocks at Player Level 18.","studio"],
+    stable:[20,"🐾 Lix Stable","Manage pets and companions.","Unlocks at Player Level 20.","pets"],
+    plaza:[25,"🏙️ Lix Plaza","A major city gathering zone for later social content.","Unlocks at Player Level 25.","plaza"],
+    arena:[40,"🏆 Lix Arena","Endgame challenges and competition.","Unlocks at Player Level 40.","games"]
   }[type];
   const [lv,title,desc,foot,action]=cfg;
-  const enterAction=action==="games"?"show('games')":"toast('✨ More content is coming to this building!')";
+  const enterAction=action==="games"?"show('games')":action==="pets"?"show('pets')":action==="store"?"toast('🛍️ Cellix Store content will be connected here.')": "toast('✨ This building is unlocked and ready for future content!')";
   p.innerHTML=`<button class="close" onclick="closeCityPanel()">×</button><h3>${title}</h3><p>${desc}</p><p>${foot}</p><button class="btn" onclick="${enterAction};closeCityPanel()">ENTER</button>`;
   p.classList.add("show");
 }
