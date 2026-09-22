@@ -1,7 +1,5 @@
-# LIX CITY v0.18
+# LIX CITY v0.19
 
-Stable save + visible Energy countdown.
+Game Center upgrades added. Permanent save key remains `lixcity_player_save_v1`.
 
-Files: index.html, lix.png, coin.png, cellix-logo.webp, README.md
-
-Energy regenerates at +1 every 15 minutes up to the current max. The Dashboard header shows the live countdown to the next Energy.
+Upgrade levels 1-5 give +0%, +5%, +10%, +15%, +20% rewards.

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#1769e8">
-<meta name="version" content="LIX CITY v0.16 GAMES STABLE">
+<meta name="version" content="LIX CITY v0.19 GAME CENTER UPGRADES">
 <title>LIX CITY</title>
 <style>
 *{box-sizing:border-box}:root{--blue:#1769e8;--ink:#17243a;--muted:#68778a;--bg:#eef6ff;--line:#dce7f2}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif}button{font:inherit;border:0;cursor:pointer}.top{position:sticky;top:0;z-index:40;background:#fff;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand img{width:70px;max-height:35px;object-fit:contain}.stats{display:flex;gap:12px;font-weight:700;font-size:14px}.wrap{max-width:760px;margin:auto;padding:16px 16px 94px}.hero{background:linear-gradient(135deg,#1769e8,#4b94ef);border-radius:28px;color:#fff;padding:22px 18px;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:center}.hero h1{font-size:38px;line-height:1.05;margin:8px 0}.hero img{width:100%;max-height:300px;object-fit:contain}.card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:18px;margin-top:16px;box-shadow:0 5px 18px #233d5a0d}.title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.title h2{margin:0;font-size:22px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.tile{background:#f4f8fc;border-radius:20px;padding:16px;min-height:120px}.tile h3{margin:7px 0 3px}.tile small,.muted{color:var(--muted)}.btn{background:var(--blue);color:#fff;border-radius:14px;padding:11px 16px;font-weight:700}.btn.alt{background:#e8f2ff;color:var(--blue)}.btn:disabled{opacity:.45}.row{display:flex;gap:10px;flex-wrap:wrap}.progress{height:12px;background:#e8eef5;border-radius:20px;overflow:hidden}.bar{height:100%;background:var(--blue);border-radius:20px}.mission{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 0;border-bottom:1px solid #edf1f5}.mission:last-child{border-bottom:0}
@@ -111,7 +111,7 @@ window.addEventListener('error',function(e){try{var a=document.getElementById('a
 const SAVE_KEY = "lixcity_player_save_v1";
 const LEGACY_KEYS = ["lixcity_v10","lixcity_v09","lixcity_v06","lixcity_v05","lixcity_v04","lixcity_v03","lixcity_v02"];
 const BACKUP_KEY = "lixcity_player_save_backup_v1";
-const D={level:1,xp:0,coins:250,tickets:0,energy:10,maxEnergy:10,lastEnergyAt:Date.now(),house:1,pet:1,petPlayed:0,lastSpin:0,game:{target:1,runner:1,catch:1},missions:[{t:"Play any game",xp:40,done:false},{t:"Earn 50 Coins",xp:40,done:false},{t:"Finish Lix Target",xp:50,done:false},{t:"Feed & play with your Pet",xp:50,done:false},{t:"Visit your City",xp:30,done:false}],city:{x:43,y:48,pet:false,collected:[]}};
+const D={level:1,xp:0,coins:250,tickets:0,energy:10,maxEnergy:10,lastEnergyAt:Date.now(),house:1,pet:1,petPlayed:0,lastSpin:0,game:{target:1,runner:1,catch:1},gameUp:{target:1,runner:1,catch:1},missions:[{t:"Play any game",xp:40,done:false},{t:"Earn 50 Coins",xp:40,done:false},{t:"Finish Lix Target",xp:50,done:false},{t:"Feed & play with your Pet",xp:50,done:false},{t:"Visit your City",xp:30,done:false}],city:{x:43,y:48,pet:false,collected:[]}};
 function cloneD(){return JSON.parse(JSON.stringify(D))}
 function readState(k){try{const raw=localStorage.getItem(k);return raw?JSON.parse(raw):null}catch(e){return null}}
 function normalizeState(raw){
@@ -120,7 +120,7 @@ function normalizeState(raw){
   s.tickets=Math.max(0,Number(s.tickets)||0); s.maxEnergy=Math.max(10,Number(s.maxEnergy)||10);
   s.energy=Math.max(0,Math.min(s.maxEnergy,Number(s.energy) || 0)); s.lastEnergyAt=Number(s.lastEnergyAt)||Date.now(); s.house=Math.max(1,Number(s.house)||s.level);
   s.pet=Math.max(1,Number(s.pet)||1); s.petPlayed=Number(s.petPlayed)||0; s.lastSpin=Number(s.lastSpin)||0;
-  s.game={...D.game,...(s.game||{})};
+  s.game={...D.game,...(s.game||{})}; s.gameUp={...D.gameUp,...(s.gameUp||{})};
   s.missions=Array.isArray(s.missions)?s.missions:cloneD().missions;
   s.city={...D.city,...(s.city||{})};
   s.city.x=Number.isFinite(Number(s.city.x))?Number(s.city.x):43; s.city.y=Number.isFinite(Number(s.city.y))?Number(s.city.y):48;
@@ -221,6 +221,8 @@ function moveLix(dx,dy){
     if(vp){vp.scrollTo({left:Math.max(0,px-280),top:Math.max(0,py-210),behavior:"smooth"});}
   }
 }
+function gameUpgradeInfo(name){const lv=Math.max(1,Math.min(5,Number(S.gameUp?.[name])||1));const costs=[0,250,500,900,1400];const bonus=(lv-1)*5;return {level:lv,cost:costs[lv],bonus};}
+function buyGameUpgrade(name){const info=gameUpgradeInfo(name);if(info.level>=5){toast("🏆 Upgrade Max Level 5");return}if(S.game[name]<info.level){toast("🔒 Win the current game level first");return}if(!spend(info.cost))return;S.gameUp[name]=info.level+1;save();toast("⚙️ Upgrade Lv."+(info.level+1)+" • +"+(info.bonus+5)+"% rewards");show("games")}
 function gameCfg(name){
   const cfg={
     target:[
@@ -250,20 +252,25 @@ function gameCfg(name){
 }
 function gameWin(name,earnedCoins,xp){
   const old=Math.max(1,Math.min(5,Number(S.game?.[name])||1));
-  if(earnedCoins>0) S.coins+=earnedCoins;
-  addXP(xp);
+  const up=gameUpgradeInfo(name);
+  const coinReward=earnedCoins>0?Math.round(earnedCoins*(1+up.bonus/100)):0;
+  const xpReward=Math.round(xp*(1+up.bonus/100));
+  if(coinReward>0) S.coins+=coinReward;
+  addXP(xpReward);
   S.missions[0].done=true;
   if(name==='target') S.missions[2].done=true;
-  if(old<5){S.game[name]=old+1;toast('🏆 Win! Game Level '+(old+1)+' unlocked');}
-  else toast('🏆 Win! Max Game Level 5');
+  if(old<5){S.game[name]=old+1;toast('🏆 Win! +'+coinReward+' Coins +'+xpReward+' XP • Game Lv.'+(old+1));}
+  else toast('🏆 Win! +'+coinReward+' Coins +'+xpReward+' XP • Max Game Level');
   save();
 }
 function games(){
   const t=gameCfg('target'),r=gameCfg('runner'),c=gameCfg('catch');
+  const tu=gameUpgradeInfo('target'),ru=gameUpgradeInfo('runner'),cu=gameUpgradeInfo('catch');
+  const upgrade=(name,u)=>u.level>=5?`<small class="muted">⚙️ Upgrade MAX • +${u.bonus}% rewards</small>`:`<button class="btn alt" onclick="buyGameUpgrade('${name}')">⚙️ Upgrade Lv.${u.level+1} • ${u.cost} Coins</button><small class="muted"> +${u.bonus+5}% rewards</small>`;
   shell(`<section class="card"><div class="title"><h2>🎮 Lix Games</h2><small>⚡ ${S.energy}/${S.maxEnergy}</small></div>
-  <div class="game"><div class="title"><h3>🎯 Lix Target</h3><b>Lv.${t.level}</b></div><div class="muted">Hit ${t.need} targets in ${t.time} seconds.</div><p>Reward: 🪙 ${t.coins} + ⭐ ${t.xp} XP</p><button class="btn" onclick="targetGame()">PLAY</button></div>
-  <div class="game"><div class="title"><h3>🏃 Lix Runner</h3><b>Lv.${r.level}</b></div><div class="muted">Reach ${r.dist}m in ${r.time} seconds and avoid obstacles.</div><p>Reward: 🪙 ${r.coins} + ⭐ ${r.xp} XP</p><button class="btn" onclick="runnerGame()">PLAY</button></div>
-  <div class="game"><div class="title"><h3>🪙💣 Lix Catch & Bomb</h3><b>Lv.${c.level}</b></div><div class="muted">Collect ${c.coins} Coins before time runs out. Bombs end the round.</div><p>Reward: ⭐ ${c.xp} XP + all collected Coins</p><button class="btn" onclick="catchGame()">PLAY</button></div>
+  <div class="game"><div class="title"><h3>🎯 Lix Target</h3><b>Game Lv.${t.level}</b></div><div class="muted">Hit ${t.need} targets in ${t.time} seconds.</div><p>Base reward: 🪙 ${t.coins} + ⭐ ${t.xp} XP</p><p>⚙️ Upgrade Lv.${tu.level} • <b>+${tu.bonus}%</b> rewards</p><div class="row"><button class="btn" onclick="targetGame()">PLAY</button>${upgrade('target',tu)}</div></div>
+  <div class="game"><div class="title"><h3>🏃 Lix Runner</h3><b>Game Lv.${r.level}</b></div><div class="muted">Reach ${r.dist}m in ${r.time} seconds and avoid obstacles.</div><p>Base reward: 🪙 ${r.coins} + ⭐ ${r.xp} XP</p><p>⚙️ Upgrade Lv.${ru.level} • <b>+${ru.bonus}%</b> rewards</p><div class="row"><button class="btn" onclick="runnerGame()">PLAY</button>${upgrade('runner',ru)}</div></div>
+  <div class="game"><div class="title"><h3>🪙💣 Lix Catch & Bomb</h3><b>Game Lv.${c.level}</b></div><div class="muted">Collect ${c.coins} Coins before time runs out. Bombs end the round.</div><p>Base reward: ⭐ ${c.xp} XP + all collected Coins</p><p>⚙️ Upgrade Lv.${cu.level} • <b>+${cu.bonus}%</b> rewards</p><div class="row"><button class="btn" onclick="catchGame()">PLAY</button>${upgrade('catch',cu)}</div></div>
   </section>`,'games');
 }
 function targetGame(){
