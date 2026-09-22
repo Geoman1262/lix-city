@@ -11,3 +11,31 @@
 .coin-icon.big{width:34px;height:34px}
 .coin-float{position:absolute;z-index:5;width:38px;height:38px;object-fit:contain;animation:floatcoin 2s ease-in-out infinite}
 .fall.coin-img{position:absolute;background:none;border:0;width:42px;height:42px;object-fit:contain;z-index:5}
+
+/* v0.8 living-city world */
+.city-viewport{height:560px;overflow:auto;overflow-x:hidden;border-radius:28px;border:2px solid #cbddea;background:#8fd4fa;position:relative;scroll-behavior:smooth}
+.city-world{position:relative;width:920px;height:760px;background:linear-gradient(#91d8ff 0 40%,#83c979 40%);overflow:hidden}
+.city-world .road-h{position:absolute;left:-20px;right:-20px;top:470px;height:82px;background:#707b88;box-shadow:0 -7px #aeb7bf,0 7px #aeb7bf}
+.city-world .road-v{position:absolute;top:300px;bottom:-20px;left:500px;width:82px;background:#707b88;box-shadow:-7px 0 #aeb7bf,7px 0 #aeb7bf}
+.city-world .road-h:after{content:"";position:absolute;left:0;right:0;top:39px;height:4px;background:#f8efc6}
+.city-world .road-v:after{content:"";position:absolute;top:0;bottom:0;left:39px;width:4px;background:#f8efc6}
+.city-building{position:absolute;width:180px;height:150px;border-radius:18px 18px 12px 12px;z-index:6;filter:drop-shadow(0 12px 8px #27445a30)}
+.city-building .roof{position:absolute;left:-10px;right:-10px;top:-35px;height:55px;background:#fff;border-radius:20px 20px 6px 6px;transform:skewX(-12deg);box-shadow:0 7px 0 #d7e4ed}
+.city-building .front{position:absolute;inset:0;border-radius:16px;background:linear-gradient(135deg,#fff,#dcecf8);border:4px solid #c9dce8;overflow:hidden}
+.city-building .window{position:absolute;width:28px;height:32px;background:#79c9f5;border:3px solid #fff;border-radius:6px}
+.city-building .door{position:absolute;bottom:0;left:calc(50% - 20px);width:40px;height:56px;background:#477aa0;border-radius:10px 10px 0 0;border:3px solid #fff}
+.city-building .label{position:absolute;left:0;right:0;bottom:8px;text-align:center;font-weight:900;font-size:14px;color:#17304b;text-shadow:0 1px #fff}
+.b-house{left:70px;top:95px}.b-center{left:650px;top:110px}.b-store{left:70px;top:300px}.b-park{left:70px;top:545px}.b-energy{left:650px;top:545px}
+.b-house .front{background:linear-gradient(135deg,#fff7e8,#e9f4ff)}.b-house .roof{background:#e85f62}
+.b-center .roof{background:#7b8cff}.b-store .roof{background:#5dc68a}.b-park .roof{background:#75c96d}.b-energy .roof{background:#ffc84a}
+.locked-building{opacity:.48;filter:grayscale(.1) drop-shadow(0 8px 5px #27445a22)}
+.world-tree{position:absolute;font-size:48px;z-index:4;filter:drop-shadow(0 5px 3px #27445a30)}
+.wt1{left:330px;top:110px}.wt2{left:790px;top:315px}.wt3{left:350px;top:575px}.wt4{left:820px;top:585px}.wt5{left:20px;top:485px}
+.world-lamp{position:absolute;font-size:30px;z-index:8}.wl1{left:430px;top:430px}.wl2{left:570px;top:430px}.wl3{left:470px;top:535px}.wl4{left:610px;top:535px}
+.world-coin{position:absolute;width:54px;height:54px;object-fit:contain;z-index:9;cursor:pointer;animation:floatcoin 1.8s ease-in-out infinite;filter:drop-shadow(0 6px 5px #5b3b0028)}
+.wc1{left:390px;top:270px}.wc2{left:570px;top:350px}.wc3{left:300px;top:510px}.wc4{left:700px;top:470px}.wc5{left:470px;top:650px}
+.world-lix{position:absolute;width:92px;height:auto;object-fit:contain;z-index:15;filter:drop-shadow(0 10px 5px #23415a45);transition:left .18s ease,top .18s ease}
+.world-pet{position:absolute;font-size:34px;z-index:16;transition:left .2s ease,top .2s ease}
+.world-sign{position:absolute;background:#17304bd9;color:#fff;padding:7px 11px;border-radius:12px;font-size:12px;font-weight:700;z-index:10}
+.ws1{left:350px;top:405px}.ws2{left:515px;top:405px}
+.city-scroll-hint{font-size:12px;color:#68778a;text-align:center;margin-top:7px}
