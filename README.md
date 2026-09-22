@@ -1,20 +1,19 @@
-# LIX CITY
+# LIX CITY v0.33 — Pets & Stable Major Update
 
-## v0.32 — City Buildings Major Update
+Major update for the LIX CITY web game.
 
-LIX CITY is a mobile-first web game combining city building, mini-games, progression and Lix customization.
+## Pets & Stable
+- Lix Stable unlocks at Player Level 20.
+- Dog, Cat and Horse companion slots (Dog starts owned; additional pets can be unlocked later).
+- Name your active pet.
+- Pet happiness from 0–100.
+- Food costs 20 Coins; Ball costs 100 Coins.
+- Feeding/playing grants Pet XP and can raise Pet Level to 10.
+- Daily Play once per 24h grants +1 Energy and player XP.
+- One active pet can follow Lix in the city.
+- Pet data is saved with the stable save key.
 
-### v0.32
-- Expanded the city with the full planned building roadmap.
-- Added interactive building panels for Workshop, Market, Studio, Stable, Plaza and Arena.
-- Buildings visually show Locked/Open states based on Player/House Level.
-- Stable opens the existing Pets area; Arena opens Games.
-- Existing save key remains `lixcity_player_save_v1`.
-- Energy regeneration and countdown remain unchanged.
-- Daily Missions, Daily Spin, Daily Streak, Game Upgrades and Lix Customization remain available.
+## Existing systems preserved
+Energy regeneration, countdown, Daily Missions, Mission Refresh, Daily Spin, Daily Streak, Games, Game Upgrades, House/City progression and Lix Customization.
 
-### Building Unlocks
-House 1 · Game Center 2 · Cellix Store 4 · Park 7 · Energy Station 8 · Workshop 12 · Market 15 · Studio 18 · Stable 20 · Plaza 25 · Arena 40.
-
-## Important
-This is a web game published with GitHub Pages. Player progress is currently stored locally in the browser; production cloud save/server-side security is a future phase.
+Save key: `lixcity_player_save_v1`
