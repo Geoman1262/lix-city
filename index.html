@@ -4,9 +4,230 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#1769e8">
-<meta name="version" content="LIX CITY v0.14">
-<title>LIX CITY v0.14</title>
-<link rel="stylesheet" href="style.css?v=0.14">
+<meta name="version" content="LIX CITY v0.15 STABLE">
+<title>LIX CITY</title>
+<style>
+*{box-sizing:border-box}:root{--blue:#1769e8;--ink:#17243a;--muted:#68778a;--bg:#eef6ff;--line:#dce7f2}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif}button{font:inherit;border:0;cursor:pointer}.top{position:sticky;top:0;z-index:40;background:#fff;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand img{width:70px;max-height:35px;object-fit:contain}.stats{display:flex;gap:12px;font-weight:700;font-size:14px}.wrap{max-width:760px;margin:auto;padding:16px 16px 94px}.hero{background:linear-gradient(135deg,#1769e8,#4b94ef);border-radius:28px;color:#fff;padding:22px 18px;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:center}.hero h1{font-size:38px;line-height:1.05;margin:8px 0}.hero img{width:100%;max-height:300px;object-fit:contain}.card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:18px;margin-top:16px;box-shadow:0 5px 18px #233d5a0d}.title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.title h2{margin:0;font-size:22px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.tile{background:#f4f8fc;border-radius:20px;padding:16px;min-height:120px}.tile h3{margin:7px 0 3px}.tile small,.muted{color:var(--muted)}.btn{background:var(--blue);color:#fff;border-radius:14px;padding:11px 16px;font-weight:700}.btn.alt{background:#e8f2ff;color:var(--blue)}.btn:disabled{opacity:.45}.row{display:flex;gap:10px;flex-wrap:wrap}.progress{height:12px;background:#e8eef5;border-radius:20px;overflow:hidden}.bar{height:100%;background:var(--blue);border-radius:20px}.mission{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 0;border-bottom:1px solid #edf1f5}.mission:last-child{border-bottom:0}
+
+/* Living city */
+.city-wrap{position:relative;height:535px;border-radius:28px;overflow:hidden;border:2px solid #cbddea;background:linear-gradient(#91d7ff 0 43%,#88c978 43%);box-shadow:inset 0 -20px 50px #527c4430}.cloud{position:absolute;width:72px;height:25px;border-radius:30px;background:#fff9;filter:blur(.2px);animation:cloud 22s linear infinite}.cloud:before,.cloud:after{content:"";position:absolute;background:#fff9;border-radius:50%}.cloud:before{width:32px;height:32px;left:12px;top:-16px}.cloud:after{width:42px;height:42px;right:8px;top:-20px}.c1{top:12%;left:-20%}.c2{top:20%;left:45%;animation-duration:28s}.city-road-h{position:absolute;left:-5%;right:-5%;top:61%;height:62px;background:#727d8a;box-shadow:0 -6px 0 #aab2ba,0 6px 0 #aab2ba}.city-road-v{position:absolute;top:39%;bottom:-5%;left:56%;width:62px;background:#727d8a;box-shadow:-6px 0 0 #aab2ba,6px 0 0 #aab2ba}.lane-h{position:absolute;left:0;right:0;top:calc(61% + 29px);height:4px;background:#f7f1d1}.lane-v{position:absolute;top:43%;bottom:0;left:calc(56% + 29px);width:4px;background:#f7f1d1}.plot{position:absolute;background:#ffffffeb;border:3px solid #dce7f2;border-radius:20px;width:145px;height:112px;display:flex;align-items:center;justify-content:center;flex-direction:column;font-weight:700;box-shadow:0 10px 20px #23415a25;z-index:3}.plot small{font-weight:400;color:#68778a}.house{left:5%;top:8%}.center{right:5%;top:7%}.store{left:5%;top:36%}.park{left:5%;bottom:6%}.energy{right:5%;bottom:6%}.locked{opacity:.52;filter:grayscale(.15)}.tree{position:absolute;font-size:34px;z-index:2;animation:sway 2.5s ease-in-out infinite alternate}.t1{left:42%;top:11%}.t2{left:74%;top:34%}.t3{left:31%;bottom:8%}.t4{right:29%;bottom:14%}.lamp{position:absolute;font-size:25px;z-index:4}.l1{left:48%;top:56%}.l2{left:68%;top:55%}.city-lix{position:absolute;width:84px;height:auto;left:43%;top:48%;z-index:10;filter:drop-shadow(0 9px 5px #23415a45);transition:left .2s ease,top .2s ease}.city-lix.walk{animation:lixbob .42s infinite alternate}.pet-city{position:absolute;font-size:32px;z-index:11;transition:left .25s ease,top .25s ease}.coins-city{position:absolute;z-index:5;font-size:24px;animation:floatcoin 2s ease-in-out infinite}.cc1{left:36%;top:38%}.cc2{right:33%;top:45%}.cc3{left:20%;bottom:23%}.city-controls{display:flex;gap:8px;justify-content:center;margin-top:12px}.round{width:52px;height:44px;border-radius:14px;background:#e8f2ff;color:var(--blue);font-weight:900}.city-note{padding:10px 12px;border-radius:14px;background:#f2f8ff;margin-top:12px}.zone-label{position:absolute;z-index:2;background:#17243acc;color:#fff;border-radius:10px;padding:6px 9px;font-size:11px}.zl1{left:35%;top:31%}.zl2{right:28%;bottom:27%}
+@keyframes cloud{to{transform:translateX(150vw)}}@keyframes sway{to{transform:rotate(3deg)}}@keyframes lixbob{to{transform:translateY(-4px)}}@keyframes floatcoin{50%{transform:translateY(-7px)}}.nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);z-index:50}.navin{max-width:760px;margin:auto;display:grid;grid-template-columns:repeat(5,1fr)}.nav button{background:#fff;padding:9px 2px 10px;color:#657387;font-size:12px}.nav button b{display:block;font-size:22px}.nav button.active{color:var(--blue)}.toast{position:fixed;left:50%;bottom:78px;transform:translateX(-50%);background:#17243a;color:#fff;padding:11px 16px;border-radius:14px;z-index:100;display:none;white-space:nowrap}.center{text-align:center}
+.game{background:#f5f9ff;border:1px solid #dce8f5;border-radius:20px;padding:16px;margin-top:12px}.playarea,.runnerArea,.catchArea{height:330px;border-radius:20px;position:relative;overflow:hidden;margin:12px 0;border:2px solid #d5e6ef;background:linear-gradient(#bde6ff,#dff5c8)}.target{position:absolute;width:56px;height:56px;border-radius:50%;background:var(--blue);color:#fff;font-weight:900;display:grid;place-items:center}.runnerLix{position:absolute;bottom:40px;left:10%;width:82px;transition:left .12s}.obstacle{position:absolute;bottom:34px;width:35px;height:55px;background:#8b5a35;border-radius:10px}.lane{position:absolute;left:0;right:0;bottom:20px;border-top:3px dashed #fff9}.fall{position:absolute;font-size:32px;background:none}.spin{width:230px;height:230px;border-radius:50%;margin:18px auto;background:conic-gradient(#1769e8 0 16.66%,#f4b400 16.66% 33.32%,#50a56b 33.32% 49.98%,#e85d75 49.98% 66.64%,#7c5cff 66.64% 83.3%,#ff8a3d 83.3%);border:10px solid #fff;display:grid;place-items:center;box-shadow:0 8px 25px #0002}.spin:after{content:"SPIN";background:#17243a;color:#fff;width:76px;height:76px;border-radius:50%;display:grid;place-items:center}
+@media(max-width:520px){.hero h1{font-size:32px}.hero img{max-height:260px}.stats{gap:8px;font-size:13px}.city-wrap{height:500px}.plot{width:118px;height:92px;font-size:14px}.city-lix{width:70px}}
+
+.coin-icon{width:24px;height:24px;object-fit:contain;vertical-align:middle;display:inline-block}
+.coin-icon.small{width:20px;height:20px}
+.coin-icon.big{width:34px;height:34px}
+.coin-float{position:absolute;z-index:5;width:38px;height:38px;object-fit:contain;animation:floatcoin 2s ease-in-out infinite}
+.fall.coin-img{position:absolute;background:none;border:0;width:42px;height:42px;object-fit:contain;z-index:5}
+
+/* v0.8 living-city world */
+.city-viewport{height:560px;overflow:auto;overflow-x:hidden;border-radius:28px;border:2px solid #cbddea;background:#8fd4fa;position:relative;scroll-behavior:smooth}
+.city-world{position:relative;width:920px;height:760px;background:linear-gradient(#91d8ff 0 40%,#83c979 40%);overflow:hidden}
+.city-world .road-h{position:absolute;left:-20px;right:-20px;top:470px;height:82px;background:#707b88;box-shadow:0 -7px #aeb7bf,0 7px #aeb7bf}
+.city-world .road-v{position:absolute;top:300px;bottom:-20px;left:500px;width:82px;background:#707b88;box-shadow:-7px 0 #aeb7bf,7px 0 #aeb7bf}
+.city-world .road-h:after{content:"";position:absolute;left:0;right:0;top:39px;height:4px;background:#f8efc6}
+.city-world .road-v:after{content:"";position:absolute;top:0;bottom:0;left:39px;width:4px;background:#f8efc6}
+.city-building{position:absolute;width:180px;height:150px;border-radius:18px 18px 12px 12px;z-index:6;filter:drop-shadow(0 12px 8px #27445a30)}
+.city-building .roof{position:absolute;left:-10px;right:-10px;top:-35px;height:55px;background:#fff;border-radius:20px 20px 6px 6px;transform:skewX(-12deg);box-shadow:0 7px 0 #d7e4ed}
+.city-building .front{position:absolute;inset:0;border-radius:16px;background:linear-gradient(180deg,#dff4ff 0%,#b7d8ed 58%,#91b8d0 100%);border:4px solid #d9edf8;overflow:hidden;box-shadow:inset 0 10px 0 #ffffff55,inset 0 -12px 0 #527a9555}
+.city-building .window{position:absolute;width:28px;height:32px;background:linear-gradient(145deg,#d9f6ff,#4ca8dc);border:3px solid #fff;border-radius:7px;box-shadow:inset 0 0 0 2px #65b9e5,0 3px 5px #18344a35}
+.city-building .door{position:absolute;bottom:0;left:calc(50% - 20px);width:40px;height:56px;background:linear-gradient(90deg,#245579,#5d99bd,#245579);border-radius:10px 10px 0 0;border:3px solid #fff;box-shadow:0 -2px 8px #17304b33}
+.city-building .label{position:absolute;left:7px;right:7px;bottom:7px;text-align:center;font-weight:900;font-size:12px;color:#fff;background:#17304bd9;border-radius:8px;padding:4px 3px;text-shadow:none;z-index:3}
+.b-house{left:70px;top:95px}.b-center{left:650px;top:110px}.b-store{left:70px;top:300px}.b-park{left:70px;top:545px}.b-energy{left:650px;top:545px}
+.b-house .front{background:linear-gradient(135deg,#fff7e8,#e9f4ff)}.b-house .roof{background:#e85f62}
+.b-center .roof{background:#7b8cff}.b-store .roof{background:#5dc68a}.b-park .roof{background:#75c96d}.b-energy .roof{background:#ffc84a}
+.locked-building{opacity:.48;filter:grayscale(.1) drop-shadow(0 8px 5px #27445a22)}
+.world-tree{position:absolute;font-size:48px;z-index:4;filter:drop-shadow(0 5px 3px #27445a30)}
+.wt1{left:330px;top:110px}.wt2{left:790px;top:315px}.wt3{left:350px;top:575px}.wt4{left:820px;top:585px}.wt5{left:20px;top:485px}
+.world-lamp{position:absolute;font-size:30px;z-index:8}.wl1{left:430px;top:430px}.wl2{left:570px;top:430px}.wl3{left:470px;top:535px}.wl4{left:610px;top:535px}
+.world-coin{position:absolute;width:54px;height:54px;object-fit:contain;z-index:9;cursor:pointer;animation:floatcoin 1.8s ease-in-out infinite;filter:drop-shadow(0 6px 5px #5b3b0028)}
+.wc1{left:390px;top:270px}.wc2{left:570px;top:350px}.wc3{left:300px;top:510px}.wc4{left:700px;top:470px}.wc5{left:470px;top:650px}
+.world-lix{position:absolute;width:92px;height:auto;object-fit:contain;z-index:15;filter:drop-shadow(0 10px 5px #23415a45);transition:left .18s ease,top .18s ease}
+.world-pet{position:absolute;font-size:34px;z-index:16;transition:left .2s ease,top .2s ease}
+.world-sign{position:absolute;background:#17304bd9;color:#fff;padding:7px 11px;border-radius:12px;font-size:12px;font-weight:700;z-index:10}
+.ws1{left:350px;top:405px}.ws2{left:515px;top:405px}
+.city-scroll-hint{font-size:12px;color:#68778a;text-align:center;margin-top:7px}
+
+/* v0.9 interaction layer */
+.city-action{position:absolute;z-index:30;transform:translate(-50%,-100%);background:#17304bf2;color:#fff;border:2px solid #fff;border-radius:14px;padding:8px 12px;font-size:12px;font-weight:800;box-shadow:0 8px 18px #18344a33;display:none}
+.city-action.show{display:block}
+.city-panel{position:absolute;z-index:35;left:50%;bottom:16px;transform:translateX(-50%);width:min(430px,90%);background:#fffffff5;border:2px solid #d9e8f2;border-radius:22px;padding:14px;box-shadow:0 12px 28px #1d405a30;display:none}
+.city-panel.show{display:block}
+.city-panel h3{margin:0 0 4px}.city-panel p{margin:5px 0;color:#68778a;font-size:13px}
+.city-panel .close{position:absolute;right:10px;top:8px;background:#eaf3fb;color:#17304b;border-radius:10px;width:32px;height:32px}
+.city-build-hit{position:absolute;z-index:20;cursor:pointer;background:transparent!important;border:0!important;padding:0!important;margin:0!important;box-shadow:none!important;appearance:none;-webkit-appearance:none;color:transparent!important;outline:none!important}
+.bh-house{left:60px;top:80px;width:200px;height:190px}.bh-center{left:640px;top:90px;width:200px;height:190px}
+.bh-store{left:60px;top:280px;width:200px;height:190px}.bh-park{left:60px;top:525px;width:200px;height:190px}.bh-energy{left:640px;top:525px;width:200px;height:190px}
+.collect-ring{position:absolute;z-index:8;pointer-events:none;width:68px;height:68px;border:3px solid #fff;border-radius:50%;animation:ring .5s ease-out forwards}
+@keyframes ring{to{transform:scale(1.7);opacity:0}}
+
+/* v0.10 city composition fix */
+.city-viewport{height:560px;overflow:auto;overflow-x:auto;overflow-y:auto}
+.city-world{width:1100px;height:820px;background:linear-gradient(#91d8ff 0 34%,#83c979 34% 100%)}
+.city-world .road-h{top:405px;height:76px}
+.city-world .road-v{top:190px;left:590px;width:76px}
+.city-world .road-h:after{top:36px}
+.city-world .road-v:after{left:36px}
+.city-building{width:150px;height:118px}
+.city-building .roof{top:-27px;height:43px}
+.city-building .window{width:23px;height:27px;top:28px!important}
+.city-building .door{width:34px;height:47px;left:calc(50% - 17px)}
+.city-building .label{font-size:12px;bottom:6px}
+.b-house{left:105px;top:105px}
+.b-center{left:780px;top:115px}
+.b-store{left:100px;top:555px}
+.b-park{left:790px;top:555px}
+.b-energy{left:425px;top:620px}
+.bh-house{left:85px;top:85px;width:190px;height:160px}
+.bh-center{left:760px;top:95px;width:190px;height:160px}
+.bh-store{left:80px;top:535px;width:190px;height:160px}
+.bh-park{left:770px;top:535px;width:190px;height:160px}
+.bh-energy{left:405px;top:600px;width:190px;height:160px}
+.wt1{left:350px;top:110px}.wt2{left:950px;top:300px}.wt3{left:340px;top:625px}.wt4{left:720px;top:690px}.wt5{left:20px;top:350px}
+.wl1{left:500px;top:365px}.wl2{left:665px;top:365px}.wl3{left:540px;top:470px}.wl4{left:635px;top:470px}
+.wc1{left:350px;top:260px}.wc2{left:680px;top:300px}.wc3{left:285px;top:470px}.wc4{left:850px;top:450px}.wc5{left:530px;top:700px}
+.ws1{left:410px;top:320px}.ws2{left:625px;top:320px}
+.world-lix{width:78px}
+
+/* v0.12 building polish */
+.b-house .front{background:linear-gradient(180deg,#fff1d6 0%,#e9b875 58%,#c9894d 100%)}
+.b-center .front{background:linear-gradient(180deg,#e5e8ff 0%,#9aa8ed 58%,#6674bd 100%)}
+.b-store .front{background:linear-gradient(180deg,#e5fff0 0%,#9cddb9 58%,#5baa7f 100%)}
+.b-park .front{background:linear-gradient(180deg,#e9ffe6 0%,#a8d98e 58%,#6ea95b 100%)}
+.b-energy .front{background:linear-gradient(180deg,#fff8d7 0%,#f1cf62 58%,#c89b28 100%)}
+.b-house .roof{box-shadow:0 7px 0 #b94e53,0 10px 14px #27445a30}.b-center .roof{box-shadow:0 7px 0 #5967ca,0 10px 14px #27445a30}.b-store .roof{box-shadow:0 7px 0 #419d69,0 10px 14px #27445a30}.b-park .roof{box-shadow:0 7px 0 #589c52,0 10px 14px #27445a30}.b-energy .roof{box-shadow:0 7px 0 #d39e24,0 10px 14px #27445a30}
+.locked-building{opacity:.58}
+
+</style>
 </head>
-<body><div id="app"></div><script src="app.js?v=0.14"></script></body>
+<body>
+<div id="app"><main style="font-family:Arial,sans-serif;padding:28px;text-align:center;color:#123"><h2>🏙️ LIX CITY</h2><p>Loading…</p></main></div>
+<script>
+window.addEventListener('error',function(e){try{var a=document.getElementById('app');if(a&&!a.dataset.booted){a.innerHTML='<main style=\"font-family:Arial,sans-serif;padding:28px;text-align:center;color:#123\"><h2>⚠️ LIX CITY</h2><p>حدث خطأ أثناء تحميل اللعبة.</p><p style=\"font-size:12px;opacity:.7\">'+String(e.message||'Unknown error')+'</p></main>'}}catch(_){} });
+// LIX CITY — PERMANENT PLAYER SAVE
+// Game updates must NEVER change this key.
+const SAVE_KEY = "lixcity_player_save_v1";
+const LEGACY_KEYS = ["lixcity_v10","lixcity_v09","lixcity_v06","lixcity_v05","lixcity_v04","lixcity_v03","lixcity_v02"];
+const BACKUP_KEY = "lixcity_player_save_backup_v1";
+const D={level:1,xp:0,coins:250,tickets:0,energy:10,maxEnergy:10,house:1,pet:1,petPlayed:0,lastSpin:0,game:{target:1,runner:1,catch:1},missions:[{t:"Play any game",xp:40,done:false},{t:"Earn 50 Coins",xp:40,done:false},{t:"Finish Lix Target",xp:50,done:false},{t:"Feed & play with your Pet",xp:50,done:false},{t:"Visit your City",xp:30,done:false}],city:{x:43,y:48,pet:false,collected:[]}};
+function cloneD(){return JSON.parse(JSON.stringify(D))}
+function readState(k){try{const raw=localStorage.getItem(k);return raw?JSON.parse(raw):null}catch(e){return null}}
+function normalizeState(raw){
+  const s={...cloneD(),...(raw&&typeof raw==='object'?raw:{})};
+  s.level=Math.max(1,Number(s.level)||1); s.xp=Math.max(0,Number(s.xp)||0); s.coins=Math.max(0,Number(s.coins)||0);
+  s.tickets=Math.max(0,Number(s.tickets)||0); s.maxEnergy=Math.max(10,Number(s.maxEnergy)||10);
+  s.energy=Math.max(0,Math.min(s.maxEnergy,Number(s.energy) || 0)); s.house=Math.max(1,Number(s.house)||s.level);
+  s.pet=Math.max(1,Number(s.pet)||1); s.petPlayed=Number(s.petPlayed)||0; s.lastSpin=Number(s.lastSpin)||0;
+  s.game={...D.game,...(s.game||{})};
+  s.missions=Array.isArray(s.missions)?s.missions:cloneD().missions;
+  s.city={...D.city,...(s.city||{})};
+  s.city.x=Number.isFinite(Number(s.city.x))?Number(s.city.x):43; s.city.y=Number.isFinite(Number(s.city.y))?Number(s.city.y):48;
+  s.city.pet=!!s.city.pet; s.city.collected=Array.isArray(s.city.collected)?s.city.collected:[];
+  return s;
+}
+function scoreState(s){return (Number(s?.level)||1)*100000000 + (Number(s?.xp)||0)*1000 + (Number(s?.coins)||0) + (Number(s?.tickets)||0)*100000;}
+let S=readState(SAVE_KEY);
+if(!S){
+  // One-time migration only. After this point the permanent save is used forever.
+  const candidates=LEGACY_KEYS.map(readState).filter(Boolean).map(normalizeState);
+  S=candidates.sort((a,b)=>scoreState(b)-scoreState(a))[0] || cloneD();
+}
+S=normalizeState(S);
+function save(){
+  try{
+    const old=localStorage.getItem(SAVE_KEY);
+    if(old) localStorage.setItem(BACKUP_KEY,old);
+    localStorage.setItem(SAVE_KEY,JSON.stringify(S));
+  }catch(e){ console.warn('LIX CITY save failed',e); }
+}
+save();
+function need(l){return Math.round(500*l+300*Math.pow(Math.max(0,l-1),1.35))}function addXP(n){S.xp+=n;while(S.xp>=need(S.level)){S.xp-=need(S.level);S.level++;S.house=S.level;toast("🏠 House / Player Level "+S.level+"!")}save();render()}function spend(n){if(S.coins<n){toast("Not enough Coins");return false}S.coins-=n;save();return true}function energy(){if(S.energy<1){toast("⚡ No Energy");return false}S.energy--;save();render();return true}function coins(n){S.coins+=n;save();render()}function toast(t){let e=document.querySelector(".toast");if(!e)return;e.textContent=t;e.style.display="block";clearTimeout(window.tt);window.tt=setTimeout(()=>e.style.display="none",1800)}function nav(a){return`<div class="nav"><div class="navin"><button class="${a==="home"?"active":""}" onclick="show('home')"><b>🏠</b>Home</button><button class="${a==="city"?"active":""}" onclick="show('city')"><b>🏙️</b>City</button><button class="${a==="games"?"active":""}" onclick="show('games')"><b>🎮</b>Games</button><button class="${a==="pets"?"active":""}" onclick="show('pets')"><b>🐾</b>Pets</button><button class="${a==="more"?"active":""}" onclick="show('more')"><b>☰</b>More</button></div></div>`}function shell(c,a){document.getElementById("app").innerHTML=`<header class="top"><div class="brand"><img src="cellix-logo.webp"></div><div class="stats"><span>⭐ ${S.xp}</span><span><img class="coin-icon" src="coin.png"> ${S.coins}</span><span>⚡ ${S.energy}/${S.maxEnergy}</span></div></header><main class="wrap">${c}</main>${nav(a)}<div class="toast"></div>`}function show(p){({home,city,games,pets,more}[p])()}
+function home(){let n=need(S.level),pct=Math.min(100,S.xp/n*100);shell(`<section class="hero"><div><small>LIX CITY</small><h1>Welcome to your city</h1><p>PLAY → EARN → BUILD → PROGRESS</p><div class="level">HOUSE / PLAYER LEVEL <strong>${S.level}</strong></div></div><img src="lix.png"></section><section class="card"><div class="title"><h2>🏙️ My City</h2><small>House Lv. ${S.house}</small></div><div class="grid"><div class="tile"><div>🏠</div><h3>Lix House</h3><small>Level ${S.house}</small></div><div class="tile ${S.level<2?"locked":""}"><div>🎮</div><h3>Game Center</h3><small>${S.level<2?"Unlock Lv. 2":"Available"}</small></div><div class="tile ${S.level<4?"locked":""}"><div>🏪</div><h3>Cellix Store</h3><small>${S.level<4?"Unlock Lv. 4":"Available"}</small></div><div class="tile"><div>🛣️</div><h3>City Road</h3><small>Starting area</small></div></div></section><section class="card"><div class="title"><h2>📈 Progress</h2><b>Lv. ${S.level}</b></div><div class="progress"><div class="bar" style="width:${pct}%"></div></div><p>${S.xp} / ${n} XP to next level</p><div class="row"><button class="btn" onclick="show('games')">🎮 Play</button><button class="btn alt" onclick="show('city')">🏙️ Enter City</button></div></section><section class="card"><div class="title"><h2>📋 Daily Missions</h2><small>5 missions</small></div>${S.missions.map((m,i)=>`<div class="mission"><span>${m.done?"✅":"⬜"} ${m.t} <small>+${m.xp} XP</small></span>${m.done?"":"<button class='btn alt' onclick='claimMission("+i+")'>Claim</button>"}</div>`).join("")}</section>`,"home")}
+function claimMission(i){if(S.missions[i].done)return;S.missions[i].done=true;addXP(S.missions[i].xp);toast("Mission complete! +"+S.missions[i].xp+" XP")}
+function city(){
+  let x=S.city?.x??43, y=S.city?.y??48;
+  if(!S.city) S.city={x,y,pet:false,collected:[]}; if(!Array.isArray(S.city.collected)) S.city.collected=[];
+  if(!Array.isArray(S.city.collected)) S.city.collected=[];
+  const lx=Math.max(100,Math.min(820,x*9.2)), ly=Math.max(120,Math.min(650,y*7.2));
+  const coin=(id,px,py)=>S.city.collected.includes(id)?"":`<img id="coin-${id}" class="world-coin ${px} ${py}" src="coin.png" onclick="collectCityCoin(this,5,'${id}')" alt="Coin">`;
+  shell(`<section class="card"><div class="title"><h2>🏙️ Lix City</h2><small>House Lv. ${S.house}</small></div>
+  <div class="city-viewport" id="cityViewport"><div class="city-world" id="cityWorld">
+    <div class="road-h"></div><div class="road-v"></div>
+    <div class="city-building b-house"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🏠 Lix House • Lv.${S.house}</div></div></div>
+    <div class="city-building b-center ${S.level<2?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🎮 Game Center ${S.level<2?"🔒":"OPEN"}</div></div></div>
+    <div class="city-building b-store ${S.level<4?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🏪 Cellix Store ${S.level<4?"• Lv.4":"OPEN"}</div></div></div>
+    <div class="city-building b-park ${S.level<7?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🌳 Lix Park ${S.level<7?"• Lv.7":"OPEN"}</div></div></div>
+    <div class="city-building b-energy ${S.level<8?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">⚡ Energy Station ${S.level<8?"• Lv.8":"OPEN"}</div></div></div>
+
+    <button class="city-build-hit bh-house" onclick="openBuilding('house')"></button>
+    <button class="city-build-hit bh-center" onclick="openBuilding('center')"></button>
+    <button class="city-build-hit bh-store" onclick="openBuilding('store')"></button>
+    <button class="city-build-hit bh-park" onclick="openBuilding('park')"></button>
+    <button class="city-build-hit bh-energy" onclick="openBuilding('energy')"></button>
+
+    <span class="world-tree wt1">🌳</span><span class="world-tree wt2">🌲</span><span class="world-tree wt3">🌳</span><span class="world-tree wt4">🌲</span><span class="world-tree wt5">🌳</span>
+    <span class="world-lamp wl1">💡</span><span class="world-lamp wl2">💡</span><span class="world-lamp wl3">💡</span><span class="world-lamp wl4">💡</span>
+    <span class="world-sign ws1">LIX DISTRICT</span><span class="world-sign ws2">CITY ROAD</span>
+    ${coin("c1","wc1","wc1")}${coin("c2","wc2","wc2")}${coin("c3","wc3","wc3")}${coin("c4","wc4","wc4")}${coin("c5","wc5","wc5")}
+    <img id="worldLix" class="world-lix" src="lix.png" style="left:${lx}px;top:${ly}px" alt="Lix">
+    ${S.city?.pet?'<span id="worldPet" class="world-pet" style="left:'+(lx+75)+'px;top:'+(ly+60)+'px">🐶</span>':""}
+    <div id="cityPanel" class="city-panel"></div>
+  </div></div>
+  <div class="city-scroll-hint">↕️ اسحب الخريطة لاستكشاف المدينة • اضغط المباني للتفاعل</div>
+  <div class="city-controls"><button class="round" onclick="moveLix(-3,0)">⬅</button><button class="round" onclick="moveLix(0,-3)">⬆</button><button class="round" onclick="moveLix(0,3)">⬇</button><button class="round" onclick="moveLix(3,0)">➡</button></div>
+  <div class="city-note">🪙 اجمع الـCoins من المدينة. كل Coin يعطيك <b>+5 Coins</b> مرة واحدة.</div></section>
+  <section class="card"><div class="title"><h2>🔓 Building Roadmap</h2></div><div class="grid">${[["🏠","Lix House",1],["🎮","Game Center",2],["🏪","Cellix Store",4],["🌳","Lix Park",7],["⚡","Energy Station",8],["🛠️","Lix Workshop",12],["🏬","Lix Market",15],["🎨","Lix Studio",18],["🐾","Lix Stable",20],["🏙️","Lix Plaza",25],["🏆","Lix Arena",40]].map(a=>`<div class="tile ${S.level<a[2]?"locked":""}"><div style="font-size:26px">${a[0]}</div><h3>${a[1]}</h3><small>${S.level<a[2]?"Unlock Level ":"Unlocked • Level "}${a[2]}</small></div>`).join("")}</div></section>`,"city");
+}
+function collectCityCoin(el,n,id){
+  if(!el || el.dataset.collected==="1" || S.city.collected.includes(id)) return;
+  S.city.collected.push(id); el.dataset.collected="1";
+  const ring=document.createElement("div"); ring.className="collect-ring";
+  ring.style.left=el.offsetLeft+"px"; ring.style.top=el.offsetTop+"px";
+  document.getElementById("cityWorld")?.appendChild(ring);
+  el.style.transition="transform .25s, opacity .25s"; el.style.transform="scale(1.7) translateY(-12px)"; el.style.opacity="0";
+  coins(n); save(); setTimeout(()=>{el.remove();ring.remove()},420); toast("🪙 +"+n+" Coins");
+}
+function openBuilding(type){
+  const p=document.getElementById("cityPanel"); if(!p)return;
+  const cfg={
+    house:[1,"🏠 Lix House","Your home is the heart of Lix City.","Customize your home as you level up.","house"],
+    center:[2,"🎮 Game Center","Play Lix Target, Runner and Catch & Bomb.","Enter the Games tab to play.","games"],
+    store:[4,"🏪 Cellix Store","The Cellix world shop will unlock here.","Unlocks at Player Level 4.","store"],
+    park:[7,"🌳 Lix Park","A social and relaxing city zone.","Unlocks at Player Level 7.","park"],
+    energy:[8,"⚡ Energy Station","A future place to manage Energy.","Unlocks at Player Level 8.","energy"]
+  }[type];
+  const [lv,title,desc,foot,action]=cfg;
+  const enterAction=action==="games"?"show('games')":"toast('✨ More content is coming to this building!')";
+  p.innerHTML=`<button class="close" onclick="closeCityPanel()">×</button><h3>${title}</h3><p>${desc}</p><p>${foot}</p><button class="btn" onclick="${enterAction};closeCityPanel()">ENTER</button>`;
+  p.classList.add("show");
+}
+function closeCityPanel(){document.getElementById("cityPanel")?.classList.remove("show")}
+function moveLix(dx,dy){
+  S.city=S.city||{x:43,y:48,pet:false};
+  S.city.x=Math.max(10,Math.min(88,S.city.x+dx));
+  S.city.y=Math.max(10,Math.min(88,S.city.y+dy));
+  save();
+  const e=document.getElementById("worldLix");
+  if(e){
+    const px=Math.max(100,Math.min(820,S.city.x*9.2)), py=Math.max(120,Math.min(650,S.city.y*7.2));
+    e.style.left=px+"px"; e.style.top=py+"px";
+    e.style.transform="translateY(-5px)";
+    setTimeout(()=>e.style.transform="",180);
+    const p=document.getElementById("worldPet");
+    if(p){p.style.left=(px+75)+"px";p.style.top=(py+60)+"px";}
+    const vp=document.getElementById("cityViewport");
+    if(vp){vp.scrollTo({left:Math.max(0,px-280),top:Math.max(0,py-210),behavior:"smooth"});}
+  }
+}
+function games(){shell(`<section class="card"><div class="title"><h2>🎮 Lix Games</h2><small>Energy ${S.energy}/${S.maxEnergy}</small></div><div class="game"><h3>🎯 Lix Target</h3><div class="muted">Hit 8 targets in 25 seconds.</div><button class="btn" onclick="targetGame()">PLAY</button></div><div class="game"><h3>🏃 Lix Runner</h3><div class="muted">Move Lix and avoid obstacles for 20 seconds.</div><button class="btn" onclick="runnerGame()">PLAY</button></div><div class="game"><h3>🪙💣 Lix Catch & Bomb</h3><div class="muted">Catch Coins for 20 seconds.</div><button class="btn" onclick="catchGame()">PLAY</button></div></section>`,"games")}
+function targetGame(){if(!energy())return;let h=0,t=25,active=true;function end(w){if(!active)return;active=false;clearInterval(iv);if(w){coins(50);addXP(40);S.missions[0].done=true;S.missions[2].done=true;save();toast("🎯 +50 Coins +40 XP")}else toast("Time's up!");setTimeout(()=>show("games"),400)}function place(){if(!active)return;let b=document.getElementById("targetBoard");if(!b)return;let e=document.createElement("button");e.className="target";e.textContent="🎯";e.style.left=Math.random()*80+8+"%";e.style.top=Math.random()*72+8+"%";e.onclick=()=>{h++;e.remove();document.getElementById("tgHits").textContent=h;h>=8?end(true):place()};b.appendChild(e)}shell(`<section class="card"><div class="title"><h2>🎯 Lix Target</h2><b id="tgTime">25</b>s</div><div class="playarea" id="targetBoard"></div><p class="center">Hits: <b id="tgHits">0</b> / 8</p><button class="btn alt" onclick="show('games')">Exit</button></section>`,"games");let iv=setInterval(()=>{t--;document.getElementById("tgTime").textContent=t;if(t<=0)end(false)},1000);place()}
+function runnerGame(){if(!energy())return;let t=20,l=0,alive=true,d=0;function end(){if(!alive)return;alive=false;clearInterval(iv);clearInterval(obs);coins(60);addXP(50);S.missions[0].done=true;save();toast("🏃 +60 Coins +50 XP");setTimeout(()=>show("games"),400)}shell(`<section class="card"><div class="title"><h2>🏃 Lix Runner</h2><b id="rt">20</b>s</div><div class="runnerArea" id="runner"><div class="lane"></div><img class="runnerLix" id="rlix" src="lix.png"></div><div class="row"><button class="btn" onclick="moveRunner(-1)">⬅️ LEFT</button><button class="btn" onclick="moveRunner(1)">RIGHT ➡️</button></div><p>Distance: <b id="dist">0</b> m</p></section>`,"games");window.moveRunner=z=>{l=Math.max(0,Math.min(2,l+z));document.getElementById("rlix").style.left=(10+l*35)+"%"};let obs=setInterval(()=>{let o=document.createElement("div");o.className="obstacle";o.style.left=(8+Math.floor(Math.random()*3)*35)+"%";document.getElementById("runner")?.appendChild(o);setTimeout(()=>o.remove(),2200)},850);let iv=setInterval(()=>{t--;d+=15;document.getElementById("rt").textContent=t;document.getElementById("dist").textContent=d;if(t<=0)end()},1000)}
+function catchGame(){if(!energy())return;let t=20,total=0,alive=true;function cleanup(){clearInterval(iv);clearInterval(sp);coins(total);addXP(60);S.missions[0].done=true;save()}function end(msg){if(!alive)return;alive=false;cleanup();toast(msg);setTimeout(()=>show("games"),500)}function spawn(){if(!alive)return;let e=document.createElement("button"),bomb=Math.random()<.18;e.className="fall "+(bomb?"":"coin-img");if(bomb)e.textContent="💣";else e.innerHTML='<img src="coin.png" style="width:42px;height:42px;object-fit:contain">' ;e.style.left=Math.random()*88+"%";e.style.top=Math.random()*80+"%";e.onclick=()=>bomb?end("💣 Bomb! You keep "+total+" Coins"):(total+=Math.random()<.2?5:1,e.remove(),document.getElementById("ct").textContent=total);document.getElementById("catch")?.appendChild(e);setTimeout(()=>e.remove(),1500)}shell(`<section class="card"><div class="title"><h2>🪙💣 Catch & Bomb</h2><b id="ctt">20</b>s</div><div class="catchArea" id="catch"></div><p><img class="coin-icon small" src="coin.png"> Collected: <b id="ct">0</b> Coins</p><button class="btn alt" onclick="show('games')">Exit</button></section>`,"games");let sp=setInterval(spawn,500),iv=setInterval(()=>{t--;document.getElementById("ctt").textContent=t;if(t<=0)end("🪙 Round complete! +"+total+" Coins")},1000)}
+function pets(){let ready=Date.now()-S.petPlayed>=86400000;shell(`<section class="card"><div class="title"><h2>🐾 Lix Stable</h2><small>Pet Level ${S.pet}</small></div><div class="tile"><div style="font-size:56px">🐶</div><h3>Happy Dog</h3><small>Develop your pet with food and toys.</small></div></section><section class="card"><div class="grid"><div class="tile"><h3>🍖 Basic Food</h3><small>20 Coins</small><br><button class="btn" onclick="petBuy(20)">Buy</button></div><div class="tile"><h3>⚽ Ball</h3><small>100 Coins</small><br><button class="btn" onclick="petBuy(100)">Buy</button></div></div></section><section class="card"><div class="title"><h2>❤️ Daily Play</h2><small>${ready?"Ready":"once / 24h"}</small></div><p>Happy Pet → +1 Energy once per 24h + Pet XP once per 24h.</p><button class="btn" ${ready?"":"disabled"} onclick="petPlay()">${ready?"PLAY WITH PET":"PLAY AGAIN TOMORROW"}</button><button class="btn alt" onclick="takePetToCity()" style="margin-left:8px">🏙️ Pet in City</button></section>`,"pets")}
+function petBuy(n){if(!spend(n))return;S.pet=Math.min(10,S.pet+1);save();toast("🐶 Pet Level "+S.pet);show("pets")}function petPlay(){if(Date.now()-S.petPlayed<86400000)return;S.petPlayed=Date.now();S.energy=Math.min(S.maxEnergy,S.energy+1);addXP(25+S.pet*5);S.missions[3].done=true;save();toast("❤️ Happy Pet! +1 Energy");show("pets")}function takePetToCity(){S.city=S.city||{};S.city.pet=true;save();toast("🐶 Your pet joined Lix in the city!");show("city")}
+function spin(){if(Date.now()-S.lastSpin<86400000){toast("🎡 Spin available once every 24h");return}let r=[20,30,50,75,100,1][Math.floor(Math.random()*6)];S.lastSpin=Date.now();r===1?S.tickets++:S.coins+=r;save();toast(r===1?"🎟️ +1 Ticket!":"🎡 +"+r+" Coins!");show("more")}function more(){let ready=Date.now()-S.lastSpin>=86400000;shell(`<section class="card"><div class="title"><h2>☰ More</h2></div><div class="tile center"><h3>🎡 Daily Spin</h3><div class="spin"></div><button class="btn" onclick="spin()" ${ready?"":"disabled"}>${ready?"SPIN NOW":"READY TOMORROW"}</button><p><small>One spin every 24 hours.</small></p></div><div class="tile"><h3>🏆 Leaderboards</h3><small>${S.level>=10?"Unlocked":"Unlock at Player Level 10."}</small></div></section>`,"more")}function render(){show("home")}try{render()}catch(err){document.getElementById("app").innerHTML=`<main style="font-family:Arial,sans-serif;padding:28px;text-align:center;color:#123"><h2>⚠️ LIX CITY</h2><p>تعذّر تحميل اللعبة.</p><button onclick="localStorage.clear();location.reload()" style="padding:14px 20px;border:0;border-radius:12px;background:#1769e8;color:white;font-weight:700">RESET GAME</button><p style="font-size:12px;opacity:.65">${String(err&&err.message||err)}</p></main>`;console.error(err)}
+
+</script>
+</body>
 </html>
