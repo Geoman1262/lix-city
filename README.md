@@ -1,10 +1,7 @@
-# LIX CITY v0.16
+# LIX CITY v0.18
 
-Stable save remains `lixcity_player_save_v1`.
+Stable save + visible Energy countdown.
 
-This version improves the three core games without changing the player save key:
-- Lix Target: 5 automatic game levels with increasing targets.
-- Lix Runner: lane controls, moving obstacles, distance objectives, win/loss handling.
-- Lix Catch & Bomb: 5 levels, target coin objectives, bombs end the round, collected coins are kept on loss.
+Files: index.html, lix.png, coin.png, cellix-logo.webp, README.md
 
-Assets are the existing Lix, Coin, and Cellix logo.
+Energy regenerates at +1 every 15 minutes up to the current max. The Dashboard header shows the live countdown to the next Energy.
