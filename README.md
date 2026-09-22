@@ -1,22 +1,13 @@
-# LIX CITY v0.37
+# LIX CITY v0.39
 
-## Cellix Shop — Admin Managed Links
+Mobile-first standalone web game by Cellix.
 
-The player-facing Cellix Shop is **read-only**. Players do not enter or edit store URLs.
+## v0.39 — Installable Web Game
+- Added PWA manifest.
+- Added service worker for faster repeat loading and basic offline fallback.
+- Added installable standalone display on supported browsers.
+- Kept Cellix Shop admin-managed through `shop-config.json`.
+- Kept existing save system, Energy, games, missions, spin, streak, pets, social and progression unchanged.
 
-Store products and external links are intended to be published by the **Cellix Admin Panel** through `shop-config.json` (or the production backend that replaces this file).
-
-Each product supports:
-- id
-- name
-- provider
-- price (display only)
-- url
-- active
-
-Only active products with a published URL are shown to players.
-
-### Important
-This GitHub Pages prototype is static. A real Admin Panel must write the shop configuration to a shared backend/database or publish the config file. Browser localStorage is not a cross-player Admin Panel connection.
-
-The game keeps the existing save key and gameplay systems.
+## Run
+Open the GitHub Pages URL. On supported Android browsers use **Add to Home screen / Install app**.

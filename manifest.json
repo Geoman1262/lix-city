@@ -1,0 +1,10 @@
+{
+  "name":"LIX CITY",
+  "short_name":"LIX CITY",
+  "start_url":"./?v=39",
+  "display":"standalone",
+  "background_color":"#eef6ff",
+  "theme_color":"#1769e8",
+  "description":"LIX CITY — Play, earn, build and progress.",
+  "icons":[{"src":"lix.png","sizes":"192x192","type":"image/png","purpose":"any"},{"src":"lix.png","sizes":"512x512","type":"image/png","purpose":"any"}]
+}
