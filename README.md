@@ -1,7 +1,16 @@
-# LIX CITY v0.34 — Social & Leaderboards
+# LIX CITY v0.35 — Events Major Update
 
-Major update after v0.33. Adds the Social City interface, player profile, Player ID, city visits, likes/profile hooks, and leaderboard presentation. Social unlocks at Player Level 30; leaderboards unlock at Level 10.
+LIX CITY is a standalone mobile-first web game built around Lix, city progression, mini-games, pets, customization, missions and social features.
 
-The current web prototype uses local storage. Real cross-device multiplayer, server-side scores, and secure global leaderboards require the planned backend/cloud service and are not claimed as live in this version.
+## v0.35
+- Limited-time Events screen
+- Event objectives and progress
+- Event Points
+- Claimable event reward
+- Event progress saved with the permanent save key
+- Existing Energy, Daily Missions, Daily Spin, Daily Streak, Games, Pets, Customization, Buildings and Social features preserved
 
-Save key remains `lixcity_player_save_v1`.
+## Save
+Permanent player save key: `lixcity_player_save_v1`
+
+Game assets: `lix.png`, `coin.png`.
