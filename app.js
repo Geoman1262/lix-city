@@ -73,7 +73,7 @@ function moveLix(dx,dy){
     const p=document.getElementById("worldPet");
     if(p){p.style.left=(px+75)+"px";p.style.top=(py+60)+"px";}
     const vp=document.getElementById("cityViewport");
-    if(vp){vp.scrollTo({left:Math.max(0,px-220),top:Math.max(0,py-180),behavior:"smooth"});}
+    if(vp){vp.scrollTo({left:Math.max(0,px-280),top:Math.max(0,py-210),behavior:"smooth"});}
   }
 }
 function games(){shell(`<section class="card"><div class="title"><h2>🎮 Lix Games</h2><small>Energy ${S.energy}/${S.maxEnergy}</small></div><div class="game"><h3>🎯 Lix Target</h3><div class="muted">Hit 8 targets in 25 seconds.</div><button class="btn" onclick="targetGame()">PLAY</button></div><div class="game"><h3>🏃 Lix Runner</h3><div class="muted">Move Lix and avoid obstacles for 20 seconds.</div><button class="btn" onclick="runnerGame()">PLAY</button></div><div class="game"><h3>🪙💣 Lix Catch & Bomb</h3><div class="muted">Catch Coins for 20 seconds.</div><button class="btn" onclick="catchGame()">PLAY</button></div></section>`,"games")}

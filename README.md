@@ -1,17 +1,13 @@
-# LIX CITY v0.9
+# LIX CITY v0.10
 
-City interaction update.
+City composition and mobile layout fix.
 
-- Exact approved `lix.png` and `coin.png` assets are used.
-- Buildings in the city are now interactive.
-- House, Game Center and future buildings have entry panels.
-- Game Center can open the Games section.
-- City Coins are collectible and persist after collection.
-- Each city Coin gives +5 Coins once.
-- Lix movement and city scrolling are retained.
-- Pet follows Lix when enabled.
+- Uses the exact approved `lix.png` and `coin.png`.
+- Buildings are smaller and spaced around the city.
+- Roads form a clearer central intersection.
+- City elements no longer stack directly on top of each other.
+- Larger world remains scrollable on mobile.
+- Lix and Pet movement are retained.
+- Interactive buildings and collectible Coins are retained.
 
-Upload all 7 files:
-`index.html`, `style.css`, `app.js`, `README.md`, `lix.png`, `coin.png`, `cellix-logo.webp`.
-
-This remains a localStorage prototype; cloud save/server security comes later.
+Upload all 7 files from this package to GitHub.

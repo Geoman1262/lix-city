@@ -52,3 +52,31 @@
 .bh-store{left:60px;top:280px;width:200px;height:190px}.bh-park{left:60px;top:525px;width:200px;height:190px}.bh-energy{left:640px;top:525px;width:200px;height:190px}
 .collect-ring{position:absolute;z-index:8;pointer-events:none;width:68px;height:68px;border:3px solid #fff;border-radius:50%;animation:ring .5s ease-out forwards}
 @keyframes ring{to{transform:scale(1.7);opacity:0}}
+
+/* v0.10 city composition fix */
+.city-viewport{height:560px;overflow:auto;overflow-x:auto;overflow-y:auto}
+.city-world{width:1100px;height:820px;background:linear-gradient(#91d8ff 0 34%,#83c979 34% 100%)}
+.city-world .road-h{top:405px;height:76px}
+.city-world .road-v{top:190px;left:590px;width:76px}
+.city-world .road-h:after{top:36px}
+.city-world .road-v:after{left:36px}
+.city-building{width:150px;height:118px}
+.city-building .roof{top:-27px;height:43px}
+.city-building .window{width:23px;height:27px;top:28px!important}
+.city-building .door{width:34px;height:47px;left:calc(50% - 17px)}
+.city-building .label{font-size:12px;bottom:6px}
+.b-house{left:105px;top:105px}
+.b-center{left:780px;top:115px}
+.b-store{left:100px;top:555px}
+.b-park{left:790px;top:555px}
+.b-energy{left:425px;top:620px}
+.bh-house{left:85px;top:85px;width:190px;height:160px}
+.bh-center{left:760px;top:95px;width:190px;height:160px}
+.bh-store{left:80px;top:535px;width:190px;height:160px}
+.bh-park{left:770px;top:535px;width:190px;height:160px}
+.bh-energy{left:405px;top:600px;width:190px;height:160px}
+.wt1{left:350px;top:110px}.wt2{left:950px;top:300px}.wt3{left:340px;top:625px}.wt4{left:720px;top:690px}.wt5{left:20px;top:350px}
+.wl1{left:500px;top:365px}.wl2{left:665px;top:365px}.wl3{left:540px;top:470px}.wl4{left:635px;top:470px}
+.wc1{left:350px;top:260px}.wc2{left:680px;top:300px}.wc3{left:285px;top:470px}.wc4{left:850px;top:450px}.wc5{left:530px;top:700px}
+.ws1{left:410px;top:320px}.ws2{left:625px;top:320px}
+.world-lix{width:78px}
