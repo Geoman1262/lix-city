@@ -54,8 +54,8 @@ function openBuilding(type){
     energy:[8,"⚡ Energy Station","A future place to manage Energy.","Unlocks at Player Level 8.","energy"]
   }[type];
   const [lv,title,desc,foot,action]=cfg;
-  if(S.level<lv){p.innerHTML=`<button class="close" onclick="closeCityPanel()">×</button><h3>${title}</h3><p>🔒 ${foot}</p>`;p.classList.add("show");return}
-  p.innerHTML=`<button class="close" onclick="closeCityPanel()">×</button><h3>${title}</h3><p>${desc}</p><p>${foot}</p><button class="btn" onclick="${action==="games"?"show('games')":"toast('✨ More content is coming to this building!')};closeCityPanel()">ENTER</button>`;
+  const enterAction=action==="games"?"show('games')":"toast('✨ More content is coming to this building!')";
+  p.innerHTML=`<button class="close" onclick="closeCityPanel()">×</button><h3>${title}</h3><p>${desc}</p><p>${foot}</p><button class="btn" onclick="${enterAction};closeCityPanel()">ENTER</button>`;
   p.classList.add("show");
 }
 function closeCityPanel(){document.getElementById("cityPanel")?.classList.remove("show")}
