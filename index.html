@@ -152,55 +152,66 @@ window.addEventListener('error',function(e){try{var a=document.getElementById('a
 const SAVE_KEY = "lixcity_player_save_v1";
 const LEGACY_KEYS = ["lixcity_v10","lixcity_v09","lixcity_v06","lixcity_v05","lixcity_v04","lixcity_v03","lixcity_v02","lixcity_save_v1","lixcity_player_save","lixcity_player_save_v2"];
 const BACKUP_KEY = "lixcity_player_save_backup_v1";
-const D={level:1,xp:0,coins:250,tickets:0,energy:10,maxEnergy:10,lastEnergyAt:Date.now(),nextEnergyAt:0,house:1,pet:1,petPlayed:0,lastSpin:0,streakDay:0,lastStreakClaim:0,game:{target:1,runner:1,catch:1},gameUp:{target:1,runner:1,catch:1},missions:[{t:"Play any game",xp:40,done:false,progress:0,target:1},{t:"Earn 50 Coins",xp:40,done:false,progress:0,target:50},{t:"Finish Lix Target",xp:50,done:false,progress:0,target:1},{t:"Feed & play with your Pet",xp:50,done:false,progress:0,target:1},{t:"Visit your City",xp:30,done:false,progress:0,target:1}],missionResetAt:Date.now(),missionRefreshes:0,missionRefreshResetAt:Date.now(),city:{x:43,y:48,pet:false,collected:[]},custom:{owned:[],equipped:{shirt:"default",shoe:"default",acc:"none"},home:[]},petData:{type:"dog",name:"Lix Pet",happiness:50,food:0,toys:0,petXP:0,petLevel:1,lastPlay:0,active:true,owned:["dog"]},playerId:"LIX-"+Math.random().toString(36).slice(2,8).toUpperCase(),nickname:"Lix Player",country:"Lebanon",likes:0,visits:{},likedCities:{}};
+const D={level:1,xp:0,coins:250,tickets:0,energy:10,maxEnergy:10,lastEnergyAt:Date.now(),nextEnergyAt:0,house:1,pet:1,petPlayed:0,lastSpin:0,streakDay:0,lastStreakClaim:0,game:{target:1,runner:1,catch:1},gameUp:{target:1,runner:1,catch:1},missions:[],missionResetAt:Date.now(),missionRefreshes:0,missionRefreshResetAt:Date.now(),city:{x:50,y:50,pet:true,collected:[]},petData:{type:"dog",name:"Lix Pet",food:0,toys:0,petXP:0,petLevel:1,lastPlay:0,active:true,owned:["dog"]},playerId:"LIX-"+Math.random().toString(36).slice(2,8).toUpperCase(),nickname:"Lix Player",country:"Lebanon",likes:0,visits:{},likedCities:{}};
 function cloneD(){return JSON.parse(JSON.stringify(D))}
 function readState(k){try{const raw=localStorage.getItem(k);return raw?JSON.parse(raw):null}catch(e){return null}}
 function normalizeState(raw){
   const s={...cloneD(),...(raw&&typeof raw==='object'?raw:{})};
   s.level=Math.max(1,Number(s.level)||1); s.xp=Math.max(0,Number(s.xp)||0); s.coins=Math.max(0,Number(s.coins)||0);
   s.tickets=Math.max(0,Number(s.tickets)||0); s.maxEnergy=Math.max(10,Number(s.maxEnergy)||10);
-  s.energy=Math.max(0,Math.min(s.maxEnergy,Number(s.energy) || 0));
-  s.lastEnergyAt=Number(s.lastEnergyAt)||Date.now();
-  s.nextEnergyAt=Number(s.nextEnergyAt)||0;
-  if(s.energy>=s.maxEnergy){s.nextEnergyAt=0;}
-  else if(!Number.isFinite(s.nextEnergyAt)||s.nextEnergyAt<=0){s.nextEnergyAt=s.lastEnergyAt+900000;}
-  s.house=Math.max(1,Number(s.house)||s.level);
-  s.pet=Math.max(1,Number(s.pet)||1); s.petPlayed=Number(s.petPlayed)||0; s.petData=s.petData||{type:"dog",name:"Lix Pet",happiness:50,food:0,toys:0,petXP:0,petLevel:s.pet||1,lastPlay:0,active:true,owned:["dog"]}; s.petData.name=String(s.petData.name||"Lix Pet"); s.petData.happiness=Math.max(0,Math.min(100,Number(s.petData.happiness)||50)); s.petData.petLevel=Math.max(1,Math.min(10,Number(s.petData.petLevel)||s.pet||1)); s.petData.petXP=Math.max(0,Number(s.petData.petXP)||0); s.petData.food=Math.max(0,Number(s.petData.food)||0); s.petData.toys=Math.max(0,Number(s.petData.toys)||0); s.petData.owned=Array.isArray(s.petData.owned)?s.petData.owned:["dog"]; s.petData.active=s.petData.active!==false; s.lastSpin=Number(s.lastSpin)||0; s.streakDay=Math.max(0,Math.min(7,Number(s.streakDay)||0)); s.lastStreakClaim=Number(s.lastStreakClaim)||0;
-  s.game={...D.game,...(s.game||{})}; s.gameUp={...D.gameUp,...(s.gameUp||{})};
-  s.missionResetAt=Number(s.missionResetAt)||Date.now();
+  s.energy=Math.max(0,Math.min(s.maxEnergy,Number(s.energy)||0));
+  s.lastEnergyAt=Number(s.lastEnergyAt)||Date.now(); s.nextEnergyAt=Number(s.nextEnergyAt)||0;
+  if(s.energy>=s.maxEnergy)s.nextEnergyAt=0;
+  s.house=Math.max(1,Number(s.house)||s.level||1);
+  s.game=s.game&&typeof s.game==="object"?s.game:{target:1,runner:1,catch:1};
+  s.gameUp=s.gameUp&&typeof s.gameUp==="object"?s.gameUp:{target:1,runner:1,catch:1};
   s.missions=Array.isArray(s.missions)?s.missions:cloneD().missions;
-  s.missionRefreshes=Math.max(0,Number(s.missionRefreshes)||0);
-  s.missionRefreshResetAt=Number(s.missionRefreshResetAt)||Date.now();
-  if(Date.now()-s.missionRefreshResetAt>=86400000){s.missionRefreshes=0;s.missionRefreshResetAt=Date.now();}
-  const mt=cloneD().missions;
-  s.missions=s.missions.slice(0,5).map((m,i)=>({...mt[i],...(m||{}),progress:Number(m?.progress)||0,target:Number(m?.target)||mt[i].target,done:!!m?.done}));
-  while(s.missions.length<5) s.missions.push({...mt[s.missions.length]});
-  s.playerId=String(s.playerId||("LIX-"+Math.random().toString(36).slice(2,8).toUpperCase())); s.nickname=String(s.nickname||"Lix Player").slice(0,18); s.country=String(s.country||"Lebanon"); s.likes=Math.max(0,Number(s.likes)||0); s.visits=(s.visits&&typeof s.visits==="object")?s.visits:{}; s.likedCities=(s.likedCities&&typeof s.likedCities==="object")?s.likedCities:{}; s.events=(s.events&&typeof s.events==="object")?s.events:{}; s.events.launch=s.events.launch||{plays:0,coins:0,claimed:false};
-  s.city={...D.city,...(s.city||{})};
-  s.city.x=Number.isFinite(Number(s.city.x))?Number(s.city.x):43; s.city.y=Number.isFinite(Number(s.city.y))?Number(s.city.y):48;
+  s.city=s.city&&typeof s.city==="object"?s.city:{x:50,y:50,pet:true,collected:[]};
+  s.city.x=Number.isFinite(Number(s.city.x))?Number(s.city.x):50; s.city.y=Number.isFinite(Number(s.city.y))?Number(s.city.y):50;
   s.city.pet=!!s.city.pet; s.city.collected=Array.isArray(s.city.collected)?s.city.collected:[];
   return s;
 }
-function scoreState(s){return (Number(s?.level)||1)*100000000 + (Number(s?.xp)||0)*1000 + (Number(s?.coins)||0) + (Number(s?.tickets)||0)*100000;}
-let S=readState(SAVE_KEY);
-// Safe recovery: never replace a meaningful existing save with the default state.
-// If the current save looks like a fresh account, check backup and all known legacy keys.
-const currentCandidate = S ? normalizeState(S) : null;
-const candidates = [
-  currentCandidate,
-  readState(BACKUP_KEY),
-  ...LEGACY_KEYS.map(readState)
-].filter(Boolean).map(normalizeState);
-const meaningful = candidates.filter(x => (Number(x.level)||1)>1 || (Number(x.xp)||0)>0 || (Number(x.coins)||0)>250 || (Number(x.tickets)||0)>0 || (Number(x.house)||1)>1);
-S = (meaningful.length ? meaningful : candidates).sort((a,b)=>scoreState(b)-scoreState(a))[0] || cloneD();
+function scoreState(s){
+  return (Number(s?.level)||1)*100000000+(Number(s?.xp)||0)*1000+(Number(s?.coins)||0)+(Number(s?.tickets)||0)*100000+(Number(s?.house)||1)*10000;
+}
+function isGameSave(x){
+  return !!(x&&typeof x==="object" &&
+    (Object.prototype.hasOwnProperty.call(x,"level")||Object.prototype.hasOwnProperty.call(x,"xp")) &&
+    (Object.prototype.hasOwnProperty.call(x,"coins")||Object.prototype.hasOwnProperty.call(x,"energy")) &&
+    (Object.prototype.hasOwnProperty.call(x,"house")||x.game||x.gameUp));
+}
+
+/* SAVE RECOVERY:
+   Scan the current save, backup, known old keys, and any localStorage entries
+   that look like a LIX CITY save. Never replace a stronger save with defaults. */
+const candidates=[];
+function addCandidate(raw,key){
+  if(!isGameSave(raw))return;
+  const n=normalizeState(raw);
+  candidates.push({key,state:n,score:scoreState(n)});
+}
+addCandidate(readState(SAVE_KEY),SAVE_KEY);
+addCandidate(readState(BACKUP_KEY),BACKUP_KEY);
+LEGACY_KEYS.forEach(k=>addCandidate(readState(k),k));
+try{
+  for(let i=0;i<localStorage.length;i++){
+    const k=localStorage.key(i);
+    if(!k||k===SAVE_KEY||k===BACKUP_KEY||LEGACY_KEYS.includes(k))continue;
+    const raw=readState(k);
+    if(raw&&isGameSave(raw))addCandidate(raw,k);
+  }
+}catch(e){}
+
+candidates.sort((a,b)=>b.score-a.score);
+S=(candidates.length?candidates[0].state:cloneD());
 S=normalizeState(S);
-resetDailyMissionsIfNeeded();
+
 function save(){
   try{
     const old=localStorage.getItem(SAVE_KEY);
-    if(old) localStorage.setItem(BACKUP_KEY,old);
+    if(old && old!==JSON.stringify(S)) localStorage.setItem(BACKUP_KEY,old);
     localStorage.setItem(SAVE_KEY,JSON.stringify(S));
-  }catch(e){ console.warn('LIX CITY save failed',e); }
+  }catch(e){console.warn("LIX CITY save failed",e)}
 }
 save();
 function resetDailyMissionsIfNeeded(){const now=Date.now();if(now-S.missionResetAt>=86400000){S.missions=cloneD().missions.map(m=>({...m}));S.missionResetAt=now;save();return true}return false}
