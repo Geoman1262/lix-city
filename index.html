@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#1769e8">
 <meta name="version" content="LIX CITY v0.38 CELLIX SHOP TOP">
-<title>LIX CITY v0.53</title>
+<title>LIX CITY v0.54</title>
 <style>
 *{box-sizing:border-box}:root{--blue:#1769e8;--ink:#17243a;--muted:#68778a;--bg:#eef6ff;--line:#dce7f2}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif}button{font:inherit;border:0;cursor:pointer}.top{position:sticky;top:0;z-index:40;background:#fff;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand img{width:70px;max-height:35px;object-fit:contain}.stats{display:flex;gap:12px;font-weight:700;font-size:14px}.wrap{max-width:760px;margin:auto;padding:16px 16px 94px}.hero{background:linear-gradient(135deg,#1769e8,#4b94ef);border-radius:28px;color:#fff;padding:22px 18px;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:center}.hero h1{font-size:38px;line-height:1.05;margin:8px 0}.hero img{width:100%;max-height:300px;object-fit:contain}.card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:18px;margin-top:16px;box-shadow:0 5px 18px #233d5a0d}.title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.title h2{margin:0;font-size:22px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.tile{background:#f4f8fc;border-radius:20px;padding:16px;min-height:120px}.tile h3{margin:7px 0 3px}.tile small,.muted{color:var(--muted)}.btn.ghost{background:#fff;border:1px solid #d7e4ef;color:#17304b;padding:8px 10px;font-size:12px}.btn{background:var(--blue);color:#fff;border-radius:14px;padding:11px 16px;font-weight:700}.btn.alt{background:#e8f2ff;color:var(--blue)}.btn:disabled{opacity:.45}.row{display:flex;gap:10px;flex-wrap:wrap}.progress{height:12px;background:#e8eef5;border-radius:20px;overflow:hidden}.bar{height:100%;background:var(--blue);border-radius:20px}.mission{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 0;border-bottom:1px solid #edf1f5}.mission:last-child{border-bottom:0}.unlock{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #edf1f5}.unlock:last-child{border-bottom:0}.unlock b{font-size:15px}.badge{background:#e8f2ff;color:var(--blue);border-radius:999px;padding:5px 9px;font-size:12px;font-weight:700}.badge.now{background:#e7f7ed;color:#267342}
 
@@ -192,6 +192,30 @@
 .v53-action:disabled{opacity:.45}
 .v53-shop{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #e3edf5;border-radius:15px;padding:12px;margin-top:8px}
 .v53-shop .grow{flex:1}.v53-price{font-weight:900;color:#d49412}
+
+
+.v54{margin-top:16px;display:grid;gap:12px}
+.v54-card{background:linear-gradient(145deg,#fff,#f1f7ff);border:1px solid #d9e7f5;border-radius:21px;padding:15px}
+.v54-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.v54-head h3{margin:0;font-size:17px}.v54-muted{font-size:11px;color:#718096}
+.v54-road{display:grid;gap:8px}
+.v54-step{display:flex;align-items:center;gap:10px;padding:10px;border-radius:14px;background:#fff;border:1px solid #e4edf5}
+.v54-step .num{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#eaf4ff;color:#1688e5;font-weight:900}
+.v54-step .grow{flex:1}.v54-step small{display:block;color:#718096;margin-top:2px}
+.v54-city{height:230px;border-radius:18px;position:relative;overflow:hidden;background:linear-gradient(#bde8ff 0 42%,#8fd27d 42% 100%);border:1px solid #d5e6ef}
+.v54-roadx,.v54-roady{position:absolute;background:#687783}
+.v54-roadx{left:0;right:0;top:57%;height:38px}.v54-roady{top:0;bottom:0;left:50%;width:38px;transform:translateX(-50%)}
+.v54-house,.v54-center,.v54-park{position:absolute;display:grid;place-items:center;border-radius:14px;font-size:30px}
+.v54-house{left:10%;top:20%;width:82px;height:62px;background:#fff0dc}.v54-center{right:9%;top:18%;width:82px;height:62px;background:#dfe8ff}.v54-park{left:11%;bottom:12%;width:74px;height:56px;background:#bceaa9}
+.v54-lix{position:absolute;left:47%;top:45%;font-size:34px;animation:v54walk 3s ease-in-out infinite alternate}
+.v54-pet{position:absolute;left:57%;top:60%;font-size:23px;animation:v54pet 2.4s ease-in-out infinite alternate}
+@keyframes v54walk{from{transform:translateX(-18px)}to{transform:translateX(18px)}}@keyframes v54pet{from{transform:translateX(-8px)}to{transform:translateX(8px)}}
+.v54-collect{position:absolute;font-size:24px;animation:v54float 1.6s ease-in-out infinite alternate}
+.v54-c1{left:35%;top:22%}.v54-c2{right:25%;bottom:20%}
+@keyframes v54float{from{transform:translateY(0)}to{transform:translateY(-8px)}}
+.v54-housebox{display:flex;gap:12px;align-items:center}
+.v54-housebox .big{font-size:44px}.v54-housebox .grow{flex:1}
+.v54-bar{height:8px;background:#e5edf5;border-radius:99px;overflow:hidden;margin-top:8px}.v54-bar i{display:block;height:100%;background:#1688e5;border-radius:99px}
 
 </style>
 <link rel="manifest" href="manifest.json"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="LIX CITY"><script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));}</script></head>
@@ -769,6 +793,41 @@ document.addEventListener("click",e=>{const b=e.target.closest("#lixInstallButto
   };
   window.renderV53=renderV53;
   document.addEventListener("DOMContentLoaded",function(){setTimeout(renderV53,150);});
+})();
+</script>
+
+
+<div id="v54Bundle" class="v54"></div>
+<script>
+(function(){
+  const unlocks=[
+    [2,"🎮","Game Center","Play and upgrade your games"],
+    [4,"🏪","Cellix Store","Cellix offers and services"],
+    [7,"🌳","Lix Park","A new city area"],
+    [8,"⚡","Energy Station","Increase your Energy capacity"],
+    [12,"🛠️","Lix Workshop","Advanced city content"],
+    [15,"🏬","Lix Market","More city economy"],
+    [18,"🎨","Lix Studio","Advanced customization"],
+    [20,"🐾","Lix Stable","Pets and companions"],
+    [25,"🏙️","Lix Plaza","Major city expansion"],
+    [40,"🏆","Lix Arena","Endgame challenges"]
+  ];
+  function renderV54(){
+    const h=document.getElementById("v54Bundle");
+    if(!h||!window.S)return;
+    const lvl=Number(S.level)||1, house=Number(S.house)||lvl;
+    const pct=Math.min(100,((lvl%5)/5)*100);
+    h.innerHTML=
+      '<div class="v54-card"><div class="v54-head"><h3>🏙️ Lix City</h3><span class="v54-muted">House Lv.'+house+'</span></div>'+
+      '<div class="v54-city"><div class="v54-roadx"></div><div class="v54-roady"></div><div class="v54-house">🏠</div><div class="v54-center">🎮</div><div class="v54-park">🌳</div><div class="v54-lix">🤖</div><div class="v54-pet">🐶</div><div class="v54-collect v54-c1">🪙</div><div class="v54-collect v54-c2">🪙</div></div></div>'+
+      '<div class="v54-card"><div class="v54-head"><h3>🏠 House Progress</h3><span class="v54-muted">Level '+house+'</span></div>'+
+      '<div class="v54-housebox"><div class="big">🏠</div><div class="grow"><b>Next House Evolution</b><div class="v54-muted">House changes visually every 5 levels</div><div class="v54-bar"><i style="width:'+pct+'%"></i></div></div></div></div>'+
+      '<div class="v54-card"><div class="v54-head"><h3>🔓 City Roadmap</h3><span class="v54-muted">Your next unlocks</span></div><div class="v54-road">'+
+      unlocks.slice(0,6).map(u=>'<div class="v54-step"><div class="num">'+u[0]+'</div><div class="grow"><b>'+u[1]+' '+u[2]+'</b><small>'+u[3]+'</small></div><span>'+(lvl>=u[0]?'✓':'🔒')+'</span></div>').join('')+
+      '</div></div>';
+  }
+  window.renderV54=renderV54;
+  document.addEventListener("DOMContentLoaded",function(){setTimeout(renderV54,200);});
 })();
 </script>
 
