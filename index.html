@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#1769e8">
 <meta name="version" content="LIX CITY v0.38 CELLIX SHOP TOP">
-<title>LIX CITY v0.54</title>
+<title>LIX CITY v0.55</title>
 <style>
 *{box-sizing:border-box}:root{--blue:#1769e8;--ink:#17243a;--muted:#68778a;--bg:#eef6ff;--line:#dce7f2}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif}button{font:inherit;border:0;cursor:pointer}.top{position:sticky;top:0;z-index:40;background:#fff;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand img{width:70px;max-height:35px;object-fit:contain}.stats{display:flex;gap:12px;font-weight:700;font-size:14px}.wrap{max-width:760px;margin:auto;padding:16px 16px 94px}.hero{background:linear-gradient(135deg,#1769e8,#4b94ef);border-radius:28px;color:#fff;padding:22px 18px;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:center}.hero h1{font-size:38px;line-height:1.05;margin:8px 0}.hero img{width:100%;max-height:300px;object-fit:contain}.card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:18px;margin-top:16px;box-shadow:0 5px 18px #233d5a0d}.title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.title h2{margin:0;font-size:22px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.tile{background:#f4f8fc;border-radius:20px;padding:16px;min-height:120px}.tile h3{margin:7px 0 3px}.tile small,.muted{color:var(--muted)}.btn.ghost{background:#fff;border:1px solid #d7e4ef;color:#17304b;padding:8px 10px;font-size:12px}.btn{background:var(--blue);color:#fff;border-radius:14px;padding:11px 16px;font-weight:700}.btn.alt{background:#e8f2ff;color:var(--blue)}.btn:disabled{opacity:.45}.row{display:flex;gap:10px;flex-wrap:wrap}.progress{height:12px;background:#e8eef5;border-radius:20px;overflow:hidden}.bar{height:100%;background:var(--blue);border-radius:20px}.mission{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 0;border-bottom:1px solid #edf1f5}.mission:last-child{border-bottom:0}.unlock{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #edf1f5}.unlock:last-child{border-bottom:0}.unlock b{font-size:15px}.badge{background:#e8f2ff;color:var(--blue);border-radius:999px;padding:5px 9px;font-size:12px;font-weight:700}.badge.now{background:#e7f7ed;color:#267342}
 
@@ -216,6 +216,22 @@
 .v54-housebox{display:flex;gap:12px;align-items:center}
 .v54-housebox .big{font-size:44px}.v54-housebox .grow{flex:1}
 .v54-bar{height:8px;background:#e5edf5;border-radius:99px;overflow:hidden;margin-top:8px}.v54-bar i{display:block;height:100%;background:#1688e5;border-radius:99px}
+
+
+.v55{margin-top:16px;display:grid;gap:12px}
+.v55-card{background:linear-gradient(145deg,#fff,#f1f7ff);border:1px solid #d9e7f5;border-radius:21px;padding:15px}
+.v55-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}
+.v55-head h3{margin:0;font-size:17px}.v55-muted{font-size:11px;color:#718096}
+.v55-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.v55-box{padding:12px;border-radius:15px;background:#fff;border:1px solid #e3edf5}
+.v55-box b{display:block;margin-bottom:4px}.v55-box small{color:#718096}
+.v55-btn{width:100%;border:0;border-radius:11px;padding:10px;margin-top:9px;background:#1688e5;color:#fff;font-weight:900}
+.v55-btn.alt{background:#eaf4ff;color:#1676c9}.v55-btn.gold{background:#d99b16}
+.v55-list{display:grid;gap:7px}.v55-row{display:flex;align-items:center;gap:10px;padding:10px;border-radius:13px;background:#fff;border:1px solid #e5edf5}
+.v55-row .grow{flex:1}.v55-rank{font-weight:900;width:26px}.v55-tag{font-size:10px;font-weight:900;padding:5px 7px;border-radius:9px;background:#eaf4ff;color:#1676c9}
+.v55-citymini{height:150px;border-radius:17px;position:relative;overflow:hidden;background:linear-gradient(#bce8ff 0 43%,#8fd27d 43%);border:1px solid #d5e6ef}
+.v55-citymini:before,.v55-citymini:after{content:"";position:absolute;background:#667783}.v55-citymini:before{left:0;right:0;top:58%;height:27px}.v55-citymini:after{top:0;bottom:0;left:51%;width:27px}
+.v55-citymini .h{position:absolute;left:9%;top:20%;font-size:35px}.v55-citymini .g{position:absolute;right:9%;top:20%;font-size:35px}.v55-citymini .l{position:absolute;left:46%;top:48%;font-size:31px}.v55-citymini .p{position:absolute;left:57%;top:63%;font-size:21px}
 
 </style>
 <link rel="manifest" href="manifest.json"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="LIX CITY"><script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));}</script></head>
@@ -828,6 +844,102 @@ document.addEventListener("click",e=>{const b=e.target.closest("#lixInstallButto
   }
   window.renderV54=renderV54;
   document.addEventListener("DOMContentLoaded",function(){setTimeout(renderV54,200);});
+})();
+</script>
+
+
+<div id="v55Bundle" class="v55"></div>
+<script>
+(function(){
+  const eventDays=3;
+  function ensure(){
+    if(!window.S)return;
+    S.v55=S.v55||{};
+    S.v55.eventPoints=Number(S.v55.eventPoints)||0;
+    S.v55.cityCoins=Number(S.v55.cityCoins)||0;
+    S.v55.likes=Number(S.v55.likes)||0;
+    S.v55.visitedToday=S.v55.visitedToday||false;
+    S.v55.petPlayedToday=S.v55.petPlayedToday||false;
+    S.v55.decor=S.v55.decor||[];
+    S.v55.clothes=S.v55.clothes||[];
+  }
+  function render(){
+    const h=document.getElementById("v55Bundle"); if(!h||!window.S)return;
+    ensure();
+    const lvl=Number(S.level)||1, coins=Number(S.coins)||0;
+    const e=Number(S.v55.eventPoints)||0;
+    const cityCoins=Number(S.v55.cityCoins)||0;
+    const pet=S.petData||{name:"Lix Pet",petLevel:1};
+    const petLv=Number(pet.petLevel)||1;
+    const top=[
+      ["🥇","LixPro","12,840"],
+      ["🥈","CityMaster","10,950"],
+      ["🥉","BlueLix","9,740"],
+      ["4","LixFan","8,420"],
+      ["5","LixStar","7,980"]
+    ];
+    const eventTarget=500;
+    const ep=Math.min(100,Math.round(e/eventTarget*100));
+    h.innerHTML=
+      '<div class="v55-card"><div class="v55-head"><h3>🌟 Monthly Event</h3><span class="v55-tag">LIVE</span></div>'+
+      '<div class="v55-muted">Lix City Festival • '+eventDays+' days remaining</div>'+
+      '<div style="height:8px;background:#e5edf5;border-radius:99px;overflow:hidden;margin:10px 0"><i style="display:block;height:100%;width:'+ep+'%;background:#d99b16;border-radius:99px"></i></div>'+
+      '<div class="v55-grid"><div class="v55-box"><b>🏆 '+e+'</b><small>Event Points</small></div><div class="v55-box"><b>🎁 500</b><small>Next reward</small></div></div>'+
+      '<button class="v55-btn gold" onclick="v55Event()">CLAIM EVENT POINTS</button></div>'+
+
+      '<div class="v55-card"><div class="v55-head"><h3>🏆 Leaderboard</h3><span class="v55-tag">Lv.10+</span></div>'+
+      '<div class="v55-list">'+top.map((x,i)=>'<div class="v55-row"><span class="v55-rank">'+x[0]+'</span><div class="grow"><b>'+x[1]+'</b><small> Player ID: LIX-'+(1000+i)+'</small></div><span class="v55-tag">'+x[2]+'</span></div>').join('')+
+      '</div><button class="v55-btn alt" onclick="v55Leaderboard()">VIEW FULL LEADERBOARD</button></div>'+
+
+      '<div class="v55-card"><div class="v55-head"><h3>🌍 Social City</h3><span class="v55-muted">'+(lvl>=30?'Unlocked':'Unlock at Lv.30')+'</span></div>'+
+      '<div class="v55-citymini"><span class="h">🏠</span><span class="g">🎮</span><span class="l">🤖</span><span class="p">🐶</span></div>'+
+      '<div class="v55-grid" style="margin-top:9px"><div class="v55-box"><b>❤️ '+Number(S.v55.likes)+'</b><small>Likes received</small></div><div class="v55-box"><b>⭐ +25 XP</b><small>Visit reward</small></div></div>'+
+      '<button class="v55-btn" '+(lvl>=30?'':'disabled')+' onclick="v55Visit()">VISIT A CITY</button></div>'+
+
+      '<div class="v55-card"><div class="v55-head"><h3>🐾 Pet Daily Care</h3><span class="v55-tag">Lv.'+petLv+'</span></div>'+
+      '<div class="v55-grid"><div class="v55-box"><b>🍖 Food</b><small>Feed your pet</small><button class="v55-btn" onclick="v55Pet(20,\\'food\\')">20 🪙</button></div>'+
+      '<div class="v55-box"><b>🎾 Play</b><small>+Energy once/day</small><button class="v55-btn" onclick="v55Pet(100,\\'play\\')">100 🪙</button></div></div></div>'+
+
+      '<div class="v55-card"><div class="v55-head"><h3>🎨 City & Home</h3><span class="v55-muted">'+(S.v55.decor.length)+' items</span></div>'+
+      '<div class="v55-grid"><div class="v55-box"><b>🌳 Tree</b><small>300 Coins</small><button class="v55-btn" onclick="v55Decor(300,\\'tree\\')">BUY</button></div>'+
+      '<div class="v55-box"><b>💡 Lamp</b><small>450 Coins</small><button class="v55-btn" onclick="v55Decor(450,\\'lamp\\')">BUY</button></div>'+
+      '<div class="v55-box"><b>🪑 Sofa</b><small>800 Coins</small><button class="v55-btn" onclick="v55Decor(800,\\'sofa\\')">BUY</button></div>'+
+      '<div class="v55-box"><b>🖼️ Art</b><small>1200 Coins</small><button class="v55-btn" onclick="v55Decor(1200,\\'art\\')">BUY</button></div></div></div>';
+  }
+  window.v55Event=function(){
+    ensure(); S.v55.eventPoints+=25; S.xp=(Number(S.xp)||0)+20;
+    if(typeof save==="function")save(); render();
+    if(typeof toast==="function")toast("🌟 +25 Event Points • +20 XP");
+  };
+  window.v55Leaderboard=function(){ if(typeof toast==="function")toast("🏆 Global + Country leaderboards unlock at Level 10."); };
+  window.v55Visit=function(){
+    ensure(); if(Number(S.level)<30)return;
+    if(S.v55.visitedToday){if(typeof toast==="function")toast("You already visited a city today.");return;}
+    S.v55.visitedToday=true; S.xp=(Number(S.xp)||0)+25;
+    if(typeof save==="function")save(); render();
+    if(typeof toast==="function")toast("🌍 City visited • +25 XP");
+  };
+  window.v55Pet=function(cost,type){
+    ensure(); if((Number(S.coins)||0)<cost){if(typeof toast==="function")toast("Not enough Coins");return;}
+    S.coins-=cost; S.petData=S.petData||{name:"Lix Pet",petLevel:1};
+    if(type==="food"){S.petData.food=(Number(S.petData.food)||0)+1; S.petData.petLevel=Math.min(10,(Number(S.petData.petLevel)||1)+1);}
+    else{
+      if(!S.v55.petPlayedToday){
+        S.v55.petPlayedToday=true; S.energy=Math.min(Number(S.maxEnergy)||10,(Number(S.energy)||0)+1);
+        S.xp=(Number(S.xp)||0)+25;
+      }
+      S.petData.toys=(Number(S.petData.toys)||0)+1;
+    }
+    if(typeof save==="function")save(); render();
+    if(typeof toast==="function")toast(type==="food"?"🍖 Pet fed!":"🎾 Pet care complete!");
+  };
+  window.v55Decor=function(cost,item){
+    ensure(); if((Number(S.coins)||0)<cost){if(typeof toast==="function")toast("Not enough Coins");return;}
+    S.coins-=cost; S.v55.decor.push(item); S.xp=(Number(S.xp)||0)+Math.min(50,Math.round(cost/25));
+    if(typeof save==="function")save(); render();
+    if(typeof toast==="function")toast("✨ "+item+" added to your city!");
+  };
+  document.addEventListener("DOMContentLoaded",function(){setTimeout(render,250);});
 })();
 </script>
 
