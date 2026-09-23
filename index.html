@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#1769e8">
 <meta name="version" content="LIX CITY v0.38 CELLIX SHOP TOP">
-<title>LIX CITY v0.58</title>
+<title>LIX CITY v0.59</title>
 <style>
 *{box-sizing:border-box}:root{--blue:#1769e8;--ink:#17243a;--muted:#68778a;--bg:#eef6ff;--line:#dce7f2}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif}button{font:inherit;border:0;cursor:pointer}.top{position:sticky;top:0;z-index:40;background:#fff;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand img{width:70px;max-height:35px;object-fit:contain}.stats{display:flex;gap:12px;font-weight:700;font-size:14px}.wrap{max-width:760px;margin:auto;padding:16px 16px 94px}.hero{background:linear-gradient(135deg,#1769e8,#4b94ef);border-radius:28px;color:#fff;padding:22px 18px;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:center}.hero h1{font-size:38px;line-height:1.05;margin:8px 0}.hero img{width:100%;max-height:300px;object-fit:contain}.card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:18px;margin-top:16px;box-shadow:0 5px 18px #233d5a0d}.title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.title h2{margin:0;font-size:22px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.tile{background:#f4f8fc;border-radius:20px;padding:16px;min-height:120px}.tile h3{margin:7px 0 3px}.tile small,.muted{color:var(--muted)}.btn.ghost{background:#fff;border:1px solid #d7e4ef;color:#17304b;padding:8px 10px;font-size:12px}.btn{background:var(--blue);color:#fff;border-radius:14px;padding:11px 16px;font-weight:700}.btn.alt{background:#e8f2ff;color:var(--blue)}.btn:disabled{opacity:.45}.row{display:flex;gap:10px;flex-wrap:wrap}.progress{height:12px;background:#e8eef5;border-radius:20px;overflow:hidden}.bar{height:100%;background:var(--blue);border-radius:20px}.mission{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 0;border-bottom:1px solid #edf1f5}.mission:last-child{border-bottom:0}.unlock{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #edf1f5}.unlock:last-child{border-bottom:0}.unlock b{font-size:15px}.badge{background:#e8f2ff;color:var(--blue);border-radius:999px;padding:5px 9px;font-size:12px;font-weight:700}.badge.now{background:#e7f7ed;color:#267342}
 
@@ -265,6 +265,21 @@
 .v58-module{padding:10px;border-radius:13px;background:#fff;border:1px solid #e3edf5;font-size:12px;font-weight:800}
 .v58-module small{display:block;color:#718096;font-weight:500;margin-top:2px}
 
+
+.v59{margin-top:16px;display:grid;gap:12px}
+.v59-card{background:linear-gradient(145deg,#fff,#f1f7ff);border:1px solid #d9e7f5;border-radius:21px;padding:15px}
+.v59-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}
+.v59-head h3{margin:0;font-size:17px}.v59-muted{font-size:11px;color:#718096}
+.v59-profile{display:flex;align-items:center;gap:12px}
+.v59-avatar{width:54px;height:54px;border-radius:50%;background:#eaf4ff;display:grid;place-items:center;font-size:29px}
+.v59-profile .grow{flex:1}.v59-id{font-size:10px;color:#718096;margin-top:3px}
+.v59-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.v59-box{padding:11px;border-radius:14px;background:#fff;border:1px solid #e3edf5}
+.v59-box b{display:block}.v59-box small{color:#718096}
+.v59-bar{height:8px;background:#e5edf5;border-radius:99px;overflow:hidden;margin-top:8px}.v59-bar i{display:block;height:100%;background:#1688e5}
+.v59-list{display:grid;gap:7px}.v59-row{display:flex;gap:10px;align-items:center;padding:10px;border-radius:13px;background:#fff;border:1px solid #e5edf5}
+.v59-row .grow{flex:1}.v59-badge{font-size:10px;font-weight:900;padding:5px 7px;border-radius:9px;background:#eaf4ff;color:#1676c9}
+
 </style>
 <link rel="manifest" href="manifest.json"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="LIX CITY"><script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));}</script><script src="save.js" defer></script>
 <script src="games.js" defer></script>
@@ -275,6 +290,10 @@
 <script src="leaderboard.js" defer></script>
 <script src="shop.js" defer></script>
 <script src="achievements.js" defer></script>
+<script src="profile.js" defer></script>
+<script src="progression.js" defer></script>
+<script src="rewards.js" defer></script>
+<script src="notifications.js" defer></script>
 </head>
 <body>
 <div id="app"><main style="font-family:Arial,sans-serif;padding:28px;text-align:center;color:#123"><h2>🏙️ LIX CITY</h2><p>Loading…</p></main></div>
@@ -1102,6 +1121,48 @@ document.addEventListener("click",e=>{const b=e.target.closest("#lixInstallButto
     <div class="v58-module">🏅 Achievements<small>achievements.js</small></div>
   </div>
 </div>
+
+
+<div id="v59Bundle" class="v59"></div>
+<script>
+(function(){
+  function render(){
+    const h=document.getElementById("v59Bundle");
+    if(!h||!window.S)return;
+    if(window.LixProfile)LixProfile.ensure();
+    const p=window.LixProfile?LixProfile.get():{nickname:"Lix Player",playerId:"LIX-PLAYER"};
+    const lvl=Number(S.level)||1,xp=Number(S.xp)||0,coins=Number(S.coins)||0;
+    const energy=Number(S.energy)||0,maxEnergy=Number(S.maxEnergy)||10;
+    const next=window.LixProgression?LixProgression.nextUnlock():[50,"Prestige"];
+    const nextLevelXP=Math.max(500,500+Math.max(0,lvl-1)*390);
+    const pct=Math.min(100,Math.round(xp/nextLevelXP*100));
+    const unread=window.LixNotifications?LixNotifications.unread():0;
+    const notes=window.LixNotifications?LixNotifications.list().slice(0,4):[];
+    h.innerHTML=
+      '<div class="v59-card"><div class="v59-head"><h3>👤 Player Profile</h3><span class="v59-badge">Lv.'+lvl+'</span></div>'+
+      '<div class="v59-profile"><div class="v59-avatar">🤖</div><div class="grow"><b>'+p.nickname+'</b><div class="v59-id">Player ID: '+p.playerId+'</div></div></div>'+
+      '<div class="v59-grid" style="margin-top:10px"><div class="v59-box"><b>⭐ '+xp+'</b><small>XP</small></div><div class="v59-box"><b>🪙 '+coins+'</b><small>Coins</small></div><div class="v59-box"><b>⚡ '+energy+'/'+maxEnergy+'</b><small>Energy</small></div><div class="v59-box"><b>🏠 '+(Number(S.house)||lvl)+'</b><small>House Level</small></div></div></div>'+
+
+      '<div class="v59-card"><div class="v59-head"><h3>🗺️ Progression</h3><span class="v59-badge">Next: Lv.'+next[0]+'</span></div>'+
+      '<b>'+xp+' / '+nextLevelXP+' XP</b><div class="v59-bar"><i style="width:'+pct+'%"></i></div>'+
+      '<div class="v59-row" style="margin-top:9px"><div class="grow"><b>Next Unlock</b><small class="v59-muted">'+next[1]+'</small></div><span class="v59-badge">Lv.'+next[0]+'</span></div></div>'+
+
+      '<div class="v59-card"><div class="v59-head"><h3>🔔 Notifications</h3><span class="v59-badge">'+unread+' new</span></div>'+
+      (notes.length?'<div class="v59-list">'+notes.map(n=>'<div class="v59-row"><div class="grow"><b>'+String(n.title||"Lix City").replace(/</g,"&lt;")+'</b><small>'+String(n.message||"New update").replace(/</g,"&lt;")+'</small></div></div>').join('')+'</div>':'<div class="v59-muted">No new notifications.</div>')+
+      '</div>';
+  }
+  window.renderV59=render;
+  document.addEventListener("DOMContentLoaded",function(){
+    setTimeout(function(){
+      if(window.LixProfile)LixProfile.ensure();
+      if(window.LixNotifications && LixNotifications.list().length===0){
+        LixNotifications.push("Welcome to LIX CITY","Your city journey continues. New systems are ready.");
+      }
+      render();
+    },350);
+  });
+})();
+</script>
 
 </body>
 </html>

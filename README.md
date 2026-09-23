@@ -23,3 +23,6 @@ Open the GitHub Pages URL. On supported Android browsers use **Add to Home scree
 Core systems are separated into feature modules:
 save.js, games.js, city.js, pets.js, missions.js, events.js, leaderboard.js, shop.js, achievements.js.
 The existing save/recovery logic remains the source of truth.
+
+## v0.59 Progression Layer
+Added profile.js, progression.js, rewards.js, notifications.js and integrated profile/progression/notification UI.
