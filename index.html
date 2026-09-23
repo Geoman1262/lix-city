@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#1769e8">
 <meta name="version" content="LIX CITY v0.38 CELLIX SHOP TOP">
-<title>LIX CITY v0.50</title>
+<title>LIX CITY v0.51</title>
 <style>
 *{box-sizing:border-box}:root{--blue:#1769e8;--ink:#17243a;--muted:#68778a;--bg:#eef6ff;--line:#dce7f2}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif}button{font:inherit;border:0;cursor:pointer}.top{position:sticky;top:0;z-index:40;background:#fff;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand img{width:70px;max-height:35px;object-fit:contain}.stats{display:flex;gap:12px;font-weight:700;font-size:14px}.wrap{max-width:760px;margin:auto;padding:16px 16px 94px}.hero{background:linear-gradient(135deg,#1769e8,#4b94ef);border-radius:28px;color:#fff;padding:22px 18px;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:center}.hero h1{font-size:38px;line-height:1.05;margin:8px 0}.hero img{width:100%;max-height:300px;object-fit:contain}.card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:18px;margin-top:16px;box-shadow:0 5px 18px #233d5a0d}.title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.title h2{margin:0;font-size:22px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.tile{background:#f4f8fc;border-radius:20px;padding:16px;min-height:120px}.tile h3{margin:7px 0 3px}.tile small,.muted{color:var(--muted)}.btn.ghost{background:#fff;border:1px solid #d7e4ef;color:#17304b;padding:8px 10px;font-size:12px}.btn{background:var(--blue);color:#fff;border-radius:14px;padding:11px 16px;font-weight:700}.btn.alt{background:#e8f2ff;color:var(--blue)}.btn:disabled{opacity:.45}.row{display:flex;gap:10px;flex-wrap:wrap}.progress{height:12px;background:#e8eef5;border-radius:20px;overflow:hidden}.bar{height:100%;background:var(--blue);border-radius:20px}.mission{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 0;border-bottom:1px solid #edf1f5}.mission:last-child{border-bottom:0}.unlock{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #edf1f5}.unlock:last-child{border-bottom:0}.unlock b{font-size:15px}.badge{background:#e8f2ff;color:var(--blue);border-radius:999px;padding:5px 9px;font-size:12px;font-weight:700}.badge.now{background:#e7f7ed;color:#267342}
 
@@ -155,6 +155,14 @@
 .gc-game .ico{font-size:28px;width:38px;text-align:center}.gc-game .info{flex:1}.gc-game .name{font-weight:900}.gc-game .meta{font-size:11px;color:#718096;margin-top:3px}
 .gc-game .play{border:0;border-radius:12px;padding:9px 12px;background:#1688e5;color:#fff;font-weight:800}
 .gc-up{font-size:11px;color:#1688e5;font-weight:800}
+
+
+.gc-upgrade-box{margin-top:12px;padding:13px;border-radius:16px;background:#fff;border:1px solid #e1ebf5}
+.gc-upgrade-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.gc-upgrade-head b{font-size:13px}.gc-upgrade-head span{font-size:11px;color:#718096}
+.gc-upgrade-actions{display:flex;gap:8px;flex-wrap:wrap}
+.gc-upgrade-actions button{border:0;border-radius:11px;padding:9px 11px;background:#1769e8;color:#fff;font-weight:800}
+.gc-upgrade-actions button:disabled{opacity:.45}
 
 </style>
 <link rel="manifest" href="manifest.json"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="LIX CITY"><script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));}</script></head>
@@ -572,6 +580,54 @@ document.addEventListener("click",e=>{const b=e.target.closest("#lixInstallButto
   if(typeof oldSave==="function"){
     window.save=function(){ const r=oldSave.apply(this,arguments); renderGameCenter(); return r; };
   }
+})();
+</script>
+
+<div id="gcUpgradeReal"></div>
+
+<script>
+(function(){
+  const upgradeCosts={target:[0,150,350,700,1200],runner:[0,150,350,700,1200],catch:[0,200,450,850,1400]};
+  const upgradeBonus=[0,5,10,15,20];
+  function renderGameUpgrades(){
+    const host=document.getElementById("gcUpgradeReal");
+    if(!host || !window.S) return;
+    const games=[
+      ["target","🎯","Target"],
+      ["runner","🏃","Runner"],
+      ["catch","🪙💣","Catch & Bomb"]
+    ];
+    host.innerHTML='<div class="gc-upgrade-box"><div class="gc-upgrade-head"><b>⚙️ Game Upgrades</b><span>Coins: 🪙 '+(Number(S.coins)||0)+'</span></div>'+
+      games.map(g=>{
+        const lv=Math.max(1,Number(S.gameUp?.[g[0]])||1);
+        const next=Math.min(5,lv+1);
+        const max=lv>=5;
+        const cost=max?0:(upgradeCosts[g[0]][lv]||0);
+        const can=!max&&(Number(S.coins)||0)>=cost;
+        return '<div class="gc-upgrade-actions" style="margin-bottom:8px;align-items:center">'+
+          '<span style="min-width:110px;font-size:12px;font-weight:800">'+g[1]+' '+g[2]+' Lv.'+lv+'</span>'+
+          '<button '+(can?'':'disabled')+' onclick="upgradeLixGame(\\''+g[0]+'\\')">'+
+          (max?'MAX • +20%':'Upgrade → Lv.'+next+' • '+cost+' 🪙')+
+          '</button></div>';
+      }).join('')+'</div>';
+  }
+  window.upgradeLixGame=function(key){
+    const costs=upgradeCosts[key];
+    if(!window.S || !costs) return;
+    const lv=Math.max(1,Number(S.gameUp?.[key])||1);
+    if(lv>=5) return;
+    const cost=costs[lv]||0;
+    if((Number(S.coins)||0)<cost){ if(typeof toast==="function") toast("Not enough Coins"); return; }
+    S.coins-=cost;
+    S.gameUp=S.gameUp||{};
+    S.gameUp[key]=lv+1;
+    if(typeof save==="function") save();
+    if(typeof renderGameCenter==="function") renderGameCenter();
+    renderGameUpgrades();
+    if(typeof toast==="function") toast("⚙️ "+key+" upgraded to Lv."+ (lv+1));
+  };
+  window.renderGameUpgrades=renderGameUpgrades;
+  document.addEventListener("DOMContentLoaded",renderGameUpgrades);
 })();
 </script>
 
