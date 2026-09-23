@@ -204,7 +204,32 @@ try{
 
 candidates.sort((a,b)=>b.score-a.score);
 S=(candidates.length?candidates[0].state:cloneD());
+
 S=normalizeState(S);
+
+/* ONE-TIME RECOVERY SEED
+   Restores the last confirmed playable state if the previous save was lost.
+   It is only used when the current recovered save is still a fresh Level-1
+   default. Once used, it is marked so later launches never reset progress. */
+const RECOVERY_SEED_KEY="lixcity_recovery_seed_v1";
+try{
+  const seeded=localStorage.getItem(RECOVERY_SEED_KEY);
+  const isFreshLevel1 = (Number(S.level)||1)===1 &&
+                        (Number(S.xp)||0)===0 &&
+                        (Number(S.coins)||0)<=250;
+  if(!seeded && isFreshLevel1){
+    S.level=2;
+    S.house=2;
+    S.xp=432;
+    S.coins=236;
+    S.energy=Math.max(0, Math.min(Number(S.maxEnergy)||10,10));
+    S.maxEnergy=Math.max(10,Number(S.maxEnergy)||10);
+    S.lastEnergyAt=Date.now();
+    S.nextEnergyAt=0;
+    localStorage.setItem(RECOVERY_SEED_KEY,"used");
+  }
+}catch(e){console.warn("Recovery seed unavailable",e)}
+
 
 function save(){
   try{
