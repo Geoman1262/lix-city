@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#1769e8">
 <meta name="version" content="LIX CITY v0.38 CELLIX SHOP TOP">
-<title>LIX CITY v0.51</title>
+<title>LIX CITY v0.52</title>
 <style>
 *{box-sizing:border-box}:root{--blue:#1769e8;--ink:#17243a;--muted:#68778a;--bg:#eef6ff;--line:#dce7f2}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif}button{font:inherit;border:0;cursor:pointer}.top{position:sticky;top:0;z-index:40;background:#fff;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand img{width:70px;max-height:35px;object-fit:contain}.stats{display:flex;gap:12px;font-weight:700;font-size:14px}.wrap{max-width:760px;margin:auto;padding:16px 16px 94px}.hero{background:linear-gradient(135deg,#1769e8,#4b94ef);border-radius:28px;color:#fff;padding:22px 18px;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:center}.hero h1{font-size:38px;line-height:1.05;margin:8px 0}.hero img{width:100%;max-height:300px;object-fit:contain}.card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:18px;margin-top:16px;box-shadow:0 5px 18px #233d5a0d}.title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.title h2{margin:0;font-size:22px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.tile{background:#f4f8fc;border-radius:20px;padding:16px;min-height:120px}.tile h3{margin:7px 0 3px}.tile small,.muted{color:var(--muted)}.btn.ghost{background:#fff;border:1px solid #d7e4ef;color:#17304b;padding:8px 10px;font-size:12px}.btn{background:var(--blue);color:#fff;border-radius:14px;padding:11px 16px;font-weight:700}.btn.alt{background:#e8f2ff;color:var(--blue)}.btn:disabled{opacity:.45}.row{display:flex;gap:10px;flex-wrap:wrap}.progress{height:12px;background:#e8eef5;border-radius:20px;overflow:hidden}.bar{height:100%;background:var(--blue);border-radius:20px}.mission{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 0;border-bottom:1px solid #edf1f5}.mission:last-child{border-bottom:0}.unlock{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #edf1f5}.unlock:last-child{border-bottom:0}.unlock b{font-size:15px}.badge{background:#e8f2ff;color:var(--blue);border-radius:999px;padding:5px 9px;font-size:12px;font-weight:700}.badge.now{background:#e7f7ed;color:#267342}
 
@@ -163,6 +163,22 @@
 .gc-upgrade-actions{display:flex;gap:8px;flex-wrap:wrap}
 .gc-upgrade-actions button{border:0;border-radius:11px;padding:9px 11px;background:#1769e8;color:#fff;font-weight:800}
 .gc-upgrade-actions button:disabled{opacity:.45}
+
+
+.lix-major{margin-top:16px;display:grid;gap:12px}
+.lix-card{background:linear-gradient(145deg,#fff,#f3f8ff);border:1px solid #dce9f6;border-radius:20px;padding:15px}
+.lix-card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.lix-card h3{margin:0;font-size:17px}.lix-muted{font-size:11px;color:#718096}
+.lix-progress{height:8px;border-radius:99px;background:#e6eef6;overflow:hidden;margin:8px 0}
+.lix-progress>i{display:block;height:100%;background:#1688e5;border-radius:99px}
+.lix-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #e7eef5}
+.lix-row:last-child{border-bottom:0}.lix-row .grow{flex:1}
+.lix-pill{font-size:11px;font-weight:900;padding:5px 8px;border-radius:10px;background:#eaf4ff;color:#1676c9}
+.lix-btn{border:0;border-radius:11px;padding:9px 12px;background:#1688e5;color:#fff;font-weight:900}
+.lix-btn.gold{background:#d99b16}.lix-btn:disabled{opacity:.45}
+.lix-statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.lix-stat{padding:10px;border-radius:14px;background:#fff;text-align:center;border:1px solid #e7eef5}
+.lix-stat b{display:block;font-size:16px}.lix-stat span{font-size:10px;color:#718096}
 
 </style>
 <link rel="manifest" href="manifest.json"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="LIX CITY"><script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));}</script></head>
@@ -628,6 +644,60 @@ document.addEventListener("click",e=>{const b=e.target.closest("#lixInstallButto
   };
   window.renderGameUpgrades=renderGameUpgrades;
   document.addEventListener("DOMContentLoaded",renderGameUpgrades);
+})();
+</script>
+
+
+<div id="lixMajorBundle" class="lix-major"></div>
+<script>
+(function(){
+  function xpNeed(l){ return Math.max(500, Math.round(500 + (l-1)*300 + Math.pow(Math.max(0,l-1),1.45)*90)); }
+  function renderMajor(){
+    const h=document.getElementById("lixMajorBundle");
+    if(!h || !window.S) return;
+    const lvl=Number(S.level)||1, xp=Number(S.xp)||0, coins=Number(S.coins)||0;
+    const need=xpNeed(lvl), pct=Math.min(100,Math.round((xp/need)*100));
+    const streak=Math.max(0,Number(S.streakDay)||0);
+    const spinReady=!S.lastSpin || (Date.now()-Number(S.lastSpin)>=86400000);
+    const missions=Array.isArray(S.missions)?S.missions:[];
+    const done=missions.filter(m=>m&&m.claimed).length;
+
+    h.innerHTML=
+      '<div class="lix-card">'+
+        '<div class="lix-card-head"><h3>🏠 House Progress</h3><span class="lix-pill">Lv.'+lvl+'</span></div>'+
+        '<div class="lix-muted">'+xp+' / '+need+' XP to next level</div>'+
+        '<div class="lix-progress"><i style="width:'+pct+'%"></i></div>'+
+        '<div class="lix-statgrid"><div class="lix-stat"><b>⭐ '+xp+'</b><span>XP</span></div><div class="lix-stat"><b>🪙 '+coins+'</b><span>Coins</span></div><div class="lix-stat"><b>🔥 '+streak+'</b><span>Streak</span></div></div>'+
+      '</div>'+
+      '<div class="lix-card">'+
+        '<div class="lix-card-head"><h3>🎯 Daily Missions</h3><span class="lix-pill">'+done+'/'+missions.length+'</span></div>'+
+        (missions.length ? missions.map((m,i)=>'<div class="lix-row"><div class="grow"><b>'+(m.title||m.name||('Mission '+(i+1)))+'</b><br><span class="lix-muted">'+(m.xp||0)+' XP</span></div><span class="lix-pill">'+(m.claimed?'CLAIMED':'ACTIVE')+'</span></div>').join('') : '<div class="lix-muted">Your 5 daily missions will appear here.</div>')+
+      '</div>'+
+      '<div class="lix-card">'+
+        '<div class="lix-card-head"><h3>🎡 Daily Spin</h3><span class="lix-pill">'+(spinReady?'READY':'TOMORROW')+'</span></div>'+
+        '<div class="lix-row"><div class="grow"><b>Daily reward</b><br><span class="lix-muted">Coins or a rare Ticket</span></div>'+
+        '<button class="lix-btn gold" '+(spinReady?'':'disabled')+' onclick="lixTrySpin()">'+(spinReady?'SPIN':'READY TOMORROW')+'</button></div>'+
+      '</div>';
+  }
+
+  window.lixTrySpin=function(){
+    if(!window.S) return;
+    const now=Date.now();
+    if(S.lastSpin && now-Number(S.lastSpin)<86400000){
+      if(typeof toast==="function") toast("🎡 Spin is ready tomorrow.");
+      renderMajor(); return;
+    }
+    const rewards=[20,30,50,75,100];
+    const r=rewards[Math.floor(Math.random()*rewards.length)];
+    S.coins=(Number(S.coins)||0)+r;
+    S.lastSpin=now;
+    if(typeof save==="function") save();
+    if(typeof toast==="function") toast("🎉 You won "+r+" Coins!");
+    renderMajor();
+  };
+
+  window.renderMajor=renderMajor;
+  document.addEventListener("DOMContentLoaded",function(){setTimeout(renderMajor,100);});
 })();
 </script>
 
