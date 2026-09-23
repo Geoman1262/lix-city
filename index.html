@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#1769e8">
 <meta name="version" content="LIX CITY v0.38 CELLIX SHOP TOP">
-<title>LIX CITY v0.40</title>
+<title>LIX CITY v0.47</title>
 <style>
 *{box-sizing:border-box}:root{--blue:#1769e8;--ink:#17243a;--muted:#68778a;--bg:#eef6ff;--line:#dce7f2}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif}button{font:inherit;border:0;cursor:pointer}.top{position:sticky;top:0;z-index:40;background:#fff;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand img{width:70px;max-height:35px;object-fit:contain}.stats{display:flex;gap:12px;font-weight:700;font-size:14px}.wrap{max-width:760px;margin:auto;padding:16px 16px 94px}.hero{background:linear-gradient(135deg,#1769e8,#4b94ef);border-radius:28px;color:#fff;padding:22px 18px;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:center}.hero h1{font-size:38px;line-height:1.05;margin:8px 0}.hero img{width:100%;max-height:300px;object-fit:contain}.card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:18px;margin-top:16px;box-shadow:0 5px 18px #233d5a0d}.title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.title h2{margin:0;font-size:22px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.tile{background:#f4f8fc;border-radius:20px;padding:16px;min-height:120px}.tile h3{margin:7px 0 3px}.tile small,.muted{color:var(--muted)}.btn.ghost{background:#fff;border:1px solid #d7e4ef;color:#17304b;padding:8px 10px;font-size:12px}.btn{background:var(--blue);color:#fff;border-radius:14px;padding:11px 16px;font-weight:700}.btn.alt{background:#e8f2ff;color:var(--blue)}.btn:disabled{opacity:.45}.row{display:flex;gap:10px;flex-wrap:wrap}.progress{height:12px;background:#e8eef5;border-radius:20px;overflow:hidden}.bar{height:100%;background:var(--blue);border-radius:20px}.mission{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 0;border-bottom:1px solid #edf1f5}.mission:last-child{border-bottom:0}.unlock{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #edf1f5}.unlock:last-child{border-bottom:0}.unlock b{font-size:15px}.badge{background:#e8f2ff;color:var(--blue);border-radius:999px;padding:5px 9px;font-size:12px;font-weight:700}.badge.now{background:#e7f7ed;color:#267342}
 
@@ -207,29 +207,31 @@ S=(candidates.length?candidates[0].state:cloneD());
 
 S=normalizeState(S);
 
-/* ONE-TIME RECOVERY SEED
-   Restores the last confirmed playable state if the previous save was lost.
-   It is only used when the current recovered save is still a fresh Level-1
-   default. Once used, it is marked so later launches never reset progress. */
-const RECOVERY_SEED_KEY="lixcity_recovery_seed_v1";
+/* FINAL ONE-TIME RECOVERY
+   The user's last confirmed state before the save problem was:
+   Level 2 / House 2 / 432 XP / 236 Coins / 10 Energy.
+   This recovery runs only when the current account is still the fresh
+   Level-1 state. It uses a new marker so earlier failed recovery attempts
+   cannot block it. */
+const RECOVERY_V2_KEY="lixcity_recovery_v2_done";
 try{
-  const seeded=localStorage.getItem(RECOVERY_SEED_KEY);
-  const isFreshLevel1 = (Number(S.level)||1)===1 &&
-                        (Number(S.xp)||0)===0 &&
-                        (Number(S.coins)||0)<=250;
-  if(!seeded && isFreshLevel1){
+  const alreadyRecovered=localStorage.getItem(RECOVERY_V2_KEY)==="1";
+  const currentLevel=Number(S.level)||1;
+  const currentXP=Number(S.xp)||0;
+  const currentCoins=Number(S.coins)||0;
+
+  if(!alreadyRecovered && currentLevel===1 && currentXP===0){
     S.level=2;
     S.house=2;
     S.xp=432;
     S.coins=236;
-    S.energy=Math.max(0, Math.min(Number(S.maxEnergy)||10,10));
+    S.energy=10;
     S.maxEnergy=Math.max(10,Number(S.maxEnergy)||10);
     S.lastEnergyAt=Date.now();
     S.nextEnergyAt=0;
-    localStorage.setItem(RECOVERY_SEED_KEY,"used");
+    localStorage.setItem(RECOVERY_V2_KEY,"1");
   }
-}catch(e){console.warn("Recovery seed unavailable",e)}
-
+}catch(e){console.warn("LIX CITY recovery unavailable",e)}
 
 function save(){
   try{
