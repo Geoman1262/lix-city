@@ -17,3 +17,9 @@ Open the GitHub Pages URL. On supported Android browsers use **Add to Home scree
 - Added an in-game Install LIX CITY button.
 - Uses the browser install prompt when available; otherwise shows Android browser instructions.
 - Does not change player save data.
+
+
+## v0.58 Major Architecture
+Core systems are separated into feature modules:
+save.js, games.js, city.js, pets.js, missions.js, events.js, leaderboard.js, shop.js, achievements.js.
+The existing save/recovery logic remains the source of truth.
