@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#1769e8">
-<meta name="version" content="LIX CITY v0.69 HOUSE INTERIOR">
+<meta name="version" content="LIX CITY v0.70 HOUSE INTERIOR">
 <title>LIX CITY v0.66</title>
 <style>
 *{box-sizing:border-box}:root{--blue:#1769e8;--ink:#17243a;--muted:#68778a;--bg:#eef6ff;--line:#dce7f2}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif}button{font:inherit;border:0;cursor:pointer}.top{position:sticky;top:0;z-index:40;background:#fff;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand img{width:70px;max-height:35px;object-fit:contain}.stats{display:flex;gap:12px;font-weight:700;font-size:14px}.wrap{max-width:760px;margin:auto;padding:16px 16px 94px}.hero{background:linear-gradient(135deg,#1769e8,#4b94ef);border-radius:28px;color:#fff;padding:22px 18px;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:center}.hero h1{font-size:38px;line-height:1.05;margin:8px 0}.hero img{width:100%;max-height:300px;object-fit:contain}.card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:18px;margin-top:16px;box-shadow:0 5px 18px #233d5a0d}.title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.title h2{margin:0;font-size:22px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.tile{background:#f4f8fc;border-radius:20px;padding:16px;min-height:120px}.tile h3{margin:7px 0 3px}.tile small,.muted{color:var(--muted)}.btn.ghost{background:#fff;border:1px solid #d7e4ef;color:#17304b;padding:8px 10px;font-size:12px}.btn{background:var(--blue);color:#fff;border-radius:14px;padding:11px 16px;font-weight:700}.btn.alt{background:#e8f2ff;color:var(--blue)}.btn:disabled{opacity:.45}.row{display:flex;gap:10px;flex-wrap:wrap}.progress{height:12px;background:#e8eef5;border-radius:20px;overflow:hidden}.bar{height:100%;background:var(--blue);border-radius:20px}.mission{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 0;border-bottom:1px solid #edf1f5}.mission:last-child{border-bottom:0}.unlock{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #edf1f5}.unlock:last-child{border-bottom:0}.unlock b{font-size:15px}.badge{background:#e8f2ff;color:var(--blue);border-radius:999px;padding:5px 9px;font-size:12px;font-weight:700}.badge.now{background:#e7f7ed;color:#267342}
@@ -538,6 +538,8 @@ function city(){
   shell(`<section class="card"><div class="title"><h2>🏙️ Lix City</h2><small>House Lv. ${S.house}</small></div>
   <div class="city-viewport" id="cityViewport"><div class="city-world" id="cityWorld">
     <div class="road-h"></div><div class="road-v"></div>
+    <div class="city-skyline"><span class="tower t-a"></span><span class="tower t-b"></span><span class="tower t-c"></span><span class="tower t-d"></span><span class="tower t-e"></span></div>
+    <div class="city-water"></div><div class="city-plaza"></div>
     <div class="city-building b-house stage-${Math.max(1,Math.min(50,Math.floor((S.house-1)/5)*5+1))}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🏠 Lix House • Lv.${S.house}</div></div></div>
     <div class="city-building b-center ${buildingVisualClass('center')} ${S.level<2?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🎮 ${buildingVisualLabel('center','Game Center',S.level<2,2)}</div></div></div>
     <div class="city-building b-store ${buildingVisualClass('store')} ${S.level<4?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🏪 ${buildingVisualLabel('store','Cellix Store',S.level<4,4)}</div></div></div>
@@ -568,9 +570,12 @@ function city(){
     ${coin("c1","wc1","wc1")}${coin("c2","wc2","wc2")}${coin("c3","wc3","wc3")}${coin("c4","wc4","wc4")}${coin("c5","wc5","wc5")}
     <img id="worldLix" class="world-lix" src="lix.png" style="left:${lx}px;top:${ly}px" alt="Lix">
     ${S.city?.pet?'<span id="worldPet" class="world-pet" style="left:'+(lx+75)+'px;top:'+(ly+60)+'px">'+petEmoji(S.petData?.type||'dog')+'</span>':""}
-    <span class="city-npc npc1">🧑‍💼</span><span class="city-npc npc2">👩‍🦰</span><span class="city-npc npc3">🧑‍🔧</span><span class="city-npc npc4">🧒</span>
+    <span class="city-person npc1"><i class="person-head"></i><i class="person-body"></i></span>
+    <span class="city-person npc2"><i class="person-head"></i><i class="person-body"></i></span>
+    <span class="city-person npc3"><i class="person-head"></i><i class="person-body"></i></span>
+    <span class="city-person npc4"><i class="person-head"></i><i class="person-body"></i></span>
     <span class="city-bubble cb1">Welcome!</span><span class="city-bubble cb2">✨ Lix City</span>
-    <span class="city-car car1">🚗</span><span class="city-car car2">🚙</span>
+    <span class="city-car car1"><i></i></span><span class="city-car car2"><i></i></span>
     <div id="cityPanel" class="city-panel"></div>
   </div></div>
   ${cityManagementCard()}<div id="v66Living"></div>

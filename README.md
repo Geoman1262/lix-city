@@ -41,9 +41,13 @@ Save is still localStorage-based. Cloud/server-side save and anti-cheat are not 
 - Daily building activities persist in the player save.
 - Added `building-activities.js` and bumped service-worker cache version.
 
-## v0.69 — House Interior & Furniture
+## v0.70 — House Interior & Furniture
 - Added `house-interior.js` with persistent furniture/decor purchases.
 - Added three House rooms with level-gated access.
 - Furniture purchases consume Coins and grant one-time XP.
 - Added House Interior UI and mobile styling.
 - Preserved the existing House/Player Level progression and save system.
+
+
+## v0.70
+Visual City Upgrade: replaced emoji NPCs/cars with CSS-rendered city residents and vehicles, added skyline/plaza/water layers, reduced empty sky, preserved exact Lix asset, and refreshed PWA cache.
