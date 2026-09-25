@@ -27,5 +27,16 @@ The existing save/recovery logic remains the source of truth.
 ## v0.59 Progression Layer
 Added profile.js, progression.js, rewards.js, notifications.js and integrated profile/progression/notification UI.
 
-## v0.60 Game Integration
+## v0.61 Game Integration
 Added game-engine.js for centralized play/win stats and reward persistence, plus Game Performance UI.
+
+
+## v0.61 – Game Engine Integration
+- Real game session tracking for Target, Runner and Catch & Bomb.
+- Per-game plays, wins, losses and best score/collection tracking.
+- Game Center live stats card.
+- Game Exit now safely ends the active round instead of leaving timers running.
+- Fixed escaped inline game actions in the legacy Game Center UI.
+- Rewards remain handled by the existing game reward logic; the engine records telemetry only.
+
+Note: save/security are still browser-local prototype systems until a server/cloud backend is connected.

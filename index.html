@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#1769e8">
-<meta name="version" content="LIX CITY v0.38 CELLIX SHOP TOP">
-<title>LIX CITY v0.60</title>
+<meta name="version" content="LIX CITY v0.61 GAME ENGINE">
+<title>LIX CITY v0.61</title>
 <style>
 *{box-sizing:border-box}:root{--blue:#1769e8;--ink:#17243a;--muted:#68778a;--bg:#eef6ff;--line:#dce7f2}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif}button{font:inherit;border:0;cursor:pointer}.top{position:sticky;top:0;z-index:40;background:#fff;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand img{width:70px;max-height:35px;object-fit:contain}.stats{display:flex;gap:12px;font-weight:700;font-size:14px}.wrap{max-width:760px;margin:auto;padding:16px 16px 94px}.hero{background:linear-gradient(135deg,#1769e8,#4b94ef);border-radius:28px;color:#fff;padding:22px 18px;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:center}.hero h1{font-size:38px;line-height:1.05;margin:8px 0}.hero img{width:100%;max-height:300px;object-fit:contain}.card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:18px;margin-top:16px;box-shadow:0 5px 18px #233d5a0d}.title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.title h2{margin:0;font-size:22px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.tile{background:#f4f8fc;border-radius:20px;padding:16px;min-height:120px}.tile h3{margin:7px 0 3px}.tile small,.muted{color:var(--muted)}.btn.ghost{background:#fff;border:1px solid #d7e4ef;color:#17304b;padding:8px 10px;font-size:12px}.btn{background:var(--blue);color:#fff;border-radius:14px;padding:11px 16px;font-weight:700}.btn.alt{background:#e8f2ff;color:var(--blue)}.btn:disabled{opacity:.45}.row{display:flex;gap:10px;flex-wrap:wrap}.progress{height:12px;background:#e8eef5;border-radius:20px;overflow:hidden}.bar{height:100%;background:var(--blue);border-radius:20px}.mission{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 0;border-bottom:1px solid #edf1f5}.mission:last-child{border-bottom:0}.unlock{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #edf1f5}.unlock:last-child{border-bottom:0}.unlock b{font-size:15px}.badge{background:#e8f2ff;color:var(--blue);border-radius:999px;padding:5px 9px;font-size:12px;font-weight:700}.badge.now{background:#e7f7ed;color:#267342}
 
@@ -289,6 +289,8 @@
 .v60-game{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #e6edf5}.v60-game:last-child{border-bottom:0}.v60-game .grow{flex:1}
 .v60-badge{font-size:10px;font-weight:900;padding:5px 7px;border-radius:9px;background:#eaf4ff;color:#1676c9}
 
+
+.v61{margin-top:14px}.v61-card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:16px;box-shadow:0 5px 18px #233d5a0d}.v61-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.v61-head h3{margin:0;font-size:18px}.v61-badge{background:#e8f2ff;color:var(--blue);border-radius:999px;padding:5px 9px;font-size:11px;font-weight:800}.v61-grid{display:grid;gap:8px}.v61-game{display:flex;align-items:center;gap:10px;background:#f6f9fc;border-radius:16px;padding:10px}.v61-icon{font-size:28px}.v61-game small{display:block;color:var(--muted);margin-top:3px;font-size:11px}.v61-best{text-align:center;font-size:10px;color:var(--muted);min-width:48px}.v61-best b{font-size:16px;color:var(--ink)}
 </style>
 <link rel="manifest" href="manifest.json"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="LIX CITY"><script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));}</script><script src="save.js" defer></script>
 <script src="games.js" defer></script>
@@ -599,6 +601,7 @@ function gameWin(name,earnedCoins,xp){
   const up=gameUpgradeInfo(name);
   const coinReward=earnedCoins>0?Math.round(earnedCoins*(1+up.bonus/100)):0;
   const xpReward=Math.round(xp*(1+up.bonus/100));
+  if(window.LixGameEngine)LixGameEngine.finish(name,true,earnedCoins);
   if(coinReward>0){S.coins+=coinReward;missionProgress(1,coinReward)}
   addXP(xpReward);
   missionProgress(0,1);
@@ -617,31 +620,42 @@ function games(){
   <div class="game"><div class="title"><h3>🪙💣 Lix Catch & Bomb</h3><b>Game Lv.${c.level}</b></div><div class="muted">Collect ${c.coins} Coins before time runs out. Bombs end the round.</div><p>Base reward: ⭐ ${c.xp} XP + all collected Coins</p><p>⚙️ Upgrade Lv.${cu.level} • <b>+${cu.bonus}%</b> rewards</p><div class="row"><button class="btn" onclick="catchGame()">PLAY</button>${upgrade('catch',cu)}</div></div>
   </section>`,'games');
 }
+function gameExit(name){
+  try{if(typeof window.__activeGameCleanup==='function'){window.__activeGameCleanup();return;}}catch(e){}
+  try{if(window.LixGameEngine)LixGameEngine.finish(name,false,0);}catch(e){}
+  toast('Round ended — Energy used, no reward');setTimeout(()=>show('games'),250);
+}
 function targetGame(){
   if(!energy())return;
+  LixGameEngine.start('target');
   const c=gameCfg('target'); let hits=0,time=c.time,active=true,iv;
-  function end(win){if(!active)return;active=false;clearInterval(iv);if(win){gameWin('target',c.coins,c.xp)}else toast('⏱️ Time up — Energy lost, no reward');setTimeout(()=>show('games'),550)}
+  function end(win){if(!active)return;active=false;window.__activeGameCleanup=null;clearInterval(iv);if(win){gameWin('target',c.coins,c.xp)}else {if(window.LixGameEngine)LixGameEngine.finish('target',false,hits);toast('⏱️ Time up — Energy lost, no reward');}setTimeout(()=>show('games'),550)}
   function place(){if(!active)return;const b=document.getElementById('targetBoard');if(!b)return;const e=document.createElement('button');e.className='target';e.textContent='🎯';e.style.left=(Math.random()*82+5)+'%';e.style.top=(Math.random()*70+5)+'%';e.onclick=()=>{hits++;e.remove();const h=document.getElementById('tgHits');if(h)h.textContent=hits;if(hits>=c.need)end(true);else place()};b.appendChild(e)}
-  shell(`<section class="card"><div class="title"><h2>🎯 Lix Target • Lv.${c.level}</h2><b id="tgTime">${c.time}</b>s</div><div class="playarea" id="targetBoard"></div><p class="center">Hits: <b id="tgHits">0</b> / ${c.need}</p><button class="btn alt" onclick="show('games')">Exit</button></section>`,'games');
+  window.__activeGameCleanup=()=>end(false);
+  shell(`<section class="card"><div class="title"><h2>🎯 Lix Target • Lv.${c.level}</h2><b id="tgTime">${c.time}</b>s</div><div class="playarea" id="targetBoard"></div><p class="center">Hits: <b id="tgHits">0</b> / ${c.need}</p><button class="btn alt" onclick="gameExit('target')">Exit</button></section>`,'games');
   iv=setInterval(()=>{regenEnergy();if(!active)return;time--;const el=document.getElementById('tgTime');if(el)el.textContent=time;if(time<=0)end(false)},1000);place();
 }
 function runnerGame(){
   if(!energy())return;
+  LixGameEngine.start('runner');
   const c=gameCfg('runner'); let time=c.time,distance=0,lane=1,active=true,iv,obsTimer;
-  function finish(win,msg){if(!active)return;active=false;clearInterval(iv);clearInterval(obsTimer);if(win){gameWin('runner',c.coins,c.xp);toast('🏃 '+c.dist+'m complete!')}else toast(msg||'💥 Crash — Energy lost, no reward');setTimeout(()=>show('games'),600)}
+  function finish(win,msg){if(!active)return;active=false;window.__activeGameCleanup=null;clearInterval(iv);clearInterval(obsTimer);if(win){gameWin('runner',c.coins,c.xp);toast('🏃 '+c.dist+'m complete!')}else {if(window.LixGameEngine)LixGameEngine.finish('runner',false,distance);toast(msg||'💥 Crash — Energy lost, no reward');}setTimeout(()=>show('games'),600)}
   function moveRunner(z){if(!active)return;lane=Math.max(0,Math.min(2,lane+z));const el=document.getElementById('rlix');if(el)el.style.left=(8+lane*35)+'%'}
   window.moveRunner=moveRunner;
   function spawn(){if(!active)return;const o=document.createElement('div');o.className='obstacle';const ol=Math.floor(Math.random()*3);o.dataset.lane=ol;o.style.left=(8+ol*35)+'%';o.style.top='-65px';document.getElementById('runner')?.appendChild(o);let y=-65;const fall=setInterval(()=>{if(!active){clearInterval(fall);o.remove();return}y+=6;o.style.top=y+'px';if(y>250){clearInterval(fall);o.remove();return}if(y>205&&y<285&&Number(o.dataset.lane)===lane){clearInterval(fall);o.remove();finish(false,'💥 Lix hit an obstacle — no reward')}} ,45)}
-  shell(`<section class="card"><div class="title"><h2>🏃 Lix Runner • Lv.${c.level}</h2><b id="rt">${c.time}</b>s</div><div class="runnerArea" id="runner"><div class="lane"></div><img class="runnerLix" id="rlix" src="lix.png"></div><div class="row"><button class="btn" onclick="moveRunner(-1)">⬅️ LEFT</button><button class="btn" onclick="moveRunner(1)">RIGHT ➡️</button></div><p>Distance: <b id="dist">0</b> / ${c.dist} m</p><button class="btn alt" onclick="finish(false,'Round ended — Energy lost, no reward')">Exit</button></section>`,'games');
+  window.__activeGameCleanup=()=>finish(false,'Round ended — Energy lost, no reward');
+  shell(`<section class="card"><div class="title"><h2>🏃 Lix Runner • Lv.${c.level}</h2><b id="rt">${c.time}</b>s</div><div class="runnerArea" id="runner"><div class="lane"></div><img class="runnerLix" id="rlix" src="lix.png"></div><div class="row"><button class="btn" onclick="moveRunner(-1)">⬅️ LEFT</button><button class="btn" onclick="moveRunner(1)">RIGHT ➡️</button></div><p>Distance: <b id="dist">0</b> / ${c.dist} m</p><button class="btn alt" onclick="gameExit('runner')">Exit</button></section>`,'games');
   obsTimer=setInterval(spawn,Math.max(520,850-c.level*55));
   iv=setInterval(()=>{regenEnergy();if(!active)return;time--;distance+=Math.ceil(c.dist/c.time);const rt=document.getElementById('rt'),d=document.getElementById('dist');if(rt)rt.textContent=time;if(d)d.textContent=Math.min(distance,c.dist);if(distance>=c.dist)finish(true);else if(time<=0)finish(false,'⏱️ Time up — Energy lost, no reward')},1000);
 }
 function catchGame(){
   if(!energy())return;
+  LixGameEngine.start('catch');
   const c=gameCfg('catch'); let time=c.time,total=0,active=true,sp,iv;
-  function finish(win,msg){if(!active)return;active=false;clearInterval(iv);clearInterval(sp);if(win){gameWin('catch',total,c.xp);toast('🪙 Round complete! +'+total+' Coins +'+c.xp+' XP')}else{save();toast(msg||'💣 Bomb! Collected Coins kept, no XP reward')}setTimeout(()=>show('games'),650)}
+  function finish(win,msg){if(!active)return;active=false;window.__activeGameCleanup=null;clearInterval(iv);clearInterval(sp);if(win){gameWin('catch',total,c.xp);toast('🪙 Round complete! +'+total+' Coins +'+c.xp+' XP')}else{if(window.LixGameEngine)LixGameEngine.finish('catch',false,total);save();toast(msg||'💣 Bomb! Collected Coins kept, no XP reward')}setTimeout(()=>show('games'),650)}
   function spawn(){if(!active)return;const e=document.createElement('button'),bomb=Math.random()<Math.min(.3,.15+c.level*.02);e.className='fall '+(bomb?'':'coin-img');e.style.left=Math.random()*88+'%';e.style.top=Math.random()*80+'%';if(bomb){e.textContent='💣'}else{e.innerHTML='<img src="coin.png" style="width:42px;height:42px;object-fit:contain">'}e.onclick=()=>{if(bomb){finish(false,'💣 Bomb! Your collected Coins are kept')}else{total+=Math.random()<.2?5:1;e.remove();const ct=document.getElementById('ct');if(ct)ct.textContent=total;if(total>=c.coins)finish(true)}};document.getElementById('catch')?.appendChild(e);setTimeout(()=>e.remove(),1500)}
-  shell(`<section class="card"><div class="title"><h2>🪙💣 Catch & Bomb • Lv.${c.level}</h2><b id="ctt">${c.time}</b>s</div><div class="catchArea" id="catch"></div><p><img class="coin-icon small" src="coin.png"> Collected: <b id="ct">0</b> / ${c.coins}</p><button class="btn alt" onclick="finish(false,'Round ended — collected Coins are kept')">Exit</button></section>`,'games');
+  window.__activeGameCleanup=()=>finish(false,'Round ended — collected Coins are kept');
+  shell(`<section class="card"><div class="title"><h2>🪙💣 Catch & Bomb • Lv.${c.level}</h2><b id="ctt">${c.time}</b>s</div><div class="catchArea" id="catch"></div><p><img class="coin-icon small" src="coin.png"> Collected: <b id="ct">0</b> / ${c.coins}</p><button class="btn alt" onclick="gameExit('catch')">Exit</button></section>`,'games');
   sp=setInterval(spawn,Math.max(320,520-c.level*25));iv=setInterval(()=>{regenEnergy();if(!active)return;time--;const el=document.getElementById('ctt');if(el)el.textContent=time;if(time<=0)finish(false,'⏱️ Time up — collected Coins are kept, no XP reward')},1000);
 }
 function pets(){let p=S.petData||{};let ready=Date.now()-(Number(p.lastPlay)||S.petPlayed||0)>=86400000;const types=[['dog','🐶','Dog'],['cat','🐱','Cat'],['horse','🐴','Horse']];shell(`<section class="card"><div class="title"><h2>🐾 Lix Stable</h2><small>Pet Level ${p.petLevel||1}/10</small></div><div class="tile center"><div style="font-size:70px">${petEmoji(p.type)}</div><h3>${esc(p.name||'Lix Pet')}</h3><p class="muted">${petTypeName(p.type)} • ❤️ Happiness ${p.happiness||0}/100</p><div class="progress"><div class="bar" style="width:${p.happiness||0}%"></div></div></div></section><section class="card"><div class="title"><h2>🐾 Choose Companion</h2><small>More pets unlock later</small></div><div class="grid">${types.map(t=>{let owned=p.owned.includes(t[0]);return `<div class="tile ${owned?'':'locked'}"><div style="font-size:42px">${t[1]}</div><h3>${t[2]}</h3><small>${owned?'Owned':'Locked'}</small><br><button class="btn" ${owned?'':'disabled'} onclick="setPetType('${t[0]}')">${p.type===t[0]?'ACTIVE':'SELECT'}</button></div>`}).join('')}</div></section><section class="card"><div class="title"><h2>✏️ Pet Name</h2></div><input id="petNameInput" value="${esc(p.name||'Lix Pet')}" maxlength="18" style="width:100%;padding:12px;border-radius:12px;border:1px solid #ccd9e5"><button class="btn" onclick="savePetName()" style="margin-top:8px">SAVE NAME</button></section><section class="card"><div class="title"><h2>🍖 Care & Play</h2><small>Pet Level ${p.petLevel||1}</small></div><div class="grid"><div class="tile"><h3>🍖 Basic Food</h3><small>20 Coins</small><br><button class="btn" onclick="petFeed()">FEED</button></div><div class="tile"><h3>⚽ Ball</h3><small>100 Coins</small><br><button class="btn" onclick="petToy()">PLAY</button></div></div><p class="muted">Food and play increase happiness and Pet XP. Daily play can give +1 Energy once every 24h.</p><button class="btn alt" ${ready?'':'disabled'} onclick="petPlay()">${ready?'❤️ DAILY PLAY + ENERGY':'PLAY AGAIN TOMORROW'}</button><button class="btn" onclick="takePetToCity()" style="margin-left:8px">🏙️ FOLLOW LIX IN CITY</button></section>`,'pets')}
@@ -710,7 +724,7 @@ document.addEventListener("click",e=>{const b=e.target.closest("#lixInstallButto
       ["catch","🪙💣","Lix Catch & Bomb","Collect coins and avoid bombs."]
     ];
     el.innerHTML='<h3>🎮 Game Center</h3><div class="gc-sub">Your games • Game Level and upgrades</div><div class="gc-games">'+
-      games.map(g=>'<div class="gc-game"><div class="ico">'+g[1]+'</div><div class="info"><div class="name">'+g[2]+'</div><div class="meta">'+g[3]+'</div><div class="gc-up">Game Lv.'+gcLevel(g[0])+' • Upgrade Lv.'+upLevel(g[0])+'</div></div><button class="play" onclick="show(\\'games\\')">PLAY</button></div>').join('')+
+      games.map(g=>'<div class="gc-game"><div class="ico">'+g[1]+'</div><div class="info"><div class="name">'+g[2]+'</div><div class="meta">'+g[3]+'</div><div class="gc-up">Game Lv.'+gcLevel(g[0])+' • Upgrade Lv.'+upLevel(g[0])+'</div></div><button class="play" onclick="show(\'games\')">PLAY</button></div>').join('')+
       '</div>';
   }
   window.renderGameCenter=renderGameCenter;
@@ -745,7 +759,7 @@ document.addEventListener("click",e=>{const b=e.target.closest("#lixInstallButto
         const can=!max&&(Number(S.coins)||0)>=cost;
         return '<div class="gc-upgrade-actions" style="margin-bottom:8px;align-items:center">'+
           '<span style="min-width:110px;font-size:12px;font-weight:800">'+g[1]+' '+g[2]+' Lv.'+lv+'</span>'+
-          '<button '+(can?'':'disabled')+' onclick="upgradeLixGame(\\''+g[0]+'\\')">'+
+          '<button '+(can?'':'disabled')+' onclick="upgradeLixGame(\''+g[0]+'\')">'+
           (max?'MAX • +20%':'Upgrade → Lv.'+next+' • '+cost+' 🪙')+
           '</button></div>';
       }).join('')+'</div>';
@@ -842,12 +856,12 @@ document.addEventListener("click",e=>{const b=e.target.closest("#lixInstallButto
     const petLevel=Number(pet.petLevel)||1;
     h.innerHTML=
       '<div class="v53-card"><div class="v53-head"><h3>🤖 Lix Customization</h3><span class="v53-muted">Lv.'+lvl+'</span></div>'+
-      '<div class="v53-items">'+items.slice(0,2).map(x=>'<div class="v53-item"><b>'+x[0]+' '+x[1]+'</b><span>'+x[3]+' • '+x[2]+' Coins</span><button class="v53-action" onclick="v53Buy('+x[2]+',\\''+x[1]+'\\')">BUY</button></div>').join('')+'</div></div>'+
+      '<div class="v53-items">'+items.slice(0,2).map(x=>'<div class="v53-item"><b>'+x[0]+' '+x[1]+'</b><span>'+x[3]+' • '+x[2]+' Coins</span><button class="v53-action" onclick="v53Buy('+x[2]+',\''+x[1]+'\')">BUY</button></div>').join('')+'</div></div>'+
       '<div class="v53-card"><div class="v53-head"><h3>🐾 Lix Stable</h3><span class="v53-muted">Pet Lv.'+petLevel+'</span></div>'+
       '<div class="v53-shop"><div style="font-size:28px">🐶</div><div class="grow"><b>'+ (pet.name||"Lix Pet") +'</b><div class="v53-muted">Happy companion • Level '+petLevel+'</div></div></div>'+
       '<div class="v53-items" style="margin-top:9px">'+
-      '<div class="v53-item"><b>🍖 Basic Food</b><span>20 Coins</span><button class="v53-action" onclick="v53PetBuy(20,\\'food\\')">FEED</button></div>'+
-      '<div class="v53-item"><b>🎾 Ball</b><span>100 Coins</span><button class="v53-action" onclick="v53PetBuy(100,\\'toy\\')">PLAY</button></div></div></div>'+
+      '<div class="v53-item"><b>🍖 Basic Food</b><span>20 Coins</span><button class="v53-action" onclick="v53PetBuy(20,\'food\')">FEED</button></div>'+
+      '<div class="v53-item"><b>🎾 Ball</b><span>100 Coins</span><button class="v53-action" onclick="v53PetBuy(100,\'toy\')">PLAY</button></div></div></div>'+
       '<div class="v53-card"><div class="v53-head"><h3>🏪 Cellix Shop</h3><span class="v53-muted">External offers</span></div>'+
       '<div class="v53-shop"><div style="font-size:28px">📱</div><div class="grow"><b>Alfa & Touch</b><div class="v53-muted">Shop links are managed by Admin</div></div><button class="v53-action" style="width:auto;margin:0" onclick="v53Shop()">BUY NOW</button></div></div>';
   }
@@ -967,14 +981,14 @@ document.addEventListener("click",e=>{const b=e.target.closest("#lixInstallButto
       '<button class="v55-btn" '+(lvl>=30?'':'disabled')+' onclick="v55Visit()">VISIT A CITY</button></div>'+
 
       '<div class="v55-card"><div class="v55-head"><h3>🐾 Pet Daily Care</h3><span class="v55-tag">Lv.'+petLv+'</span></div>'+
-      '<div class="v55-grid"><div class="v55-box"><b>🍖 Food</b><small>Feed your pet</small><button class="v55-btn" onclick="v55Pet(20,\\'food\\')">20 🪙</button></div>'+
-      '<div class="v55-box"><b>🎾 Play</b><small>+Energy once/day</small><button class="v55-btn" onclick="v55Pet(100,\\'play\\')">100 🪙</button></div></div></div>'+
+      '<div class="v55-grid"><div class="v55-box"><b>🍖 Food</b><small>Feed your pet</small><button class="v55-btn" onclick="v55Pet(20,\'food\')">20 🪙</button></div>'+
+      '<div class="v55-box"><b>🎾 Play</b><small>+Energy once/day</small><button class="v55-btn" onclick="v55Pet(100,\'play\')">100 🪙</button></div></div></div>'+
 
       '<div class="v55-card"><div class="v55-head"><h3>🎨 City & Home</h3><span class="v55-muted">'+(S.v55.decor.length)+' items</span></div>'+
-      '<div class="v55-grid"><div class="v55-box"><b>🌳 Tree</b><small>300 Coins</small><button class="v55-btn" onclick="v55Decor(300,\\'tree\\')">BUY</button></div>'+
-      '<div class="v55-box"><b>💡 Lamp</b><small>450 Coins</small><button class="v55-btn" onclick="v55Decor(450,\\'lamp\\')">BUY</button></div>'+
-      '<div class="v55-box"><b>🪑 Sofa</b><small>800 Coins</small><button class="v55-btn" onclick="v55Decor(800,\\'sofa\\')">BUY</button></div>'+
-      '<div class="v55-box"><b>🖼️ Art</b><small>1200 Coins</small><button class="v55-btn" onclick="v55Decor(1200,\\'art\\')">BUY</button></div></div></div>';
+      '<div class="v55-grid"><div class="v55-box"><b>🌳 Tree</b><small>300 Coins</small><button class="v55-btn" onclick="v55Decor(300,\'tree\')">BUY</button></div>'+
+      '<div class="v55-box"><b>💡 Lamp</b><small>450 Coins</small><button class="v55-btn" onclick="v55Decor(450,\'lamp\')">BUY</button></div>'+
+      '<div class="v55-box"><b>🪑 Sofa</b><small>800 Coins</small><button class="v55-btn" onclick="v55Decor(800,\'sofa\')">BUY</button></div>'+
+      '<div class="v55-box"><b>🖼️ Art</b><small>1200 Coins</small><button class="v55-btn" onclick="v55Decor(1200,\'art\')">BUY</button></div></div></div>';
   }
   window.v55Event=function(){
     ensure(); S.v55.eventPoints+=25; S.xp=(Number(S.xp)||0)+20;
@@ -1175,6 +1189,19 @@ document.addEventListener("click",e=>{const b=e.target.closest("#lixInstallButto
 </script>
 
 
+<div id="v61Bundle" class="v61"></div>
+<script>
+(function(){
+ function render(){
+  const h=document.getElementById('v61Bundle');if(!h||!window.S)return;
+  const st=window.LixGameEngine?LixGameEngine.stats():{};
+  const gs=[['🎯','Lix Target','target'],['🏃','Lix Runner','runner'],['🪙💣','Catch & Bomb','catch']];
+  h.innerHTML='<div class="v61-card"><div class="v61-head"><h3>🎮 Game Center • Live Stats</h3><span class="v61-badge">v0.61</span></div><div class="v61-grid">'+gs.map(g=>{const x=st[g[2]]||{};return '<div class="v61-game"><div class="v61-icon">'+g[0]+'</div><div class="grow"><b>'+g[1]+'</b><small>Played '+(x.plays||0)+' • Wins '+(x.wins||0)+' • Losses '+(x.losses||0)+'</small></div><div class="v61-best">Best<br><b>'+(x.best||0)+'</b></div></div>'}).join('')+'</div></div>';
+ }
+ window.renderV61=render;document.addEventListener('DOMContentLoaded',()=>setTimeout(render,500));
+})();
+</script>
+
 <div id="v60Bundle" class="v60"></div>
 <script>
 (function(){
@@ -1193,6 +1220,7 @@ document.addEventListener("click",e=>{const b=e.target.closest("#lixInstallButto
  document.addEventListener("DOMContentLoaded",()=>setTimeout(render,450));
 })();
 </script>
+<script>document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>window.renderV61?.(),700));</script>
 
 </body>
 </html>
