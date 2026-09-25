@@ -40,3 +40,10 @@ Added game-engine.js for centralized play/win stats and reward persistence, plus
 - Rewards remain handled by the existing game reward logic; the engine records telemetry only.
 
 Note: save/security are still browser-local prototype systems until a server/cloud backend is connected.
+
+
+## v0.62 Major Bundle
+- Added visible City Development/building system tied to Player/House Level and Coin costs.
+- Added building persistence in `S.city.buildings`.
+- Expanded Game Engine session safety and stats API.
+- Updated `games.js`, `game-engine.js`, `index.html`, `sw.js`.
