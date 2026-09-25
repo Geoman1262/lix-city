@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#1769e8">
-<meta name="version" content="LIX CITY v0.70 HOUSE INTERIOR">
-<title>LIX CITY v0.66</title>
+<meta name="version" content="LIX CITY v0.71 CITY RENDER FIX">
+<title>LIX CITY v0.71</title>
 <style>
 *{box-sizing:border-box}:root{--blue:#1769e8;--ink:#17243a;--muted:#68778a;--bg:#eef6ff;--line:#dce7f2}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif}button{font:inherit;border:0;cursor:pointer}.top{position:sticky;top:0;z-index:40;background:#fff;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand img{width:70px;max-height:35px;object-fit:contain}.stats{display:flex;gap:12px;font-weight:700;font-size:14px}.wrap{max-width:760px;margin:auto;padding:16px 16px 94px}.hero{background:linear-gradient(135deg,#1769e8,#4b94ef);border-radius:28px;color:#fff;padding:22px 18px;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:center}.hero h1{font-size:38px;line-height:1.05;margin:8px 0}.hero img{width:100%;max-height:300px;object-fit:contain}.card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:18px;margin-top:16px;box-shadow:0 5px 18px #233d5a0d}.title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.title h2{margin:0;font-size:22px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.tile{background:#f4f8fc;border-radius:20px;padding:16px;min-height:120px}.tile h3{margin:7px 0 3px}.tile small,.muted{color:var(--muted)}.btn.ghost{background:#fff;border:1px solid #d7e4ef;color:#17304b;padding:8px 10px;font-size:12px}.btn{background:var(--blue);color:#fff;border-radius:14px;padding:11px 16px;font-weight:700}.btn.alt{background:#e8f2ff;color:var(--blue)}.btn:disabled{opacity:.45}.row{display:flex;gap:10px;flex-wrap:wrap}.progress{height:12px;background:#e8eef5;border-radius:20px;overflow:hidden}.bar{height:100%;background:var(--blue);border-radius:20px}.mission{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 0;border-bottom:1px solid #edf1f5}.mission:last-child{border-bottom:0}.unlock{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #edf1f5}.unlock:last-child{border-bottom:0}.unlock b{font-size:15px}.badge{background:#e8f2ff;color:var(--blue);border-radius:999px;padding:5px 9px;font-size:12px;font-weight:700}.badge.now{background:#e7f7ed;color:#267342}
 
@@ -341,6 +341,27 @@
 <style>
 .city-world .npc1{left:350px;top:355px}.city-world .npc2{left:700px;top:520px}.city-world .npc3{left:250px;top:525px}.city-world .npc4{left:820px;top:390px}.city-world .cb1{left:340px;top:320px}.city-world .cb2{left:680px;top:485px}.city-world .car1{left:-100px;top:430px}.city-world .car2{left:-360px;top:445px;animation-delay:-4s}.city-world .city-bubble{pointer-events:none}
 </style>
+
+<style>
+/* v0.71 — CITY RENDER FIX
+   The previous build had a later rule changing .city-building .front to
+   position:relative, which collapsed the building body and left only the roofs.
+   Keep the body as a real positioned layer and force Lix above the scene. */
+.city-building .front{position:absolute!important;inset:0!important;display:block!important;min-height:100%!important;}
+.city-building .roof{z-index:2!important;}
+.city-building .front{z-index:1!important;}
+#worldLix.world-lix{display:block!important;visibility:visible!important;opacity:1!important;width:120px!important;height:auto!important;z-index:999!important;object-fit:contain!important;pointer-events:none!important;}
+.city-world .world-lix{transform:translateZ(0);}
+/* Clean CSS props instead of emoji-only scenery */
+.city-world .world-tree{font-size:0;width:48px;height:58px;background:linear-gradient(#55b85f,#2f8d49);border-radius:50% 50% 42% 42%;filter:drop-shadow(0 6px 4px #27445a35);}
+.city-world .world-tree:after{content:'';position:absolute;left:19px;top:40px;width:10px;height:22px;background:#8b5a35;border-radius:5px;}
+.city-world .world-lamp{font-size:0;width:12px;height:48px;background:#536474;border-radius:8px;box-shadow:0 0 0 3px #fff3;}
+.city-world .world-lamp:before{content:'';position:absolute;left:-7px;top:-7px;width:26px;height:26px;border-radius:50%;background:#fff2a8;box-shadow:0 0 18px #ffe66b;}
+.city-world .world-lamp:after{content:'';position:absolute;left:-3px;top:7px;width:18px;height:6px;border-radius:6px;background:#68798a;}
+.city-lix-marker{position:absolute;z-index:998;width:142px;height:18px;border-radius:50%;background:#1769e855;filter:blur(1px);pointer-events:none;}
+@media(max-width:520px){#worldLix.world-lix{width:105px!important;}}
+</style>
+
 </head>
 <body>
 <div id="app"><main style="font-family:Arial,sans-serif;padding:28px;text-align:center;color:#123"><h2>🏙️ LIX CITY</h2><p>Loading…</p></main></div>
@@ -1340,7 +1361,7 @@ document.addEventListener("click",e=>{const b=e.target.closest("#lixInstallButto
 <div id="v63City"></div>
 
 
-<!-- LIX CITY v0.66 — Living City -->
+<!-- LIX CITY v0.71 — Living City -->
 <style>
 .city-world{transition:background .7s ease,filter .7s ease}.city-world.city-day{filter:none}.city-world.city-sunset{background:linear-gradient(#f4b38d 0 34%,#9ac978 34% 100%);filter:saturate(1.05)}.city-world.city-night{background:linear-gradient(#18264d 0 34%,#31583c 34% 100%);filter:saturate(.82)}.city-world.city-night .city-building .front{filter:brightness(.72)}.city-world.city-night .world-lamp{filter:drop-shadow(0 0 9px #ffe98a);}.city-world.city-night .world-sign{background:#17243acc}.city-world.city-night .world-lix{filter:drop-shadow(0 0 10px #7ecbff) drop-shadow(0 9px 5px #0008)}
 .city-npc{position:absolute;z-index:12;font-size:27px;filter:drop-shadow(0 5px 3px #18344a55);pointer-events:none;animation:npcwalk 7s ease-in-out infinite alternate}.city-car{position:absolute;z-index:5;font-size:25px;pointer-events:none;animation:carpass 9s linear infinite}.city-bubble{position:absolute;z-index:13;background:#ffffffee;color:#17304b;border:1px solid #dce7f2;border-radius:12px;padding:5px 8px;font-size:10px;font-weight:800;box-shadow:0 5px 14px #17304b20;animation:bubbleFloat 3s ease-in-out infinite}.v66-card{margin-top:14px;background:#fff;border:1px solid #dce7f2;border-radius:20px;padding:16px;box-shadow:0 8px 24px #1769e812}.v66-head{display:flex;justify-content:space-between;align-items:center;gap:12px}.v66-head h3{margin:0 0 4px}.v66-head small{color:#68778a}.v66-time{border:0;border-radius:12px;padding:9px 11px;background:#eaf3ff;color:#1769e8;font-weight:800}.v66-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px}.v66-stat{font-size:12px;color:#68778a;background:#f4f8fc;border-radius:999px;padding:8px 10px}@keyframes npcwalk{from{transform:translateX(-8px)}to{transform:translateX(32px)}}@keyframes carpass{from{transform:translateX(-120px)}to{transform:translateX(1100px)}}@keyframes bubbleFloat{50%{transform:translateY(-3px)}}
