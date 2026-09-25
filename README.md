@@ -53,5 +53,5 @@ Save is still localStorage-based. Cloud/server-side save and anti-cheat are not 
 Visual City Upgrade: replaced emoji NPCs/cars with CSS-rendered city residents and vehicles, added skyline/plaza/water layers, reduced empty sky, preserved exact Lix asset, and refreshed PWA cache.
 
 
-## v0.71
+## v0.72
 Fixed the city renderer: building fronts were collapsed by a later CSS rule, leaving only roofs visible. Forced real building bodies and made the original Lix asset always visible above the city. Replaced emoji-only tree/lamp visuals with CSS scenery.

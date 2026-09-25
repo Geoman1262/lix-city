@@ -1380,3 +1380,40 @@ document.addEventListener("click",e=>{const b=e.target.closest("#lixInstallButto
 <script src="house-interior.js"></script>
 </body>
 </html>
+<style>
+/* v0.72 — HARD CITY VISUAL RECOVERY */
+.city-world .city-building{
+  display:block!important; position:absolute!important; overflow:visible!important;
+  width:150px!important; height:118px!important; z-index:40!important;
+  background:linear-gradient(180deg,#e7f6ff 0%,#b7d8ed 58%,#7fa8c0 100%)!important;
+  border:4px solid #d9edf8!important; border-radius:16px 16px 12px 12px!important;
+  box-shadow:0 14px 24px rgba(23,48,75,.24)!important;
+}
+.city-world .city-building::before{
+  content:""; position:absolute!important; inset:0!important; z-index:0!important;
+  border-radius:12px 12px 8px 8px!important;
+  background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(255,255,255,0) 35%,rgba(23,48,75,.18))!important;
+}
+.city-world .city-building .front{
+  position:absolute!important; inset:0!important; z-index:2!important;
+  display:block!important; visibility:visible!important; opacity:1!important;
+  background:transparent!important; border:0!important; overflow:visible!important;
+  box-shadow:none!important;
+}
+.city-world .city-building .window{z-index:4!important;display:block!important;visibility:visible!important;}
+.city-world .city-building .door{z-index:4!important;display:block!important;visibility:visible!important;}
+.city-world .city-building .label{z-index:6!important;display:block!important;visibility:visible!important;}
+.city-world .city-building .roof{z-index:8!important;display:block!important;visibility:visible!important;}
+/* Force the real Lix asset into a guaranteed visible layer */
+#worldLix.world-lix{
+  position:absolute!important; display:block!important; visibility:visible!important; opacity:1!important;
+  width:105px!important; height:auto!important; z-index:9999!important;
+  left:390px!important; top:325px!important; object-fit:contain!important;
+  filter:drop-shadow(0 10px 7px rgba(23,48,75,.35))!important;
+}
+.city-world::after{
+  content:""; position:absolute; left:360px; top:430px; width:165px; height:18px;
+  border-radius:50%; background:rgba(23,105,232,.22); filter:blur(4px); z-index:9998; pointer-events:none;
+}
+@media(max-width:520px){#worldLix.world-lix{width:105px!important;left:390px!important;top:325px!important}.city-world .city-building{width:150px!important;height:118px!important}}
+</style>
