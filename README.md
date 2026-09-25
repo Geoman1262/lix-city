@@ -47,3 +47,8 @@ Note: save/security are still browser-local prototype systems until a server/clo
 - Added building persistence in `S.city.buildings`.
 - Expanded Game Engine session safety and stats API.
 - Updated `games.js`, `game-engine.js`, `index.html`, `sw.js`.
+
+
+## v0.63
+- City Development module with persistent upgrades, costs, level gates, XP rewards, and save integration.
+- Game Engine uses v63 stats/session storage and rejects stale/double finishes.

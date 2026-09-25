@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#1769e8">
-<meta name="version" content="LIX CITY v0.61 GAME ENGINE">
-<title>LIX CITY v0.61</title>
+<meta name="version" content="LIX CITY v0.63 CITY DEVELOPMENT">
+<title>LIX CITY v0.63</title>
 <style>
 *{box-sizing:border-box}:root{--blue:#1769e8;--ink:#17243a;--muted:#68778a;--bg:#eef6ff;--line:#dce7f2}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif}button{font:inherit;border:0;cursor:pointer}.top{position:sticky;top:0;z-index:40;background:#fff;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand img{width:70px;max-height:35px;object-fit:contain}.stats{display:flex;gap:12px;font-weight:700;font-size:14px}.wrap{max-width:760px;margin:auto;padding:16px 16px 94px}.hero{background:linear-gradient(135deg,#1769e8,#4b94ef);border-radius:28px;color:#fff;padding:22px 18px;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:center}.hero h1{font-size:38px;line-height:1.05;margin:8px 0}.hero img{width:100%;max-height:300px;object-fit:contain}.card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:18px;margin-top:16px;box-shadow:0 5px 18px #233d5a0d}.title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.title h2{margin:0;font-size:22px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.tile{background:#f4f8fc;border-radius:20px;padding:16px;min-height:120px}.tile h3{margin:7px 0 3px}.tile small,.muted{color:var(--muted)}.btn.ghost{background:#fff;border:1px solid #d7e4ef;color:#17304b;padding:8px 10px;font-size:12px}.btn{background:var(--blue);color:#fff;border-radius:14px;padding:11px 16px;font-weight:700}.btn.alt{background:#e8f2ff;color:var(--blue)}.btn:disabled{opacity:.45}.row{display:flex;gap:10px;flex-wrap:wrap}.progress{height:12px;background:#e8eef5;border-radius:20px;overflow:hidden}.bar{height:100%;background:var(--blue);border-radius:20px}.mission{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 0;border-bottom:1px solid #edf1f5}.mission:last-child{border-bottom:0}.unlock{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #edf1f5}.unlock:last-child{border-bottom:0}.unlock b{font-size:15px}.badge{background:#e8f2ff;color:var(--blue);border-radius:999px;padding:5px 9px;font-size:12px;font-weight:700}.badge.now{background:#e7f7ed;color:#267342}
 
@@ -1222,6 +1222,58 @@ document.addEventListener("click",e=>{const b=e.target.closest("#lixInstallButto
 })();
 </script>
 <script>document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>window.renderV61?.(),700));</script>
+
+
+<!-- LIX CITY v0.63 — CITY DEVELOPMENT -->
+<style>
+.v63-card{margin-top:14px;background:#fff;border:1px solid #dce7f2;border-radius:20px;padding:16px;box-shadow:0 8px 24px rgba(23,105,232,.07)}
+.v63-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.v63-head h3{margin:0}.v63-badge{font-size:11px;padding:5px 8px;border-radius:999px;background:#eaf3ff;color:#1769e8;font-weight:800}
+.v63-sub{color:#68778a;font-size:13px;margin:5px 0 12px}.v63-grid{display:grid;gap:10px}.v63-item{border:1px solid #e4ebf3;border-radius:16px;padding:12px;display:grid;grid-template-columns:44px 1fr auto;gap:10px;align-items:center}.v63-icon{font-size:27px;text-align:center}.v63-item b{display:block}.v63-meta{font-size:12px;color:#68778a;margin-top:3px}.v63-item button{padding:9px 11px;border-radius:12px;background:#1769e8;color:#fff;font-weight:800}.v63-item button:disabled{opacity:.45;cursor:not-allowed}.v63-progress{height:7px;background:#edf2f7;border-radius:10px;overflow:hidden;margin-top:7px}.v63-progress i{display:block;height:100%;background:#1769e8}.v63-total{display:flex;justify-content:space-between;margin:10px 0 0;font-size:13px;font-weight:700}
+</style>
+<script>
+(function(){
+ const KEY='lixCityCityDevV63';
+ const defs=[
+  {id:'roads',icon:'🛣️',name:'City Roads',unlock:1,max:5,base:250,desc:'Improve movement and city appearance.'},
+  {id:'lighting',icon:'💡',name:'City Lights',unlock:5,max:5,base:400,desc:'Add a brighter evening city atmosphere.'},
+  {id:'land',icon:'🌳',name:'Green Spaces',unlock:7,max:5,base:600,desc:'Develop parks and green areas.'},
+  {id:'services',icon:'⚡',name:'City Services',unlock:8,max:5,base:900,desc:'Develop the city service network.'}
+ ];
+ function data(){
+  if(!window.S)return {};
+  S.cityDev=S.cityDev&&typeof S.cityDev==='object'?S.cityDev:{};
+  defs.forEach(d=>{S.cityDev[d.id]=Math.max(0,Math.min(d.max,Number(S.cityDev[d.id])||0));});
+  return S.cityDev;
+ }
+ function cost(d){const lv=Number(data()[d.id])||0;return Math.round(d.base*Math.pow(1.55,lv));}
+ function upgrade(id){
+  const d=defs.find(x=>x.id===id);if(!d||!window.S)return;
+  const dev=data(),lv=Number(dev[id])||0;
+  if((Number(S.level)||1)<d.unlock){toast('🔒 Unlocks at Level '+d.unlock);return;}
+  if(lv>=d.max){toast('🏙️ Max development level');return;}
+  const c=cost(d);if((Number(S.coins)||0)<c){toast('🪙 You need '+c+' Coins');return;}
+  S.coins-=c;dev[id]=lv+1;
+  if(typeof addXP==='function')addXP(Math.round(c/25));
+  else S.xp=(Number(S.xp)||0)+Math.round(c/25);
+  if(typeof save==='function')save();
+  toast('🏙️ '+d.name+' upgraded to Lv.'+(lv+1));render();
+ }
+ function render(){
+  const host=document.getElementById('v63City');if(!host||!window.S)return;
+  if(!document.getElementById('cityViewport')){host.innerHTML='';return;}
+  const dev=data(),lvl=Number(S.level)||1;
+  const total=defs.reduce((a,d)=>a+(Number(dev[d.id])||0),0),max=defs.reduce((a,d)=>a+d.max,0);
+  host.innerHTML='<div class="v63-card"><div class="v63-head"><h3>🏗️ City Development</h3><span class="v63-badge">v0.63</span></div><div class="v63-sub">Use Coins to develop your city. Development is saved with your player.</div><div class="v63-grid">'+defs.map(d=>{const lv=Number(dev[d.id])||0,locked=lvl<d.unlock,c=cost(d);return '<div class="v63-item"><div class="v63-icon">'+d.icon+'</div><div><b>'+d.name+' • Lv.'+lv+'/'+d.max+'</b><div class="v63-meta">'+(locked?'🔒 Unlock at Level '+d.unlock:d.lv===d.max?'MAX':d.desc+' • Next '+c+' 🪙')+'</div><div class="v63-progress"><i style="width:'+Math.round(lv/d.max*100)+'%"></i></div></div><button '+(locked||lv>=d.max||Number(S.coins)<c?'disabled':'')+' onclick="LixCityDev.upgrade(\''+d.id+'\')">'+(lv>=d.max?'MAX':locked?'LOCKED':'UPGRADE')+'</button></div>';}).join('')+'</div><div class="v63-total"><span>Development</span><span>'+total+' / '+max+'</span></div></div>';
+ }
+ window.LixCityDev={upgrade,render};
+ const oldShow=window.show;
+ if(typeof oldShow==='function')window.show=function(){const r=oldShow.apply(this,arguments);setTimeout(render,0);return r;};
+ const oldCity=window.city;
+ if(typeof oldCity==='function')window.city=function(){oldCity.apply(this,arguments);setTimeout(render,0);};
+ document.addEventListener('DOMContentLoaded',function(){setTimeout(render,700);});
+})();
+</script>
+<div id="v63City"></div>
 
 </body>
 </html>
