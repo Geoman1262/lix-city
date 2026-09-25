@@ -63,3 +63,10 @@ Fixed the city renderer: building fronts were collapsed by a later CSS rule, lea
 - Added visual tap target for the real Lix asset.
 - Added distinct visual treatment for city buildings.
 - Added `city-interaction.js` and updated service worker cache.
+
+
+## v0.75 — Visual Game Center
+- Added a dedicated visual Game Center arcade room using the exact `lix.png` asset.
+- Added three visible arcade machines for Target, Runner, and Catch & Bomb.
+- Added direct play buttons and room-level display.
+- Existing game logic, upgrades, saves, and navigation remain intact.
