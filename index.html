@@ -337,6 +337,7 @@
 <script src="notifications.js" defer></script>
 <script src="game-engine.js" defer></script>
 <script src="building-activities.js" defer></script>
+<script src="city-interaction.js" defer></script>
 
 <style>
 .city-world .npc1{left:350px;top:355px}.city-world .npc2{left:700px;top:520px}.city-world .npc3{left:250px;top:525px}.city-world .npc4{left:820px;top:390px}.city-world .cb1{left:340px;top:320px}.city-world .cb2{left:680px;top:485px}.city-world .car1{left:-100px;top:430px}.city-world .car2{left:-360px;top:445px;animation-delay:-4s}.city-world .city-bubble{pointer-events:none}
@@ -360,6 +361,27 @@
 .city-world .world-lamp:after{content:'';position:absolute;left:-3px;top:7px;width:18px;height:6px;border-radius:6px;background:#68798a;}
 .city-lix-marker{position:absolute;z-index:998;width:142px;height:18px;border-radius:50%;background:#1769e855;filter:blur(1px);pointer-events:none;}
 @media(max-width:520px){#worldLix.world-lix{width:105px!important;}}
+</style>
+<style>
+/* v0.73 — City interaction and polish */
+.v73-tools{margin-top:12px;padding:14px;border:1px solid #dbe7f2;border-radius:18px;background:linear-gradient(135deg,#ffffff,#eef7ff);display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:9px;align-items:center}
+.v73-rating{min-width:0}.v73-rating span{display:block;font-weight:900;color:#20364c}.v73-rating b{font-size:22px;color:#1769e8}.v73-rating i{display:block;height:7px;background:#dce8f5;border-radius:9px;overflow:hidden;margin-top:5px}.v73-rating em{display:block;height:100%;background:linear-gradient(90deg,#1769e8,#5cc8ff);border-radius:9px}
+.lix-tap-target{position:absolute;z-index:1000;width:130px;height:150px;border:0;background:transparent;left:calc(var(--lix-x, 390px));top:calc(var(--lix-y, 325px));cursor:pointer}
+.lix-focus{animation:lixFocus .65s ease both}
+@keyframes lixFocus{0%{transform:scale(1)}45%{transform:scale(1.12) translateY(-7px)}100%{transform:scale(1)}}
+.city-pulse{animation:cityPulse .65s ease both}
+@keyframes cityPulse{0%{filter:brightness(1)}45%{filter:brightness(1.25) drop-shadow(0 0 18px #65c8ff)}100%{filter:brightness(1)}}
+.city-world .b-center .front{background:linear-gradient(180deg,#e7eaff,#aeb9ee 58%,#6876bf 100%)}
+.city-world .b-store .front{background:linear-gradient(180deg,#e9fff3,#a9dbbd 58%,#5e9e78 100%)}
+.city-world .b-park .front{background:linear-gradient(180deg,#efffea,#b8d99f 58%,#70945b 100%)}
+.city-world .b-energy .front{background:linear-gradient(180deg,#fff9d9,#f0cf76 58%,#b88c2f 100%)}
+.city-world .b-workshop .front{background:linear-gradient(180deg,#edf2f5,#b7c5cc 58%,#71808a 100%)}
+.city-world .b-market .front{background:linear-gradient(180deg,#fff0f7,#e7aec6 58%,#a55d7e 100%)}
+.city-world .b-studio .front{background:linear-gradient(180deg,#f7efff,#c8afe0 58%,#805d9b 100%)}
+.city-world .b-stable .front{background:linear-gradient(180deg,#fff2df,#dfb77f 58%,#9c6b38 100%)}
+.city-world .b-plaza .front{background:linear-gradient(180deg,#e9fbff,#9bd2e0 58%,#4e8999 100%)}
+.city-world .b-arena .front{background:linear-gradient(180deg,#f0eaff,#b7a5e9 58%,#7259a8 100%)}
+@media(max-width:700px){.v73-tools{grid-template-columns:1fr 1fr}.v73-rating{grid-column:1/-1}}
 </style>
 
 </head>
@@ -589,7 +611,7 @@ function city(){
     <span class="world-lamp wl1">💡</span><span class="world-lamp wl2">💡</span><span class="world-lamp wl3">💡</span><span class="world-lamp wl4">💡</span>
     <span class="world-sign ws1">LIX DISTRICT</span><span class="world-sign ws2">CITY ROAD</span>
     ${coin("c1","wc1","wc1")}${coin("c2","wc2","wc2")}${coin("c3","wc3","wc3")}${coin("c4","wc4","wc4")}${coin("c5","wc5","wc5")}
-    <img id="worldLix" class="world-lix" src="lix.png" style="left:${lx}px;top:${ly}px" alt="Lix">
+    <img id="worldLix" class="world-lix" src="lix.png" style="left:${lx}px;top:${ly}px" alt="Lix"><button class="lix-tap-target" onclick="LixCityInteraction.greet()" aria-label="Talk to Lix"></button>
     ${S.city?.pet?'<span id="worldPet" class="world-pet" style="left:'+(lx+75)+'px;top:'+(ly+60)+'px">'+petEmoji(S.petData?.type||'dog')+'</span>':""}
     <span class="city-person npc1"><i class="person-head"></i><i class="person-body"></i></span>
     <span class="city-person npc2"><i class="person-head"></i><i class="person-body"></i></span>
@@ -599,7 +621,7 @@ function city(){
     <span class="city-car car1"><i></i></span><span class="city-car car2"><i></i></span>
     <div id="cityPanel" class="city-panel"></div>
   </div></div>
-  ${cityManagementCard()}<div id="v66Living"></div>
+  ${cityManagementCard()}<div id="v73CityTools"></div><div id="v66Living"></div>
   <div class="city-scroll-hint">↕️ اسحب الخريطة لاستكشاف المدينة • اضغط المباني للتفاعل</div>
   <div class="city-controls"><button class="round" onclick="moveLix(-3,0)">⬅</button><button class="round" onclick="moveLix(0,-3)">⬆</button><button class="round" onclick="moveLix(0,3)">⬇</button><button class="round" onclick="moveLix(3,0)">➡</button></div>
   <div class="city-note">🪙 اجمع الـCoins من المدينة. كل Coin يعطيك <b>+5 Coins</b> مرة واحدة.</div></section>
