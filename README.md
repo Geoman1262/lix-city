@@ -57,7 +57,7 @@ Visual City Upgrade: replaced emoji NPCs/cars with CSS-rendered city residents a
 Fixed the city renderer: building fronts were collapsed by a later CSS rule, leaving only roofs visible. Forced real building bodies and made the original Lix asset always visible above the city. Replaced emoji-only tree/lamp visuals with CSS scenery.
 
 
-## v0.73 — City Interaction Layer
+## v0.74 — City Interaction Layer
 - Added City Rating derived from Player Level, building progression and city visits.
 - Added Focus Lix camera action and daily Lix greeting (+5 XP once per 24h).
 - Added visual tap target for the real Lix asset.

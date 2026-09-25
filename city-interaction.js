@@ -1,4 +1,4 @@
-/* LIX CITY v0.73 — City Interaction Layer */
+/* LIX CITY v0.74 — City Interaction Layer */
 (function(){
   const DAY=86400000;
   function state(){
@@ -32,9 +32,9 @@
     if(typeof toast==='function')toast('🤖 Lix says hello! +5 XP');
   }
   function refresh(){
-    const host=document.getElementById('v73CityTools'); if(!host)return;
+    const host=document.getElementById('v74CityTools'); if(!host)return;
     const r=rating();
-    host.innerHTML=`<div class="v73-tools"><div class="v73-rating"><span>🏙️ City Rating</span><b>${r}/100</b><i><em style="width:${r}%"></em></i></div><button class="btn alt" onclick="LixCityInteraction.focus()">🎯 FOCUS LIX</button><button class="btn" onclick="LixCityInteraction.greet()">🤖 HELLO LIX</button></div>`;
+    host.innerHTML=`<div class="v74-tools"><div class="v74-rating"><span>🏙️ City Rating</span><b>${r}/100</b><i><em style="width:${r}%"></em></i></div><button class="btn alt" onclick="LixCityInteraction.focus()">🎯 FOCUS LIX</button><button class="btn" onclick="LixCityInteraction.greet()">🤖 HELLO LIX</button></div>`;
   }
   function buildingPulse(type){
     const el=document.querySelector('.b-'+type); if(!el)return;

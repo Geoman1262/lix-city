@@ -1,4 +1,4 @@
-const CACHE="lix-city-v73";
+const CACHE="lix-city-v74";
 const ASSETS=["./","./index.html","./style.css","./lix.png","./coin.png","./shop-config.json","./manifest.json","./city-life.js","./building-interiors.js","./house-interior.js","./building-activities.js","./game-engine.js","./city-interaction.js"];
 self.addEventListener("install",e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting())));
 self.addEventListener("activate",e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
