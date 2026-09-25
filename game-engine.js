@@ -1,8 +1,8 @@
-/* LIX CITY Game Engine Integration - v0.63
+/* LIX CITY Game Engine Integration - v0.64
    Telemetry/session layer only. Rewards remain controlled by game logic.
 */
 (function(){
-  const KEY='lixCityGameStatsV63';
+  const KEY='lixCityGameStatsV64';
   function blank(){return {target:{plays:0,wins:0,losses:0,best:0},runner:{plays:0,wins:0,losses:0,best:0},catch:{plays:0,wins:0,losses:0,best:0},lastGame:'',lastResult:'',session:null};}
   function load(){try{const x=JSON.parse(localStorage.getItem(KEY)||'null');return Object.assign(blank(),x||{}, {target:Object.assign(blank().target,x?.target||{}),runner:Object.assign(blank().runner,x?.runner||{}),catch:Object.assign(blank().catch,x?.catch||{})});}catch(e){return blank()}}
   function save(x){try{localStorage.setItem(KEY,JSON.stringify(x))}catch(e){}}
