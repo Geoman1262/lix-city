@@ -14,3 +14,10 @@ Major update built on v0.63.
 
 ## Prototype note
 Save is still localStorage-based. Cloud/server-side save and anti-cheat are not production-ready yet.
+
+
+## v0.65 — Visible City Evolution
+- Building upgrade levels now visibly change building scale, lighting, shadows, and facade highlights in the city.
+- Building labels show their actual building level when unlocked.
+- City buildings use a 0–5 visual stage based on their saved building level.
+- House progression remains tied to Player/House Level with its existing 5-level exterior stages.

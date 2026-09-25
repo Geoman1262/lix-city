@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#1769e8">
-<meta name="version" content="LIX CITY v0.64 HOUSE & BUILDINGS">
-<title>LIX CITY v0.64</title>
+<meta name="version" content="LIX CITY v0.65 VISIBLE CITY EVOLUTION">
+<title>LIX CITY v0.65</title>
 <style>
 *{box-sizing:border-box}:root{--blue:#1769e8;--ink:#17243a;--muted:#68778a;--bg:#eef6ff;--line:#dce7f2}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif}button{font:inherit;border:0;cursor:pointer}.top{position:sticky;top:0;z-index:40;background:#fff;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand img{width:70px;max-height:35px;object-fit:contain}.stats{display:flex;gap:12px;font-weight:700;font-size:14px}.wrap{max-width:760px;margin:auto;padding:16px 16px 94px}.hero{background:linear-gradient(135deg,#1769e8,#4b94ef);border-radius:28px;color:#fff;padding:22px 18px;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:center}.hero h1{font-size:38px;line-height:1.05;margin:8px 0}.hero img{width:100%;max-height:300px;object-fit:contain}.card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:18px;margin-top:16px;box-shadow:0 5px 18px #233d5a0d}.title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.title h2{margin:0;font-size:22px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.tile{background:#f4f8fc;border-radius:20px;padding:16px;min-height:120px}.tile h3{margin:7px 0 3px}.tile small,.muted{color:var(--muted)}.btn.ghost{background:#fff;border:1px solid #d7e4ef;color:#17304b;padding:8px 10px;font-size:12px}.btn{background:var(--blue);color:#fff;border-radius:14px;padding:11px 16px;font-weight:700}.btn.alt{background:#e8f2ff;color:var(--blue)}.btn:disabled{opacity:.45}.row{display:flex;gap:10px;flex-wrap:wrap}.progress{height:12px;background:#e8eef5;border-radius:20px;overflow:hidden}.bar{height:100%;background:var(--blue);border-radius:20px}.mission{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 0;border-bottom:1px solid #edf1f5}.mission:last-child{border-bottom:0}.unlock{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #edf1f5}.unlock:last-child{border-bottom:0}.unlock b{font-size:15px}.badge{background:#e8f2ff;color:var(--blue);border-radius:999px;padding:5px 9px;font-size:12px;font-weight:700}.badge.now{background:#e7f7ed;color:#267342}
 
@@ -291,6 +291,30 @@
 
 
 .v61{margin-top:14px}.v61-card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:16px;box-shadow:0 5px 18px #233d5a0d}.v61-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.v61-head h3{margin:0;font-size:18px}.v61-badge{background:#e8f2ff;color:var(--blue);border-radius:999px;padding:5px 9px;font-size:11px;font-weight:800}.v61-grid{display:grid;gap:8px}.v61-game{display:flex;align-items:center;gap:10px;background:#f6f9fc;border-radius:16px;padding:10px}.v61-icon{font-size:28px}.v61-game small{display:block;color:var(--muted);margin-top:3px;font-size:11px}.v61-best{text-align:center;font-size:10px;color:var(--muted);min-width:48px}.v61-best b{font-size:16px;color:var(--ink)}
+
+/* v0.65 — Visible building evolution */
+.city-building{transition:transform .28s ease,filter .28s ease,opacity .28s ease;transform-origin:center bottom}
+.city-building.building-stage-0{filter:grayscale(.75) brightness(.82)}
+.city-building.building-stage-1 .roof{filter:brightness(.98)}
+.city-building.building-stage-2{transform:scale(1.04)}
+.city-building.building-stage-2 .roof{height:48px;filter:brightness(1.06)}
+.city-building.building-stage-2 .front{box-shadow:inset 0 0 0 2px #ffffff22,0 8px 18px #17304b22}
+.city-building.building-stage-3{transform:scale(1.08)}
+.city-building.building-stage-3 .roof{height:54px;filter:brightness(1.12);box-shadow:0 8px 0 #27445a44,0 12px 22px #17304b30}
+.city-building.building-stage-3 .front:before{content:'✦';position:absolute;right:10px;top:8px;font-size:16px;color:#fff;opacity:.8}
+.city-building.building-stage-4{transform:scale(1.12)}
+.city-building.building-stage-4 .roof{height:60px;filter:brightness(1.18);box-shadow:0 9px 0 #27445a55,0 15px 25px #17304b38}
+.city-building.building-stage-4 .front{box-shadow:inset 0 0 0 2px #ffffff30,0 10px 22px #17304b30}
+.city-building.building-stage-5{transform:scale(1.17);filter:drop-shadow(0 0 10px #ffffff55)}
+.city-building.building-stage-5 .roof{height:66px;filter:brightness(1.24);box-shadow:0 10px 0 #27445a66,0 16px 30px #17304b45}
+.city-building.building-stage-5 .front:after{content:'✦  ✦';position:absolute;left:50%;top:7px;transform:translateX(-50%);font-size:11px;color:#fff;opacity:.85;white-space:nowrap}
+.city-building:not(.locked-building):hover{transform:translateY(-4px) scale(1.03)}
+.locked-building{filter:grayscale(.25);}
+.b-house{z-index:7}
+.b-house.stage-5{transform:scale(1.02)}
+.b-house.stage-10,.b-house.stage-15,.b-house.stage-20,.b-house.stage-25,.b-house.stage-30,.b-house.stage-35,.b-house.stage-40,.b-house.stage-45,.b-house.stage-50{transform:scale(1.04);filter:drop-shadow(0 8px 12px #17304b25)}
+.city-building .front{position:relative}
+
 </style>
 <link rel="manifest" href="manifest.json"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="LIX CITY"><script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));}</script><script src="save.js" defer></script>
 <script src="games.js" defer></script>
@@ -484,6 +508,16 @@ function buildingCost(type){const d=ensureCityBuilds(),cfg=d[type],lv=Number(S.c
 function buildingUnlocked(type){const d=ensureCityBuilds();return !!d[type]&&S.level>=d[type].req}
 function upgradeBuilding(type){const d=ensureCityBuilds(),cfg=d[type];if(!cfg)return;if(type==='house'){toast('🏠 House upgrades follow your Player Level');return}if(!buildingUnlocked(type)){toast('🔒 Unlocks at Level '+cfg.req);return}const lv=Number(S.cityBuilds[type].level)||0;if(lv>=cfg.max){toast('⭐ '+cfg.name+' is MAX');return}const cost=buildingCost(type);if(!spend(cost))return;S.cityBuilds[type].level=lv+1;S.cityBuilds[type].spent=(S.cityBuilds[type].spent||0)+cost;addXP(Math.max(20,Math.round(cost/100)));save();toast(cfg.icon+' '+cfg.name+' upgraded to Lv.'+(lv+1));show('city')}
 function cityManagementCard(){const d=ensureCityBuilds();return `<section class="card"><div class="title"><h2>🏗️ City Buildings</h2><small>Build • Upgrade • Grow</small></div><p class="muted">Every building now has its own progression. Higher levels improve your city and unlock future content.</p><div class="grid">${Object.entries(d).map(([k,c])=>{const lv=Number(S.cityBuilds[k]?.level)||0;const unlocked=S.level>=c.req;const max=lv>=c.max;const cost=buildingCost(k);return `<div class="tile ${unlocked?'':'locked'}"><div style="font-size:28px">${c.icon}</div><h3>${c.name}</h3><small>${unlocked?'Building Lv.'+lv:'Unlock at Level '+c.req}</small>${unlocked&&k!=='house'?`<div class="progress" style="margin-top:8px"><div class="bar" style="width:${Math.min(100,lv/c.max*100)}%"></div></div><button class="btn" style="margin-top:8px" onclick="upgradeBuilding('${k}')">${max?'⭐ MAX':'⬆️ UPGRADE • '+cost.toLocaleString()+' 🪙'}</button>`:`<div class="badge ${unlocked?'now':''}" style="margin-top:8px">${unlocked?'HOUSE LEVEL':'LOCKED'}</div>`}</div>`}).join('')}</div></section>`}
+function buildingVisualClass(type){
+  const lv=Number(S.cityBuilds?.[type]?.level)||0;
+  const stage=lv<=0?0:lv>=5?5:lv;
+  return `building-stage-${stage}`;
+}
+function buildingVisualLabel(type,base,locked,req){
+  const lv=Number(S.cityBuilds?.[type]?.level)||0;
+  if(locked) return `${base} • Lv.${req}`;
+  return `${base} • Lv.${lv}`;
+}
 function city(){
   missionProgress(4,1);
   let x=S.city?.x??43, y=S.city?.y??48;
@@ -495,16 +529,16 @@ function city(){
   <div class="city-viewport" id="cityViewport"><div class="city-world" id="cityWorld">
     <div class="road-h"></div><div class="road-v"></div>
     <div class="city-building b-house stage-${Math.max(1,Math.min(50,Math.floor((S.house-1)/5)*5+1))}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🏠 Lix House • Lv.${S.house}</div></div></div>
-    <div class="city-building b-center ${S.level<2?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🎮 Game Center ${S.level<2?"🔒":"OPEN"}</div></div></div>
-    <div class="city-building b-store ${S.level<4?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🏪 Cellix Store ${S.level<4?"• Lv.4":"OPEN"}</div></div></div>
-    <div class="city-building b-park ${S.level<7?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🌳 Lix Park ${S.level<7?"• Lv.7":"OPEN"}</div></div></div>
-    <div class="city-building b-energy ${S.level<8?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">⚡ Energy Station ${S.level<8?"• Lv.8":"OPEN"}</div></div></div>
-    <div class="city-building b-workshop ${S.level<12?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🛠️ Workshop ${S.level<12?"• Lv.12":"OPEN"}</div></div></div>
-    <div class="city-building b-market ${S.level<15?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🏬 Market ${S.level<15?"• Lv.15":"OPEN"}</div></div></div>
-    <div class="city-building b-studio ${S.level<18?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🎨 Studio ${S.level<18?"• Lv.18":"OPEN"}</div></div></div>
-    <div class="city-building b-stable ${S.level<20?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🐾 Stable ${S.level<20?"• Lv.20":"OPEN"}</div></div></div>
-    <div class="city-building b-plaza ${S.level<25?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🏙️ Plaza ${S.level<25?"• Lv.25":"OPEN"}</div></div></div>
-    <div class="city-building b-arena ${S.level<40?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🏆 Arena ${S.level<40?"• Lv.40":"OPEN"}</div></div></div>
+    <div class="city-building b-center ${buildingVisualClass('center')} ${S.level<2?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🎮 ${buildingVisualLabel('center','Game Center',S.level<2,2)}</div></div></div>
+    <div class="city-building b-store ${buildingVisualClass('store')} ${S.level<4?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🏪 ${buildingVisualLabel('store','Cellix Store',S.level<4,4)}</div></div></div>
+    <div class="city-building b-park ${buildingVisualClass('park')} ${S.level<7?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🌳 ${buildingVisualLabel('park','Lix Park',S.level<7,7)}</div></div></div>
+    <div class="city-building b-energy ${buildingVisualClass('energy')} ${S.level<8?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">⚡ ${buildingVisualLabel('energy','Energy Station',S.level<8,8)}</div></div></div>
+    <div class="city-building b-workshop ${buildingVisualClass('workshop')} ${S.level<12?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🛠️ ${buildingVisualLabel('workshop','Workshop',S.level<12,12)}</div></div></div>
+    <div class="city-building b-market ${buildingVisualClass('market')} ${S.level<15?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🏬 ${buildingVisualLabel('market','Market',S.level<15,15)}</div></div></div>
+    <div class="city-building b-studio ${buildingVisualClass('studio')} ${S.level<18?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🎨 ${buildingVisualLabel('studio','Studio',S.level<18,18)}</div></div></div>
+    <div class="city-building b-stable ${buildingVisualClass('stable')} ${S.level<20?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🐾 ${buildingVisualLabel('stable','Stable',S.level<20,20)}</div></div></div>
+    <div class="city-building b-plaza ${buildingVisualClass('plaza')} ${S.level<25?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🏙️ ${buildingVisualLabel('plaza','Plaza',S.level<25,25)}</div></div></div>
+    <div class="city-building b-arena ${buildingVisualClass('arena')} ${S.level<40?"locked-building":""}"><div class="roof"></div><div class="front"><span class="window" style="left:25px;top:34px"></span><span class="window" style="right:25px;top:34px"></span><span class="door"></span><div class="label">🏆 ${buildingVisualLabel('arena','Arena',S.level<40,40)}</div></div></div>
 
     <button class="city-build-hit bh-house" onclick="openBuilding('house')"></button>
     <button class="city-build-hit bh-center" onclick="openBuilding('center')"></button>

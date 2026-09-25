@@ -1,4 +1,4 @@
-/* LIX CITY v0.64 — City Buildings API */
+/* LIX CITY v0.65 — City Buildings API */
 window.LixCityBuildings={
   ensure(){ if(typeof ensureCityBuilds==='function') return ensureCityBuilds(); return {}; },
   level(type){ return Number(window.S?.cityBuilds?.[type]?.level)||0; },
