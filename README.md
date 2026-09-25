@@ -1,3 +1,7 @@
+LIX CITY v0.67 — Interactive Building Interiors
+
+Buildings now open interactive in-city panels for House, Games, Cellix Store, Park, Energy Station, Workshop, Market, Studio, Stable, Plaza and Arena.
+
 # LIX CITY v0.64 — House & Building Progression
 
 Major update built on v0.63.
