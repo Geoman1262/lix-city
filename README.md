@@ -26,3 +26,6 @@ The existing save/recovery logic remains the source of truth.
 
 ## v0.59 Progression Layer
 Added profile.js, progression.js, rewards.js, notifications.js and integrated profile/progression/notification UI.
+
+## v0.60 Game Integration
+Added game-engine.js for centralized play/win stats and reward persistence, plus Game Performance UI.
