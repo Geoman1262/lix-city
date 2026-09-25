@@ -781,11 +781,42 @@ function catchGame(){
   shell(`<section class="card"><div class="title"><h2>🪙💣 Catch & Bomb • Lv.${c.level}</h2><b id="ctt">${c.time}</b>s</div><div class="catchArea" id="catch"></div><p><img class="coin-icon small" src="coin.png"> Collected: <b id="ct">0</b> / ${c.coins}</p><button class="btn alt" onclick="gameExit('catch')">Exit</button></section>`,'games');
   sp=setInterval(spawn,Math.max(320,520-c.level*25));iv=setInterval(()=>{regenEnergy();if(!active)return;time--;const el=document.getElementById('ctt');if(el)el.textContent=time;if(time<=0)finish(false,'⏱️ Time up — collected Coins are kept, no XP reward')},1000);
 }
-function pets(){let p=S.petData||{};let ready=Date.now()-(Number(p.lastPlay)||S.petPlayed||0)>=86400000;const types=[['dog','🐶','Dog'],['cat','🐱','Cat'],['horse','🐴','Horse']];shell(`<section class="card"><div class="title"><h2>🐾 Lix Stable</h2><small>Pet Level ${p.petLevel||1}/10</small></div><div class="tile center"><div style="font-size:70px">${petEmoji(p.type)}</div><h3>${esc(p.name||'Lix Pet')}</h3><p class="muted">${petTypeName(p.type)} • ❤️ Happiness ${p.happiness||0}/100</p><div class="progress"><div class="bar" style="width:${p.happiness||0}%"></div></div></div></section><section class="card"><div class="title"><h2>🐾 Choose Companion</h2><small>More pets unlock later</small></div><div class="grid">${types.map(t=>{let owned=p.owned.includes(t[0]);return `<div class="tile ${owned?'':'locked'}"><div style="font-size:42px">${t[1]}</div><h3>${t[2]}</h3><small>${owned?'Owned':'Locked'}</small><br><button class="btn" ${owned?'':'disabled'} onclick="setPetType('${t[0]}')">${p.type===t[0]?'ACTIVE':'SELECT'}</button></div>`}).join('')}</div></section><section class="card"><div class="title"><h2>✏️ Pet Name</h2></div><input id="petNameInput" value="${esc(p.name||'Lix Pet')}" maxlength="18" style="width:100%;padding:12px;border-radius:12px;border:1px solid #ccd9e5"><button class="btn" onclick="savePetName()" style="margin-top:8px">SAVE NAME</button></section><section class="card"><div class="title"><h2>🍖 Care & Play</h2><small>Pet Level ${p.petLevel||1}</small></div><div class="grid"><div class="tile"><h3>🍖 Basic Food</h3><small>20 Coins</small><br><button class="btn" onclick="petFeed()">FEED</button></div><div class="tile"><h3>⚽ Ball</h3><small>100 Coins</small><br><button class="btn" onclick="petToy()">PLAY</button></div></div><p class="muted">Food and play increase happiness and Pet XP. Daily play can give +1 Energy once every 24h.</p><button class="btn alt" ${ready?'':'disabled'} onclick="petPlay()">${ready?'❤️ DAILY PLAY + ENERGY':'PLAY AGAIN TOMORROW'}</button><button class="btn" onclick="takePetToCity()" style="margin-left:8px">🏙️ FOLLOW LIX IN CITY</button></section>`,'pets')}
+function petVisual(type){
+  const t=['dog','cat','horse'].includes(type)?type:'dog';
+  return `<div class="v76-pet v76-${t}" aria-label="${petTypeName(t)}"><div class="pet-ear pet-ear-a"></div><div class="pet-ear pet-ear-b"></div><div class="pet-head"><i class="pet-eye a"></i><i class="pet-eye b"></i><i class="pet-muzzle"></i></div><div class="pet-body"></div><div class="pet-leg l"></div><div class="pet-leg r"></div><div class="pet-tail"></div></div>`;
+}
+function pets(){
+  let p=S.petData||{}; S.petData=p; p.owned=Array.isArray(p.owned)?p.owned:['dog'];
+  p.happiness=Number(p.happiness)||0; p.petLevel=Number(p.petLevel)||1;
+  const ready=Date.now()-(Number(p.lastPlay)||S.petPlayed||0)>=86400000;
+  const types=[['dog','Dog',1],['cat','Cat',22],['horse','Horse',32]];
+  const current=p.type||'dog';
+  const roomLevel=p.petLevel>=7?'Stable Lounge':p.petLevel>=4?'Training Yard':'Stable Entrance';
+  const typeCards=types.map(t=>{
+    const owned=p.owned.includes(t[0]), unlocked=S.level>=t[2];
+    let action='';
+    if(owned) action=`<button class="btn ${current===t[0]?'alt':''}" onclick="setPetType('${t[0]}')">${current===t[0]?'✓ ACTIVE':'SELECT'}</button>`;
+    else if(unlocked) action=`<button class="btn" onclick="unlockPet('${t[0]}')">UNLOCK</button>`;
+    else action=`<button class="btn" disabled>🔒 LV.${t[2]}</button>`;
+    return `<div class="v76-pet-card ${owned?'owned':''}"><div class="v76-mini-pet">${petVisual(t[0])}</div><div><h3>${t[1]}</h3><small>${owned?'Companion available':'Unlock at Player Level '+t[2]}</small></div>${action}</div>`;
+  }).join('');
+  const need=100+p.petLevel*50, petPct=Math.min(100,Math.round((Number(p.petXP)||0)/need*100));
+  shell(`<section class="card v76-stable-hero">
+    <div class="v76-stable-scene"><div class="v76-stable-sky"></div><div class="v76-stable-roof"></div><div class="v76-stable-ground"></div><div class="v76-stable-sign">🐾 LIX STABLE</div><div class="v76-stable-pet">${petVisual(current)}</div><img class="v76-stable-lix" src="lix.png" alt="Lix"></div>
+    <div class="v76-stable-info"><div><h2>🐾 Lix Stable</h2><p class="muted">${roomLevel} • Pet Level ${p.petLevel}/10</p></div><div class="badge now">${p.happiness}% HAPPY</div></div>
+  </section>
+  <section class="card"><div class="title"><h2>🐾 Your Companion</h2><small>${esc(p.name||'Lix Pet')}</small></div>
+    <div class="v76-companion"><div class="v76-companion-art">${petVisual(current)}</div><div class="v76-companion-info"><h2>${esc(p.name||'Lix Pet')}</h2><p>${petTypeName(current)} • Level ${p.petLevel}</p><div class="progress"><div class="bar" style="width:${p.happiness}%"></div></div><small>❤️ Happiness ${p.happiness}/100</small><div class="progress" style="margin-top:8px"><div class="bar" style="width:${petPct}%"></div></div><small>⭐ Pet XP ${p.petXP||0}/${need}</small></div></div>
+  </section>
+  <section class="card"><div class="title"><h2>🏡 Stable Companions</h2><small>Build your collection</small></div><div class="v76-pet-list">${typeCards}</div></section>
+  <section class="card"><div class="title"><h2>🍖 Care Center</h2><small>Keep ${esc(p.name||'your pet')} happy</small></div><div class="grid"><div class="tile"><div style="font-size:34px">🍖</div><h3>Basic Food</h3><small>20 Coins • +12 Happiness</small><br><button class="btn" onclick="petFeed()">FEED</button></div><div class="tile"><div style="font-size:34px">⚽</div><h3>Ball</h3><small>100 Coins • +20 Happiness</small><br><button class="btn" onclick="petToy()">PLAY</button></div></div><button class="btn alt" style="margin-top:10px;width:100%" ${ready?'':'disabled'} onclick="petPlay()">${ready?'❤️ DAILY PET PLAY • +1 ENERGY':'❤️ DAILY PLAY USED'}</button></section>
+  <section class="card"><div class="title"><h2>✏️ Pet Name</h2></div><input id="petNameInput" value="${esc(p.name||'Lix Pet')}" maxlength="18" style="width:100%;padding:12px;border-radius:12px;border:1px solid #ccd9e5"><button class="btn" onclick="savePetName()" style="margin-top:8px">SAVE NAME</button></section>`,'pets');
+}
 function petEmoji(t){return ({dog:'🐶',cat:'🐱',horse:'🐴'})[t]||'🐶'}
 function petTypeName(t){return ({dog:'Dog',cat:'Cat',horse:'Horse'})[t]||'Dog'}
 function esc(v){return String(v).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
 function petGainXP(n){let p=S.petData;p.petXP=(Number(p.petXP)||0)+n;while(p.petLevel<10 && p.petXP>=100+p.petLevel*50){p.petXP-=100+p.petLevel*50;p.petLevel++;S.pet=p.petLevel;toast('🐾 Pet Level '+p.petLevel+'!')}S.pet=p.petLevel;save()}
+function unlockPet(t){const req={cat:22,horse:32};if(!req[t]||S.level<req[t]){toast('🔒 Not unlocked yet');return}S.petData=S.petData||{owned:['dog']};S.petData.owned=Array.isArray(S.petData.owned)?S.petData.owned:['dog'];if(S.petData.owned.includes(t)){setPetType(t);return}S.petData.owned.push(t);S.petData.type=t;S.petData.active=true;save();toast('🐾 '+petTypeName(t)+' unlocked!');show('pets')}
 function setPetType(t){if(!S.petData.owned.includes(t)){toast('🔒 Pet locked');return}S.petData.type=t;S.petData.active=true;save();show('pets')}
 function savePetName(){const e=document.getElementById('petNameInput');const n=(e?.value||'Lix Pet').trim().slice(0,18);S.petData.name=n||'Lix Pet';save();toast('🐾 Pet name saved');show('pets')}
 function petFeed(){if(!spend(20))return;S.petData.food++;S.petData.happiness=Math.min(100,S.petData.happiness+12);petGainXP(20);toast('🍖 '+S.petData.name+' is happier!');show('pets')}

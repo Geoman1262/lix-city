@@ -70,3 +70,10 @@ Fixed the city renderer: building fronts were collapsed by a later CSS rule, lea
 - Added three visible arcade machines for Target, Runner, and Catch & Bomb.
 - Added direct play buttons and room-level display.
 - Existing game logic, upgrades, saves, and navigation remain intact.
+
+
+## v0.76 — Visual Stable & Pets
+- Added a visual Lix Stable scene with the original Lix asset.
+- Added CSS-rendered Dog/Cat/Horse companions instead of emoji-only pet visuals.
+- Added companion collection/unlock flow and pet XP/happiness presentation.
+- Existing pet care, daily play, save, and energy logic preserved.
