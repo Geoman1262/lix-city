@@ -33,3 +33,10 @@ Save is still localStorage-based. Cloud/server-side save and anti-cheat are not 
 - City exploration action grants +10 XP and tracks visits.
 - Uses the existing Lix asset unchanged.
 - Prototype save remains localStorage-based; server-side security/cloud save is still a future production step.
+
+
+## v0.68 — Building Activity System
+- Interactive building actions added to House, Market, Studio, Park, Plaza and Arena.
+- Building interiors expose real upgrade controls tied to the existing city-buildings save state.
+- Daily building activities persist in the player save.
+- Added `building-activities.js` and bumped service-worker cache version.
