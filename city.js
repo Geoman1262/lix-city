@@ -1,4 +1,4 @@
-/* LIX CITY City Module - v0.58 */
+/* LIX CITY City Module - v0.66 */
 window.LixCity = {
   level(){ return Number(window.S?.level)||1; },
   house(){ return Number(window.S?.house)||this.level(); },

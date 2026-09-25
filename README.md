@@ -21,3 +21,11 @@ Save is still localStorage-based. Cloud/server-side save and anti-cheat are not 
 - Building labels show their actual building level when unlocked.
 - City buildings use a 0–5 visual stage based on their saved building level.
 - House progression remains tied to Player/House Level with its existing 5-level exterior stages.
+
+## v0.66 — Living City
+- Added `city-life.js` for a lightweight living-city layer.
+- Day / Sunset / Night city atmosphere.
+- Moving residents and cars in the city scene.
+- City exploration action grants +10 XP and tracks visits.
+- Uses the existing Lix asset unchanged.
+- Prototype save remains localStorage-based; server-side security/cloud save is still a future production step.
