@@ -87,11 +87,18 @@ Unified dashboard layer added on top of the existing City, House, Games, Pets, S
 Inline critical CSS was added to guarantee the Major Build dashboard styling and stable Lix sizing even if style.css cache is stale.
 
 
-## v1.3 Economy Build
+## v1.5 Economy Build
 Added Cellix Store/Market economy UI, provider filtering, admin-managed external-link opening, and mascot size safety bounds.
 
 
-## v1.4 Pet Visual Assets
+## v1.5 Pet Visual Assets
 - Added real 3D pet artwork assets: dog.png, cat.png, horse.png.
 - Pet cards, Stable companion, and City companion now use image assets instead of CSS/emoji animals.
 - Lix and official coin assets remain unchanged.
+
+
+## v1.5 Game Start Fix
+- Fixed game start flow so consuming Energy never re-renders the Home screen.
+- Added a guarded game session boot to prevent duplicate/hidden game sessions.
+- Target, Runner and Catch & Bomb now enter the game screen after Energy is consumed.
+- Existing save data and assets remain unchanged.

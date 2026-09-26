@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#1769e8">
-<meta name="version" content="LIX CITY v1.3 ECONOMY BUILD">
-<title>LIX CITY v1.3 — Economy Build</title>
+<meta name="version" content="LIX CITY v1.5 ECONOMY BUILD">
+<title>LIX CITY v1.5 — Economy Build</title>
 <style>
 *{box-sizing:border-box}:root{--blue:#1769e8;--ink:#17243a;--muted:#68778a;--bg:#eef6ff;--line:#dce7f2}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif}button{font:inherit;border:0;cursor:pointer}.top{position:sticky;top:0;z-index:40;background:#fff;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand img{width:70px;max-height:35px;object-fit:contain}.stats{display:flex;gap:12px;font-weight:700;font-size:14px}.wrap{max-width:760px;margin:auto;padding:16px 16px 94px}.hero{background:linear-gradient(135deg,#1769e8,#4b94ef);border-radius:28px;color:#fff;padding:22px 18px;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:center}.hero h1{font-size:38px;line-height:1.05;margin:8px 0}.hero img{width:100%;max-height:300px;object-fit:contain}.card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:18px;margin-top:16px;box-shadow:0 5px 18px #233d5a0d}.title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.title h2{margin:0;font-size:22px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.tile{background:#f4f8fc;border-radius:20px;padding:16px;min-height:120px}.tile h3{margin:7px 0 3px}.tile small,.muted{color:var(--muted)}.btn.ghost{background:#fff;border:1px solid #d7e4ef;color:#17304b;padding:8px 10px;font-size:12px}.btn{background:var(--blue);color:#fff;border-radius:14px;padding:11px 16px;font-weight:700}.btn.alt{background:#e8f2ff;color:var(--blue)}.btn:disabled{opacity:.45}.row{display:flex;gap:10px;flex-wrap:wrap}.progress{height:12px;background:#e8eef5;border-radius:20px;overflow:hidden}.bar{height:100%;background:var(--blue);border-radius:20px}.mission{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 0;border-bottom:1px solid #edf1f5}.mission:last-child{border-bottom:0}.unlock{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #edf1f5}.unlock:last-child{border-bottom:0}.unlock b{font-size:15px}.badge{background:#e8f2ff;color:var(--blue);border-radius:999px;padding:5px 9px;font-size:12px;font-weight:700}.badge.now{background:#e7f7ed;color:#267342}
 
@@ -539,7 +539,7 @@ function regenEnergy(){
 }
 function streakStatus(){const now=Date.now(), day=86400000; const last=Number(S.lastStreakClaim)||0; if(!last)return {ready:true,day:1}; const diff=Math.floor((now-last)/day); if(diff===0)return {ready:false,day:Math.max(1,S.streakDay||1)}; if(diff===1)return {ready:true,day:Math.min(7,(S.streakDay||0)+1)}; return {ready:true,day:1}}
 function claimStreak(){const st=streakStatus();if(!st.ready){toast("🔥 Daily Streak already claimed today");return}S.streakDay=st.day;S.lastStreakClaim=Date.now();const reward=[0,10,20,30,40,50,60,70][S.streakDay]||70;addXP(reward);save();toast("🔥 Day "+S.streakDay+" Streak! +"+reward+" XP");show("home")}
-function need(l){return Math.round(500*l+300*Math.pow(Math.max(0,l-1),1.35))}function addXP(n){S.xp+=n;while(S.xp>=need(S.level)){S.xp-=need(S.level);S.level++;S.house=S.level;toast("🏠 House / Player Level "+S.level+"!")}save();render()}function spend(n){if(S.coins<n){toast("Not enough Coins");return false}S.coins-=n;save();return true}function energy(){regenEnergy();if(S.energy<1){toast("⚡ No Energy — next +1 in 15 min");return false}const wasFull=S.energy>=S.maxEnergy;S.energy--;if(wasFull)S.nextEnergyAt=Date.now()+900000;else if(!S.nextEnergyAt||S.nextEnergyAt<=Date.now())S.nextEnergyAt=Date.now()+900000;missionProgress(0,1);save();render();return true}function coins(n){const gain=Math.max(0,Number(n)||0);S.coins+=gain;S.events=S.events||{};S.events.launch=S.events.launch||{plays:0,coins:0,claimed:false};S.events.launch.coins=(S.events.launch.coins||0)+gain;missionProgress(1,gain);save();render()}function toast(t){let e=document.querySelector(".toast");if(!e)return;e.textContent=t;e.style.display="block";clearTimeout(window.tt);window.tt=setTimeout(()=>e.style.display="none",1800)}function nav(a){return`<div class="nav"><div class="navin"><button class="${a==="home"?"active":""}" onclick="show('home')"><b>🏠</b>Home</button><button class="${a==="city"?"active":""}" onclick="show('city')"><b>🏙️</b>City</button><button class="${a==="games"?"active":""}" onclick="show('games')"><b>🎮</b>Games</button><button class="${a==="pets"?"active":""}" onclick="show('pets')"><b>🐾</b>Pets</button><button class="${a==="more"?"active":""}" onclick="show('more')"><b>☰</b>More</button></div></div>`}function energyCountdownText(){regenEnergy();if(S.energy>=S.maxEnergy)return "Full";const next=Number(S.nextEnergyAt)||Date.now()+900000;const rem=Math.max(0,next-Date.now());const sec=Math.ceil(rem/1000);const m=Math.floor(sec/60),s=sec%60;return `Next +1 in ${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`}function updateEnergyUI(){regenEnergy();const e=document.getElementById("energyMain");const c=document.getElementById("energyCountdown");if(e)e.textContent=`⚡ ${S.energy}/${S.maxEnergy}`;if(c){c.textContent=energyCountdownText();c.className="energy-countdown"+(S.energy>=S.maxEnergy?" ready":"")}}function startEnergyTicker(){clearInterval(window.energyTicker);updateEnergyUI();window.energyTicker=setInterval(updateEnergyUI,1000)}function shell(c,a){regenEnergy();document.getElementById("app").innerHTML=`<header class="top"><div class="brand"><img src="cellix-logo.webp"></div><div class="stats"><span>⭐ ${S.xp}</span><span><img class="coin-icon" src="coin.png"> ${S.coins}</span><span class="energy-stat"><span id="energyMain" class="energy-main">⚡ ${S.energy}/${S.maxEnergy}</span><span id="energyCountdown" class="energy-countdown">${energyCountdownText()}</span></span></div></header><main class="wrap">${c}</main>${nav(a)}<div class="toast"></div>`;startEnergyTicker();updateInstallUI()}function show(p){({home,city,games,pets,more}[p])()}
+function need(l){return Math.round(500*l+300*Math.pow(Math.max(0,l-1),1.35))}function addXP(n){S.xp+=n;while(S.xp>=need(S.level)){S.xp-=need(S.level);S.level++;S.house=S.level;toast("🏠 House / Player Level "+S.level+"!")}save();render()}function spend(n){if(S.coins<n){toast("Not enough Coins");return false}S.coins-=n;save();return true}function energy(){regenEnergy();if(S.energy<1){toast("⚡ No Energy — next +1 in 15 min");return false}const wasFull=S.energy>=S.maxEnergy;S.energy--;if(wasFull)S.nextEnergyAt=Date.now()+900000;else if(!S.nextEnergyAt||S.nextEnergyAt<=Date.now())S.nextEnergyAt=Date.now()+900000;missionProgress(0,1);save();try{updateEnergyUI();}catch(e){}return true}function coins(n){const gain=Math.max(0,Number(n)||0);S.coins+=gain;S.events=S.events||{};S.events.launch=S.events.launch||{plays:0,coins:0,claimed:false};S.events.launch.coins=(S.events.launch.coins||0)+gain;missionProgress(1,gain);save();render()}function toast(t){let e=document.querySelector(".toast");if(!e)return;e.textContent=t;e.style.display="block";clearTimeout(window.tt);window.tt=setTimeout(()=>e.style.display="none",1800)}function nav(a){return`<div class="nav"><div class="navin"><button class="${a==="home"?"active":""}" onclick="show('home')"><b>🏠</b>Home</button><button class="${a==="city"?"active":""}" onclick="show('city')"><b>🏙️</b>City</button><button class="${a==="games"?"active":""}" onclick="show('games')"><b>🎮</b>Games</button><button class="${a==="pets"?"active":""}" onclick="show('pets')"><b>🐾</b>Pets</button><button class="${a==="more"?"active":""}" onclick="show('more')"><b>☰</b>More</button></div></div>`}function energyCountdownText(){regenEnergy();if(S.energy>=S.maxEnergy)return "Full";const next=Number(S.nextEnergyAt)||Date.now()+900000;const rem=Math.max(0,next-Date.now());const sec=Math.ceil(rem/1000);const m=Math.floor(sec/60),s=sec%60;return `Next +1 in ${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`}function updateEnergyUI(){regenEnergy();const e=document.getElementById("energyMain");const c=document.getElementById("energyCountdown");if(e)e.textContent=`⚡ ${S.energy}/${S.maxEnergy}`;if(c){c.textContent=energyCountdownText();c.className="energy-countdown"+(S.energy>=S.maxEnergy?" ready":"")}}function startEnergyTicker(){clearInterval(window.energyTicker);updateEnergyUI();window.energyTicker=setInterval(updateEnergyUI,1000)}function shell(c,a){regenEnergy();document.getElementById("app").innerHTML=`<header class="top"><div class="brand"><img src="cellix-logo.webp"></div><div class="stats"><span>⭐ ${S.xp}</span><span><img class="coin-icon" src="coin.png"> ${S.coins}</span><span class="energy-stat"><span id="energyMain" class="energy-main">⚡ ${S.energy}/${S.maxEnergy}</span><span id="energyCountdown" class="energy-countdown">${energyCountdownText()}</span></span></div></header><main class="wrap">${c}</main>${nav(a)}<div class="toast"></div>`;startEnergyTicker();updateInstallUI()}function show(p){({home,city,games,pets,more}[p])()}
 function cityRoadmap(){return [
 {lv:8,icon:"⚡",name:"Energy Station",desc:"Energy capacity and city utility content."},
 {lv:12,icon:"🛠️",name:"Lix Workshop",desc:"Crafting and advanced city development."},
@@ -767,42 +767,61 @@ function games(){
   <div class="game"><div class="title"><h3>🪙💣 Lix Catch & Bomb</h3><b>Game Lv.${c.level}</b></div><div class="muted">Collect ${c.coins} Coins before time runs out. Bombs end the round.</div><p>Base reward: ⭐ ${c.xp} XP + all collected Coins</p><p>⚙️ Upgrade Lv.${cu.level} • <b>+${cu.bonus}%</b> rewards</p><div class="row"><button class="btn" onclick="catchGame()">PLAY</button>${upgrade('catch',cu)}</div></div>
   </section>`,'games');
 }
+/* v1.5 GAME START FIX — energy consumption must never re-render Home. */
+window.__lixGameBooting=false;
+window.__lixGameName="";
+function lixGameStartGuard(name){
+  if(window.__lixGameBooting || window.__activeGameCleanup){
+    toast("🎮 A game is already running");
+    return false;
+  }
+  if(!energy()) return false;
+  window.__lixGameBooting=true;
+  window.__lixGameName=name;
+  try{
+    if(window.LixGameEngine && typeof LixGameEngine.start==="function") LixGameEngine.start(name);
+  }catch(e){ console.warn("Game engine start failed",e); }
+  return true;
+}
+function lixGameReady(){ window.__lixGameBooting=false; return true; }
+
 function gameExit(name){
+  window.__lixGameBooting=false;
   try{if(typeof window.__activeGameCleanup==='function'){window.__activeGameCleanup();return;}}catch(e){}
   try{if(window.LixGameEngine)LixGameEngine.finish(name,false,0);}catch(e){}
   toast('Round ended — Energy used, no reward');setTimeout(()=>show('games'),250);
 }
 function targetGame(){
-  if(!energy())return;
-  LixGameEngine.start('target');
+  if(!lixGameStartGuard('target'))return;
   const c=gameCfg('target'); let hits=0,time=c.time,active=true,iv;
-  function end(win){if(!active)return;active=false;window.__activeGameCleanup=null;clearInterval(iv);if(win){gameWin('target',c.coins,c.xp)}else {if(window.LixGameEngine)LixGameEngine.finish('target',false,hits);toast('⏱️ Time up — Energy lost, no reward');}setTimeout(()=>show('games'),550)}
+  function end(win){if(!active)return;active=false;window.__activeGameCleanup=null;window.__lixGameBooting=false;clearInterval(iv);if(win){gameWin('target',c.coins,c.xp)}else {if(window.LixGameEngine)LixGameEngine.finish('target',false,hits);toast('⏱️ Time up — Energy lost, no reward');}setTimeout(()=>show('games'),550)}
   function place(){if(!active)return;const b=document.getElementById('targetBoard');if(!b)return;const e=document.createElement('button');e.className='target';e.textContent='🎯';e.style.left=(Math.random()*82+5)+'%';e.style.top=(Math.random()*70+5)+'%';e.onclick=()=>{hits++;e.remove();const h=document.getElementById('tgHits');if(h)h.textContent=hits;if(hits>=c.need)end(true);else place()};b.appendChild(e)}
   window.__activeGameCleanup=()=>end(false);
   shell(`<section class="card"><div class="title"><h2>🎯 Lix Target • Lv.${c.level}</h2><b id="tgTime">${c.time}</b>s</div><div class="playarea" id="targetBoard"></div><p class="center">Hits: <b id="tgHits">0</b> / ${c.need}</p><button class="btn alt" onclick="gameExit('target')">Exit</button></section>`,'games');
+  lixGameReady();
   iv=setInterval(()=>{regenEnergy();if(!active)return;time--;const el=document.getElementById('tgTime');if(el)el.textContent=time;if(time<=0)end(false)},1000);place();
 }
 function runnerGame(){
-  if(!energy())return;
-  LixGameEngine.start('runner');
+  if(!lixGameStartGuard('runner'))return;
   const c=gameCfg('runner'); let time=c.time,distance=0,lane=1,active=true,iv,obsTimer;
-  function finish(win,msg){if(!active)return;active=false;window.__activeGameCleanup=null;clearInterval(iv);clearInterval(obsTimer);if(win){gameWin('runner',c.coins,c.xp);toast('🏃 '+c.dist+'m complete!')}else {if(window.LixGameEngine)LixGameEngine.finish('runner',false,distance);toast(msg||'💥 Crash — Energy lost, no reward');}setTimeout(()=>show('games'),600)}
+  function finish(win,msg){if(!active)return;active=false;window.__activeGameCleanup=null;window.__lixGameBooting=false;clearInterval(iv);clearInterval(obsTimer);if(win){gameWin('runner',c.coins,c.xp);toast('🏃 '+c.dist+'m complete!')}else {if(window.LixGameEngine)LixGameEngine.finish('runner',false,distance);toast(msg||'💥 Crash — Energy lost, no reward');}setTimeout(()=>show('games'),600)}
   function moveRunner(z){if(!active)return;lane=Math.max(0,Math.min(2,lane+z));const el=document.getElementById('rlix');if(el)el.style.left=(8+lane*35)+'%'}
   window.moveRunner=moveRunner;
   function spawn(){if(!active)return;const o=document.createElement('div');o.className='obstacle';const ol=Math.floor(Math.random()*3);o.dataset.lane=ol;o.style.left=(8+ol*35)+'%';o.style.top='-65px';document.getElementById('runner')?.appendChild(o);let y=-65;const fall=setInterval(()=>{if(!active){clearInterval(fall);o.remove();return}y+=6;o.style.top=y+'px';if(y>250){clearInterval(fall);o.remove();return}if(y>205&&y<285&&Number(o.dataset.lane)===lane){clearInterval(fall);o.remove();finish(false,'💥 Lix hit an obstacle — no reward')}} ,45)}
   window.__activeGameCleanup=()=>finish(false,'Round ended — Energy lost, no reward');
   shell(`<section class="card"><div class="title"><h2>🏃 Lix Runner • Lv.${c.level}</h2><b id="rt">${c.time}</b>s</div><div class="runnerArea" id="runner"><div class="lane"></div><img class="runnerLix" id="rlix" src="lix.png"></div><div class="row"><button class="btn" onclick="moveRunner(-1)">⬅️ LEFT</button><button class="btn" onclick="moveRunner(1)">RIGHT ➡️</button></div><p>Distance: <b id="dist">0</b> / ${c.dist} m</p><button class="btn alt" onclick="gameExit('runner')">Exit</button></section>`,'games');
+  lixGameReady();
   obsTimer=setInterval(spawn,Math.max(520,850-c.level*55));
   iv=setInterval(()=>{regenEnergy();if(!active)return;time--;distance+=Math.ceil(c.dist/c.time);const rt=document.getElementById('rt'),d=document.getElementById('dist');if(rt)rt.textContent=time;if(d)d.textContent=Math.min(distance,c.dist);if(distance>=c.dist)finish(true);else if(time<=0)finish(false,'⏱️ Time up — Energy lost, no reward')},1000);
 }
 function catchGame(){
-  if(!energy())return;
-  LixGameEngine.start('catch');
+  if(!lixGameStartGuard('catch'))return;
   const c=gameCfg('catch'); let time=c.time,total=0,active=true,sp,iv;
-  function finish(win,msg){if(!active)return;active=false;window.__activeGameCleanup=null;clearInterval(iv);clearInterval(sp);if(win){gameWin('catch',total,c.xp);toast('🪙 Round complete! +'+total+' Coins +'+c.xp+' XP')}else{if(window.LixGameEngine)LixGameEngine.finish('catch',false,total);save();toast(msg||'💣 Bomb! Collected Coins kept, no XP reward')}setTimeout(()=>show('games'),650)}
+  function finish(win,msg){if(!active)return;active=false;window.__activeGameCleanup=null;window.__lixGameBooting=false;clearInterval(iv);clearInterval(sp);if(win){gameWin('catch',total,c.xp);toast('🪙 Round complete! +'+total+' Coins +'+c.xp+' XP')}else{if(window.LixGameEngine)LixGameEngine.finish('catch',false,total);save();toast(msg||'💣 Bomb! Collected Coins kept, no XP reward')}setTimeout(()=>show('games'),650)}
   function spawn(){if(!active)return;const e=document.createElement('button'),bomb=Math.random()<Math.min(.3,.15+c.level*.02);e.className='fall '+(bomb?'':'coin-img');e.style.left=Math.random()*88+'%';e.style.top=Math.random()*80+'%';if(bomb){e.textContent='💣'}else{e.innerHTML='<img src="coin.png" style="width:42px;height:42px;object-fit:contain">'}e.onclick=()=>{if(bomb){finish(false,'💣 Bomb! Your collected Coins are kept')}else{total+=Math.random()<.2?5:1;e.remove();const ct=document.getElementById('ct');if(ct)ct.textContent=total;if(total>=c.coins)finish(true)}};document.getElementById('catch')?.appendChild(e);setTimeout(()=>e.remove(),1500)}
   window.__activeGameCleanup=()=>finish(false,'Round ended — collected Coins are kept');
   shell(`<section class="card"><div class="title"><h2>🪙💣 Catch & Bomb • Lv.${c.level}</h2><b id="ctt">${c.time}</b>s</div><div class="catchArea" id="catch"></div><p><img class="coin-icon small" src="coin.png"> Collected: <b id="ct">0</b> / ${c.coins}</p><button class="btn alt" onclick="gameExit('catch')">Exit</button></section>`,'games');
+  lixGameReady();
   sp=setInterval(spawn,Math.max(320,520-c.level*25));iv=setInterval(()=>{regenEnergy();if(!active)return;time--;const el=document.getElementById('ctt');if(el)el.textContent=time;if(time<=0)finish(false,'⏱️ Time up — collected Coins are kept, no XP reward')},1000);
 }
 function petVisual(type){
