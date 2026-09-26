@@ -16,17 +16,21 @@ const energy=()=>Number(player()?.energy||0);
 const usedEnergy=()=>Math.max(0,(D.missionStart?.energy||energy())-energy());
 function streak(){let t=day();if(D.lastDay!==t){let y=new Date(Date.now()-86400000).toISOString().slice(0,10);D.streak=D.lastDay===y?D.streak+1:1;D.lastDay=t;saveD();}}
 function spin(){if(Date.now()-D.spinAt<86400000)return notify('Daily Spin is already claimed');let r=[20,30,50,75,100,1][Math.floor(Math.random()*6)],p=player();if(!p)return;D.spinAt=Date.now();if(r===1)p.tickets=(p.tickets||0)+1;else p.coins=(p.coins||0)+r;typeof save==='function'&&save();saveD();notify(r===1?'🎟️ +1 Ticket':'🪙 +'+r+' Coins');render();}
-function claimMission(i){daily();let m=D.missions[i];if(!m||D.claimed.includes(i))return;if(!m[1]())return notify('Mission not completed yet');D.claimed.push(i);saveD();addXP(m[2]);notify('Mission claimed +'+m[2]+' XP');render();}
+function missionOk(m){if(!m)return false;if(Array.isArray(m))return typeof m[1]==='function'&&!!m[1]();if(typeof m==='object')return !!m.done || Number(m.progress||0)>=Number(m.target||1);return false}
+function missionTitle(m){return Array.isArray(m)?m[0]:(m?.t||m?.title||'Daily Mission')}
+function missionXP(m){return Array.isArray(m)?Number(m[2])||0:Number(m?.xp)||0}
+function normalizeMissions(){if(!Array.isArray(D.missions))D.missions=[];if(D.missions.length!==5||D.missions.some(m=>!Array.isArray(m)||typeof m[1]!=='function')){D.missions=[['Play 2 games',()=>plays()>=2,35],['Earn 150 Coins',()=>coinEarned()>=150,45],['Visit the City',()=>true,25],['Use Energy',()=>usedEnergy()>0,30],['Open Command Center',()=>true,20]];D.claimed=[];saveD();}}
+function claimMission(i){daily();normalizeMissions();let m=D.missions[i];if(!m||D.claimed.includes(i))return;if(!missionOk(m))return notify('Mission not completed yet');D.claimed.push(i);saveD();addXP(missionXP(m));notify('Mission claimed +'+missionXP(m)+' XP');render();}
 function expand(){let cost=1000+(D.expansions*1500);if(!coins(cost))return;D.expansions++;D.cityXP+=100;saveD();notify('🏙️ City expanded');render();}
 function decorate(){let cost=120+(D.decor*80);if(!coins(cost))return;D.decor++;saveD();notify('✨ Decoration placed');render();}
 function like(){D.likes++;saveD();notify('❤️ City liked');render();}
 function panel(){return document.getElementById('v25panel')}
 function card(t,b){return `<section class="v25card"><div class="v25head"><h3>${t}</h3></div>${b}</section>`}
-function render(){let el=panel();if(!el)return;daily();streak();let p=player()||{};let spinReady=Date.now()-D.spinAt>=86400000;let ms=D.missions||[];
+function render(){let el=panel();if(!el)return;daily();normalizeMissions();streak();let p=player()||{};let spinReady=Date.now()-D.spinAt>=86400000;let ms=D.missions||[];
 el.innerHTML=`<div class="v25top"><b>⚡ LIX CITY COMMAND</b><button data-x="close">×</button></div><div class="v25stats"><span>🏠 <b>${p.level||1}</b><small>Level</small></span><span>🪙 <b>${p.coins||0}</b><small>Coins</small></span><span>⚡ <b>${p.energy||0}/${p.maxEnergy||10}</b><small>Energy</small></span><span>🔥 <b>${D.streak}</b><small>Streak</small></span></div>
 <div class="v25grid">${[['🎮','Games','games'],['🏙️','City','city'],['👕','Wardrobe','wardrobe'],['🐾','Pets','pets'],['🏠','House','house'],['🏆','Achievements','ach']].map(x=>`<button data-x="route:${x[2]}">${x[0]}<b>${x[1]}</b></button>`).join('')}</div>
 ${card('🎡 DAILY SPIN',`<p>One free spin every 24 hours.</p><button class="v25primary" data-x="spin" ${spinReady?'':'disabled'}>${spinReady?'SPIN NOW':'READY TOMORROW'}</button>`)}
-${card('📋 DAILY MISSIONS',ms.map((m,i)=>`<div class="v25row"><span>${m[0]}<small>+${m[2]} XP</small></span><button data-x="mission:${i}" ${D.claimed.includes(i)||!m[1]()?'disabled':''}>${D.claimed.includes(i)?'CLAIMED':m[1]()?'CLAIM':'IN PROGRESS'}</button></div>`).join('')+`<small>5 missions refresh every 24h.</small>`)}
+${card('📋 DAILY MISSIONS',ms.map((m,i)=>{const ok=missionOk(m),xpv=missionXP(m),title=missionTitle(m);return `<div class="v25row"><span>${title}<small>+${xpv} XP</small></span><button data-x="mission:${i}" ${D.claimed.includes(i)||!ok?'disabled':''}>${D.claimed.includes(i)?'CLAIMED':ok?'CLAIM':'IN PROGRESS'}</button></div>`}).join('')+`<small>5 missions refresh every 24h.</small>`)}
 ${card('🏙️ CITY DEVELOPMENT',`<div class="v25city"><div>🌳 🌳 🏠 🏪 🎮 🌳</div><strong>Expansion ${D.expansions}</strong><small>Decorations ${D.decor}</small><div><button data-x="expand">EXPAND · ${1000+D.expansions*1500} 🪙</button><button data-x="decor">DECORATE · ${120+D.decor*80} 🪙</button></div></div>`)}
 ${card('❤️ SOCIAL CITY',`<p>Visits ${D.visits} · Likes ${D.likes}</p><button data-x="like">LIKE MY CITY</button><button data-x="visit">VISIT CITY</button>`)}
 ${card('🎟️ EVENT TRACK',`<div class="v25event"><b>Monthly Challenge</b><span>${D.eventPoints} points</span><small>Event engine foundation — admin-managed rewards can be connected later.</small></div>`)}
