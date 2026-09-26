@@ -7,3 +7,10 @@ LIX CITY v2.6.4 — BOOT + UI FIX
 - Preserves Lix, Coin and pet assets.
 
 Upload every file directly to the repository root. Do not clear browser storage.
+
+
+## v2.6.5 Hub Fix
+- Fixed `esc is not defined` inside Lix Player Center / Open Hub.
+- Added local HTML escaping helper to mega-v21.js.
+- Reduced floating-button overlap and kept them above bottom navigation.
+- Save schema and player data unchanged.

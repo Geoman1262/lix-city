@@ -33,3 +33,9 @@
 #v26ArcadeBtn{right:12px!important;left:auto!important;width:calc(50vw - 24px)!important;max-width:170px!important;height:48px!important;}
 #v25btn{display:block!important;}
 @media(max-width:430px){#v25btn,#lix24open,#v26ArcadeBtn{bottom:84px!important;height:44px!important;font-size:11px!important;} }
+
+/* v2.6.5 HUB/FLOATING UI FIX */
+#v25btn,#v26btn,#v18btn,#v21btn{position:fixed!important;bottom:88px!important;z-index:10010!important;max-width:calc(50vw - 24px)!important;white-space:nowrap!important;}
+#v25btn{left:18px!important;}
+#v26btn{right:18px!important;}
+.v21-hub{padding-bottom:24px!important;}

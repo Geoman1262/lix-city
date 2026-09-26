@@ -2,6 +2,7 @@
    Adds long-term goals, collection, event calendar, profile, notifications,
    social foundation and settings without replacing the existing save schema. */
 (function(){
+  const esc=(v)=>String(v??'').replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c]));
   const KEY='lixcity_v21';
   const defaults={goals:{},claimedGoals:{},seen:{},settings:{music:true,sfx:true},stats:{},lastDaily:0};
   function ensure(){
