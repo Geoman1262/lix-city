@@ -89,3 +89,9 @@ Inline critical CSS was added to guarantee the Major Build dashboard styling and
 
 ## v1.3 Economy Build
 Added Cellix Store/Market economy UI, provider filtering, admin-managed external-link opening, and mascot size safety bounds.
+
+
+## v1.4 Pet Visual Assets
+- Added real 3D pet artwork assets: dog.png, cat.png, horse.png.
+- Pet cards, Stable companion, and City companion now use image assets instead of CSS/emoji animals.
+- Lix and official coin assets remain unchanged.
