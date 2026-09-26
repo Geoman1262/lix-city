@@ -30,3 +30,5 @@ Upload every file directly to the repository root. Do not clear browser storage.
 - Command route for Achievements now opens the actual Achievements page instead of the Goals/Wardrobe route.
 - Wardrobe, Pets, Games, City and House routes use their intended modules when available.
 - No core save reset.
+
+LIX CITY v2.10.2: Command buttons use one direct handler each; legacy panel click delegation removed to prevent stale/duplicate routing.
