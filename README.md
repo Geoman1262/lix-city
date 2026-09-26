@@ -1,3 +1,22 @@
+# LIX CITY v1.6 — Customization Catalog
+
+## v1.6 changes
+- Expanded Lix customization from a small high-level list to a progression catalog with 25 standard items.
+- Standard items unlock frequently from Player Level 2 onward instead of large gaps.
+- Added categories: Tops, Shoes, Accessories, Effects.
+- Added rarity labels: Common, Rare, Epic, Legendary.
+- Added a separate Limited Events catalog so event cosmetics can be added/removed without changing the standard catalog.
+- Added category filters and ownership/availability counters.
+- Existing owned/equipped items remain compatible with the existing save data.
+- Kept Lix, Coin and pet artwork assets separate from gameplay logic.
+- Service-worker cache advanced to v1.6.
+
+## Design rule
+Standard customization is the permanent catalog. Event customization is a separate catalog and can change by event.
+
+## Prototype note
+Save is still localStorage-based. Cloud/server-side save and anti-cheat are not production-ready yet.
+
 LIX CITY v0.67 — Interactive Building Interiors
 
 Buildings now open interactive in-city panels for House, Games, Cellix Store, Park, Energy Station, Workshop, Market, Studio, Stable, Plaza and Arena.

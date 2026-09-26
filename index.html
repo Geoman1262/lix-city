@@ -868,11 +868,61 @@ function petBuy(n){if(n===20)return petFeed();if(n===100)return petToy()}
 function petPlay(){let p=S.petData;if(Date.now()-(Number(p.lastPlay)||0)<86400000)return; p.lastPlay=Date.now();S.petPlayed=p.lastPlay;p.happiness=Math.min(100,p.happiness+15);petGainXP(50);S.energy=Math.min(S.maxEnergy,S.energy+1);missionProgress(3,1);addXP(25+p.petLevel*5);save();toast('❤️ Happy Pet! +1 Energy');show('pets')}
 function takePetToCity(){S.city=S.city||{};S.city.pet=true;S.petData.active=true;save();toast('🐾 '+S.petData.name+' joined Lix in the city!');show('city')}
 function spin(){if(Date.now()-S.lastSpin<86400000){toast("🎡 Spin available once every 24h");return}let r=[20,30,50,75,100,1][Math.floor(Math.random()*6)];S.lastSpin=Date.now();r===1?S.tickets++:S.coins+=r;save();toast(r===1?"🎟️ +1 Ticket!":"🎡 +"+r+" Coins!");show("home")}function customization(){
- const items=[{id:"blue",cat:"shirt",name:"Blue Jacket",icon:"🧥",cost:150,lv:6},{id:"hoodie",cat:"shirt",name:"Lix Hoodie",icon:"🥼",cost:300,lv:10},{id:"gold",cat:"shirt",name:"Gold Style",icon:"✨",cost:600,lv:15},{id:"runner",cat:"shoe",name:"Runner Shoes",icon:"👟",cost:200,lv:6},{id:"speed",cat:"shoe",name:"Speed Shoes",icon:"⚡",cost:450,lv:12},{id:"glasses",cat:"acc",name:"Cool Glasses",icon:"🕶️",cost:250,lv:8},{id:"cap",cat:"acc",name:"Lix Cap",icon:"🧢",cost:350,lv:12}];
+ const standard=[
+  {id:'tee',cat:'shirt',name:'Lix T-Shirt',icon:'👕',cost:80,lv:2,rarity:'Common'},
+  {id:'blue',cat:'shirt',name:'Blue Jacket',icon:'🧥',cost:120,lv:2,rarity:'Common'},
+  {id:'sport',cat:'shirt',name:'Sport Top',icon:'🥋',cost:150,lv:3,rarity:'Common'},
+  {id:'hoodie',cat:'shirt',name:'Lix Hoodie',icon:'🧥',cost:220,lv:4,rarity:'Common'},
+  {id:'city',cat:'shirt',name:'City Jacket',icon:'🧥',cost:300,lv:6,rarity:'Rare'},
+  {id:'gold',cat:'shirt',name:'Gold Style',icon:'✨',cost:450,lv:8,rarity:'Rare'},
+  {id:'neon',cat:'shirt',name:'Neon Lix',icon:'💙',cost:600,lv:10,rarity:'Epic'},
+  {id:'runner',cat:'shoe',name:'Runner Shoes',icon:'👟',cost:100,lv:2,rarity:'Common'},
+  {id:'blueStep',cat:'shoe',name:'Blue Steps',icon:'👟',cost:130,lv:3,rarity:'Common'},
+  {id:'speed',cat:'shoe',name:'Speed Shoes',icon:'⚡',cost:220,lv:4,rarity:'Common'},
+  {id:'light',cat:'shoe',name:'Blue Light Shoes',icon:'💠',cost:320,lv:6,rarity:'Rare'},
+  {id:'dash',cat:'shoe',name:'Dash Boots',icon:'🥾',cost:420,lv:8,rarity:'Rare'},
+  {id:'turbo',cat:'shoe',name:'Turbo Boots',icon:'🚀',cost:550,lv:11,rarity:'Epic'},
+  {id:'cap',cat:'acc',name:'Lix Cap',icon:'🧢',cost:100,lv:2,rarity:'Common'},
+  {id:'glasses',cat:'acc',name:'Cool Glasses',icon:'🕶️',cost:150,lv:3,rarity:'Common'},
+  {id:'visor',cat:'acc',name:'Blue Visor',icon:'🥽',cost:200,lv:4,rarity:'Common'},
+  {id:'backpack',cat:'acc',name:'City Backpack',icon:'🎒',cost:260,lv:5,rarity:'Rare'},
+  {id:'headphones',cat:'acc',name:'Lix Headphones',icon:'🎧',cost:300,lv:6,rarity:'Rare'},
+  {id:'star',cat:'acc',name:'Star Badge',icon:'⭐',cost:350,lv:7,rarity:'Rare'},
+  {id:'crown',cat:'acc',name:'Mini Crown',icon:'👑',cost:700,lv:12,rarity:'Epic'},
+  {id:'spark',cat:'effect',name:'Blue Spark',icon:'✨',cost:250,lv:5,rarity:'Rare'},
+  {id:'trail',cat:'effect',name:'Speed Trail',icon:'💨',cost:400,lv:7,rarity:'Rare'},
+  {id:'glow',cat:'effect',name:'Lix Glow',icon:'🔵',cost:550,lv:9,rarity:'Epic'},
+  {id:'royal',cat:'effect',name:'Royal Aura',icon:'💫',cost:800,lv:13,rarity:'Epic'},
+  {id:'legend',cat:'effect',name:'Legend Effect',icon:'🌟',cost:1000,lv:16,rarity:'Legendary'}
+ ];
+ const eventCatalog=[
+  {id:'halloween',cat:'shirt',name:'Pumpkin Night',icon:'🎃',cost:0,lv:1,event:'Halloween',rarity:'Event'},
+  {id:'santa',cat:'shirt',name:'Lix Santa Suit',icon:'🎅',cost:0,lv:1,event:'Winter',rarity:'Event'},
+  {id:'summer',cat:'acc',name:'Summer Shades',icon:'😎',cost:0,lv:1,event:'Summer',rarity:'Event'},
+  {id:'goldEvent',cat:'effect',name:'Golden Festival Aura',icon:'🏆',cost:0,lv:1,event:'Special Event',rarity:'Event'}
+ ];
+ const catName={all:'✨ All',shirt:'👕 Tops',shoe:'👟 Shoes',acc:'🎒 Accessories',effect:'💫 Effects'};
+ const active=S.v1Event&&S.v1Event.activeId?S.v1Event.activeId:null;
+ const activeEvents=active?eventCatalog.filter(x=>x.id===active):[];
+ const currentFilter=window.lixCustomFilter||'all';
  const owned=id=>S.custom.owned.includes(id);
- const card=items.map(x=>{const can=S.level>=x.lv,is=S.custom.equipped[x.cat]===x.id;let action=!can?`<small>🔒 Unlock at Level ${x.lv}</small>`:is?`<button class="btn alt" disabled>✓ EQUIPPED</button>`:owned(x.id)?`<button class="btn" onclick="equipItem('${x.cat}','${x.id}')">EQUIP</button>`:`<button class="btn" onclick="buyItem('${x.id}',${x.cost})">BUY</button>`;return `<div class="tile ${!can?'locked':''}"><div style="font-size:38px">${x.icon}</div><h3>${x.name}</h3><small>Lv.${x.lv} • ${x.cost} 🪙</small><br>${action}</div>`}).join("");
- shell(`<section class="card"><div class="title"><h2>👕 Lix Customization</h2><small>Unlock from Level 6</small></div><div class="hero" style="margin:0"><div><h2>Your Lix</h2><p>Customize Lix with clothes, shoes and accessories.</p><div class="badge now">Level ${S.level}</div></div><img src="lix.png"></div></section><section class="card"><div class="title"><h2>👕 Clothing & Style</h2><small>Buy & equip</small></div><div class="grid">${card}</div></section><section class="card"><div class="title"><h2>🏠 Home Decor</h2><small>Customize your home</small></div><div class="grid"><div class="tile"><div style="font-size:38px">🛋️</div><h3>Lix Sofa</h3><small>200 Coins • Level 6</small><br><button class="btn" onclick="buyHome('sofa',200,6)">${S.custom.home.includes('sofa')?'OWNED':'BUY'}</button></div><div class="tile"><div style="font-size:38px">🪴</div><h3>City Plant</h3><small>100 Coins • Level 6</small><br><button class="btn" onclick="buyHome('plant',100,6)">${S.custom.home.includes('plant')?'OWNED':'BUY'}</button></div><div class="tile"><div style="font-size:38px">📺</div><h3>Lix TV</h3><small>350 Coins • Level 10</small><br><button class="btn" onclick="buyHome('tv',350,10)">${S.custom.home.includes('tv')?'OWNED':'BUY'}</button></div></div></section>`,"more");
+ const filtered=standard.filter(x=>currentFilter==='all'||x.cat===currentFilter);
+ const cards=filtered.map(x=>{
+   const can=S.level>=x.lv,is=S.custom.equipped[x.cat]===x.id;
+   const action=!can?`<div class="cstm-lock">🔒 Level ${x.lv}</div>`:is?`<button class="btn alt" disabled>✓ EQUIPPED</button>`:owned(x.id)?`<button class="btn" onclick="equipItem('${x.cat}','${x.id}')">EQUIP</button>`:`<button class="btn" onclick="buyItem('${x.id}',${x.cost})">BUY • ${x.cost} 🪙</button>`;
+   return `<div class="cstm-item ${!can?'locked':''}"><div class="cstm-icon">${x.icon}</div><div class="cstm-info"><h3>${x.name}</h3><small>Lv.${x.lv} • ${x.rarity}</small></div>${action}</div>`;
+ }).join('');
+ const eventCards=activeEvents.length?activeEvents.map(x=>{
+   const is=owned(x.id), action=is?`<span class="cstm-owned">✓ OWNED</span>`:`<button class="btn" onclick="claimEventStyle('${x.id}')">CLAIM</button>`;
+   return `<div class="cstm-item event"><div class="cstm-icon">${x.icon}</div><div class="cstm-info"><h3>${x.name}</h3><small>${x.event} • Limited</small></div>${action}</div>`;
+ }).join(''):`<div class="cstm-empty">🎉 No limited event style is active right now.<br><small>Event items are added here without changing the standard catalog.</small></div>`;
+ const ownedCount=S.custom.owned.filter(id=>standard.some(x=>x.id===id)).length;
+ const available=standard.filter(x=>S.level>=x.lv).length;
+ const tabs=Object.keys(catName).map(k=>`<button class="cstm-tab ${currentFilter===k?'active':''}" onclick="setCustomFilter('${k}')">${catName[k]}</button>`).join('');
+ shell(`<section class="card cstm-head"><div class="cstm-headline"><div><small class="cstm-kicker">LIX STUDIO</small><h2>👕 Customize Lix</h2><p>New standard items unlock every few levels. Events add limited styles separately.</p></div><div class="cstm-count"><b>${ownedCount}</b><span>owned</span></div></div><div class="cstm-preview"><img src="lix.png"><div><b>Your Lix • Level ${S.level}</b><small>${available} standard items available now</small><small>${standard.length} standard items in catalog</small></div></div></section><section class="card"><div class="title"><h2>✨ Standard Collection</h2><small>Always available</small></div><div class="cstm-tabs">${tabs}</div><div class="cstm-grid">${cards}</div></section><section class="card"><div class="title"><h2>🎉 Limited Events</h2><small>Changes with events</small></div><div class="cstm-grid">${eventCards}</div></section><section class="card"><div class="title"><h2>🏠 Home Decor</h2><small>Separate from Lix style</small></div><div class="grid"><div class="tile"><div style="font-size:38px">🛋️</div><h3>Lix Sofa</h3><small>200 Coins • Level 6</small><br><button class="btn" onclick="buyHome('sofa',200,6)">${S.custom.home.includes('sofa')?'OWNED':'BUY'}</button></div><div class="tile"><div style="font-size:38px">🪴</div><h3>City Plant</h3><small>100 Coins • Level 6</small><br><button class="btn" onclick="buyHome('plant',100,6)">${S.custom.home.includes('plant')?'OWNED':'BUY'}</button></div><div class="tile"><div style="font-size:38px">📺</div><h3>Lix TV</h3><small>350 Coins • Level 10</small><br><button class="btn" onclick="buyHome('tv',350,10)">${S.custom.home.includes('tv')?'OWNED':'BUY'}</button></div></div></section>`,'more');
 }
+function setCustomFilter(k){window.lixCustomFilter=k;customization()}
+function claimEventStyle(id){S.custom.owned=S.custom.owned||[];if(!S.custom.owned.includes(id))S.custom.owned.push(id);addXP(50);save();toast('🎉 Limited event style claimed!');customization()}
 function buyItem(id,cost){if(S.custom.owned.includes(id)){toast("Already owned");return}if(!spend(cost))return;S.custom.owned.push(id);addXP(Math.min(50,Math.round(cost/10)));save();toast("👕 Item unlocked!");customization()}
 function equipItem(cat,id){S.custom.equipped[cat]=id;save();toast("✨ Equipped!");customization()}
 function buyHome(id,cost,lv){if(S.level<lv){toast("🔒 Unlocks at Level "+lv);return}if(S.custom.home.includes(id)){toast("Already owned");return}if(!spend(cost))return;S.custom.home.push(id);addXP(Math.min(40,Math.round(cost/10)));save();toast("🏠 Home item added!");customization()}
@@ -1563,3 +1613,7 @@ document.addEventListener("click",e=>{const b=e.target.closest("#lixInstallButto
  .v76-mini-pet .v77-pet-art img{max-width:65px;max-height:65px}
 }
 </style>
+<style id="v16-customization">
+.cstm-head{overflow:hidden}.cstm-kicker{font-size:9px;letter-spacing:2px;font-weight:900;color:#1769e8}.cstm-headline{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.cstm-headline h2{margin:4px 0 5px;font-size:24px}.cstm-headline p{margin:0;color:#718096;font-size:11px;max-width:330px}.cstm-count{min-width:58px;height:58px;border-radius:17px;background:#eaf3ff;color:#1769e8;display:flex;flex-direction:column;align-items:center;justify-content:center}.cstm-count b{font-size:20px}.cstm-count span{font-size:8px;font-weight:900}.cstm-preview{margin-top:12px;border-radius:20px;background:linear-gradient(135deg,#1769e8,#55b9f2);color:#fff;min-height:105px;display:flex;align-items:center;gap:16px;padding:10px 16px;overflow:hidden}.cstm-preview img{width:78px;height:95px;object-fit:contain;filter:drop-shadow(0 8px 5px rgba(0,0,0,.22))}.cstm-preview b,.cstm-preview small{display:block}.cstm-preview b{font-size:15px}.cstm-preview small{font-size:10px;color:#e7f6ff;margin-top:5px}.cstm-tabs{display:flex;gap:7px;overflow:auto;padding:3px 0 10px}.cstm-tab{border:0;background:#f0f5fa;color:#536477;border-radius:12px;padding:9px 11px;font-weight:900;font-size:10px;white-space:nowrap}.cstm-tab.active{background:#1769e8;color:#fff}.cstm-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.cstm-item{min-height:150px;border:1px solid #e1ebf4;background:linear-gradient(180deg,#fff,#f6faff);border-radius:17px;padding:11px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 5px 15px rgba(23,48,75,.05)}.cstm-item.locked{opacity:.56}.cstm-item.event{border-color:#cfe2ff;background:linear-gradient(180deg,#fafdff,#edf6ff)}.cstm-icon{font-size:40px;line-height:1;text-align:center;padding:7px 0}.cstm-info h3{margin:0;font-size:14px;color:#172b43}.cstm-info small{font-size:9px;color:#718096}.cstm-item .btn{width:100%;margin-top:7px;padding:8px 6px;font-size:9px}.cstm-lock{font-size:9px;color:#8b6a1b;background:#fff7df;border-radius:9px;padding:8px;text-align:center;margin-top:7px;font-weight:900}.cstm-owned{display:block;text-align:center;background:#e7f7ed;color:#267342;border-radius:999px;padding:8px;font-size:9px;font-weight:900;margin-top:7px}.cstm-empty{grid-column:1/-1;padding:22px;text-align:center;background:#f5f8fc;border-radius:15px;color:#718096;font-size:12px}.cstm-empty small{font-size:9px}@media(max-width:520px){.cstm-grid{gap:8px}.cstm-item{min-height:145px;padding:9px}.cstm-icon{font-size:35px}.cstm-preview img{width:68px;height:85px}}
+</style>
+
