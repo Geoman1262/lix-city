@@ -1,0 +1,11 @@
+/* LIX CITY v2.9.2 — hard wardrobe layout guard */
+.wardrobe-stage{width:100%!important;max-width:100%!important;min-width:0!important;overflow:hidden!important}
+.wardrobe-lix{width:100%!important;min-width:0!important;max-width:100%!important;overflow:hidden!important;position:relative!important}
+.wardrobe-lix img{display:block!important;width:auto!important;max-width:190px!important;height:245px!important;max-height:245px!important;min-width:0!important;min-height:0!important;object-fit:contain!important;object-position:center!important;flex:0 0 auto!important}
+.wardrobe-slots{min-width:0!important;max-width:100%!important}
+.wardrobe-grid{width:100%!important;min-width:0!important}
+@media(max-width:520px){
+  .wardrobe-stage{grid-template-columns:minmax(0,1fr)!important}
+  .wardrobe-lix{height:265px!important;min-height:265px!important;max-height:265px!important}
+  .wardrobe-lix img{width:auto!important;height:230px!important;max-width:175px!important;max-height:230px!important}
+}
