@@ -1,6 +1,6 @@
-# LIX CITY v1.6 — Customization Catalog
+# LIX CITY v1.7 — Customization Catalog
 
-## v1.6 changes
+## v1.7 changes
 - Expanded Lix customization from a small high-level list to a progression catalog with 25 standard items.
 - Standard items unlock frequently from Player Level 2 onward instead of large gaps.
 - Added categories: Tops, Shoes, Accessories, Effects.
@@ -9,7 +9,7 @@
 - Added category filters and ownership/availability counters.
 - Existing owned/equipped items remain compatible with the existing save data.
 - Kept Lix, Coin and pet artwork assets separate from gameplay logic.
-- Service-worker cache advanced to v1.6.
+- Service-worker cache advanced to v1.7.
 
 ## Design rule
 Standard customization is the permanent catalog. Event customization is a separate catalog and can change by event.
