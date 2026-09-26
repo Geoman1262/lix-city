@@ -79,5 +79,5 @@ Fixed the city renderer: building fronts were collapsed by a later CSS rule, lea
 - Existing pet care, daily play, save, and energy logic preserved.
 
 
-## v1.0 — Major Build
+## v1.1 — Major Build
 Unified dashboard layer added on top of the existing City, House, Games, Pets, Store, Missions, Spin, Leaderboard and Events systems. Existing player save key is preserved; no reset or migration overwrite is performed. Added v1-core.js and unified Command Center dashboard.
