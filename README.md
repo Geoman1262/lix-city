@@ -14,3 +14,11 @@ Upload every file directly to the repository root. Do not clear browser storage.
 - Added local HTML escaping helper to mega-v21.js.
 - Reduced floating-button overlap and kept them above bottom navigation.
 - Save schema and player data unchanged.
+
+## v2.7 Mega City & Player Bundle
+- LIX CITY CENTER dashboard
+- Player profile and stable Player ID display
+- House Interior with 12 furniture items, purchases and equip/unequip
+- Separate storage keys for v2.7 additions; core save remains untouched
+- City/Game/Pet quick navigation from City Center
+- Mobile responsive modal UI
