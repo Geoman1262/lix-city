@@ -1,20 +1,49 @@
-const CACHE='lix-city-v2.2';
+const CACHE='lix-city-v2.3';
 const ASSETS=[
-  './index.html','./style.css','./v18.css','./v21.css','./manifest.json',
-  './lix.png','./coin.png','./cat.png','./dog.png','./horse.png','./cellix-logo.webp',
-  './save.js','./games.js','./city.js','./city-buildings.js','./pets.js','./missions.js',
-  './events.js','./leaderboard.js','./shop.js','./achievements.js','./profile.js','./progression.js',
-  './rewards.js','./notifications.js','./game-engine.js','./building-activities.js','./city-interaction.js',
-  './content-v18.js','./v18-hub.js','./wardrobe-v19.js','./mega-v21.js','./city-life.js',
-  './building-interiors.js','./house-interior.js','./v1-core.js','./economy-v1.js','./shop-config.json'
+  './achievements.js',
+  './app.js',
+  './building-activities.js',
+  './building-interiors.js',
+  './cat.png',
+  './cellix-logo.webp',
+  './city-buildings.js',
+  './city-interaction.js',
+  './city-life.js',
+  './city.js',
+  './coin.png',
+  './content-v18.js',
+  './dog.png',
+  './economy-v1.js',
+  './events.js',
+  './game-engine.js',
+  './games.js',
+  './horse.png',
+  './house-interior.js',
+  './index-v05.html',
+  './index.html',
+  './leaderboard.js',
+  './lix-core-v23.js',
+  './lix.png',
+  './manifest.json',
+  './mega-v21.js',
+  './missions.js',
+  './notifications.js',
+  './pets.js',
+  './profile.js',
+  './progression.js',
+  './rewards.js',
+  './save.js',
+  './shop-config.json',
+  './shop.js',
+  './style.css',
+  './sw.js',
+  './v1-core.js',
+  './v18-hub.js',
+  './v18.css',
+  './v21.css',
+  './v23.css',
+  './wardrobe-v19.js'
 ];
-self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting())));
+self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(async c=>{for(const u of ASSETS){try{await c.add(u)}catch(err){console.warn('cache skip',u)}}}).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
-self.addEventListener('fetch',e=>{
-  if(e.request.method!=='GET') return;
-  e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).then(res=>{
-    const copy=res.clone();
-    caches.open(CACHE).then(c=>c.put(e.request,copy)).catch(()=>{});
-    return res;
-  }).catch(()=>caches.match('./index.html'))));
-});
+self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).then(res=>{const copy=res.clone();caches.open(CACHE).then(c=>c.put(e.request,copy)).catch(()=>{});return res}).catch(()=>caches.match('./index.html')))});
