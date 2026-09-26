@@ -1,16 +1,16 @@
-# LIX CITY v1.8 — Mega Content Bundle
+# LIX CITY v1.9 — Mix & Match Wardrobe
 
-Built on v1.7 navigation-fix baseline.
+Major customization upgrade based on v1.8.
 
-## Major additions
-- Lix Hub: central content/progression launcher
-- 45+ additional standard customization items in a data-driven catalog
-- Event Center with reusable event templates
-- 12 achievement definitions with claimable XP rewards
-- 8 long-term City Goals
-- Separate v1.8 save namespace under the permanent player save (`S.v18`)
-- Mobile-first responsive UI
-- Existing Lix, Coin, pet artwork and permanent save key preserved
+## Wardrobe
+- Buy individual Top, Shoes, Accessory and Effect items.
+- Owned pieces are kept separately.
+- One item per slot can be equipped, removed, and replaced independently.
+- Visual dressing-room preview keeps the original Lix asset untouched and shows equipped pieces as separate visual badges.
+- Event styles use the same slots and can be combined with standard pieces.
 
-## Asset architecture
-Pets and core assets remain separate files. Replacing an asset such as `dog.png`, `cat.png`, or `horse.png` does not require changing the game logic.
+## Assets
+Lix, Coin, Dog, Cat and Horse remain separate files. Replacing an asset file does not change the game logic.
+
+## Save
+Uses the existing save/localStorage system. Existing progress is preserved.
