@@ -26,3 +26,10 @@
 @media(max-width:430px){
   #lix24open,#v26ArcadeBtn{width:calc(50vw - 18px)!important;height:42px!important;font-size:11px!important;padding:9px 6px!important}
 }
+
+/* v2.6.4 — launcher spacing */
+#v25btn,#lix24open,#v26ArcadeBtn{bottom:88px!important;z-index:70!important;}
+#v25btn,#lix24open{left:12px!important;right:auto!important;width:calc(50vw - 24px)!important;max-width:170px!important;height:48px!important;}
+#v26ArcadeBtn{right:12px!important;left:auto!important;width:calc(50vw - 24px)!important;max-width:170px!important;height:48px!important;}
+#v25btn{display:block!important;}
+@media(max-width:430px){#v25btn,#lix24open,#v26ArcadeBtn{bottom:84px!important;height:44px!important;font-size:11px!important;} }
