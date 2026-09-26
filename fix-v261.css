@@ -1,0 +1,22 @@
+/* v2.6.1 mobile floating-action fix */
+#v18Launcher{display:none!important}
+#lix23HubBtn{display:none!important}
+#lix24open,#v26ArcadeBtn{
+  position:fixed!important;
+  bottom:82px!important;
+  z-index:9999!important;
+  box-sizing:border-box!important;
+  width:calc(50vw - 22px)!important;
+  max-width:220px!important;
+  min-width:0!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  text-align:center!important;
+  margin:0!important;
+}
+#lix24open{left:12px!important;right:auto!important}
+#v26ArcadeBtn{right:12px!important;left:auto!important}
+@media(max-width:430px){
+  #lix24open,#v26ArcadeBtn{font-size:12px!important;padding:11px 8px!important}
+}

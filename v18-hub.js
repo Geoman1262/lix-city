@@ -49,5 +49,5 @@
   function goalsPage(){ensure();shell(`<section class="card"><div class="title"><h2>🎯 City Goals</h2><small>Long-term progression</small></div>${goals.map(g=>{const done=ensure().claimedGoals.includes(g[0]),ok=g[3]();return `<div class="v18-goal"><span class="goal-icon">${g[2]}</span><div><b>${g[1]}</b><small>${ok?'Ready to claim':'Keep playing'}</small></div>${done?'<span class="badge now">DONE</span>':ok?`<button onclick="LixV18.claimGoal('${g[0]}')">CLAIM +${g[4]} XP</button>`:'<span class="badge">IN PROGRESS</span>'}</div>`}).join('')}</section>`,'more');}
   function claimGoal(id){ensure();const g=goals.find(x=>x[0]===id);if(!g||ensure().claimedGoals.includes(id)||!g[3]())return;ensure().claimedGoals.push(id);addXP(g[4]);toast('🎯 Goal complete! +'+g[4]+' XP');goalsPage();}
   window.LixV18={open,catalog,events,achievements,goals:goalsPage,buy,startEvent,claimAch,claimGoal,filter:k=>{window.v18filter=k;catalog()}};
-  document.addEventListener('DOMContentLoaded',()=>{setTimeout(()=>{const m=document.querySelector('.wrap');if(m&&!document.getElementById('v18Launcher')){const b=document.createElement('button');b.id='v18Launcher';b.className='btn';b.textContent='🚀 OPEN LIX HUB 1.8';b.onclick=()=>LixV18.open();document.body.appendChild(b)}},900)});
+  document.addEventListener('DOMContentLoaded',()=>{});
 })();
