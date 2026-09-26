@@ -1,6 +1,18 @@
-LIX CITY v2.4 MEGA BUNDLE
+# LIX CITY v2.5 — Mega Command Bundle
 
-Upload all files from ZIP directly to GitHub repository root. Do not delete existing player browser data.
-New: persistent Mega panel, 16 mix-and-match inventory items, 7 furniture items, pet adoption and daily care, 6 one-time goals, shop-config-driven links, local save export/import, PWA cache update.
-Original Lix/coin/pet/brand images preserved byte-for-byte. Outfits are inventory/equipment selections, not yet visual overlays (separate transparent artwork required).
-Existing mini-games remain unchanged. This is a browser-only prototype: no Google login, server-side anti-cheat, admin backend, or cloud save.
+Flat root bundle for GitHub Pages.
+
+New v2.5 command layer:
+- Command Center with unified player stats and navigation
+- Daily streak tracking
+- Five daily mission slots refreshed every 24h
+- Daily Spin once per 24h
+- City expansion and decoration economy
+- Social city visit/like foundation
+- Monthly event points foundation
+- Save export
+- Safe isolated v2.5 metadata storage
+
+Important: this remains a browser/local-save prototype. Server-side accounts, Google login, cloud save and authoritative anti-cheat are not implemented by this bundle.
+
+Upload all files directly to the repository root. Do not upload the ZIP itself.
