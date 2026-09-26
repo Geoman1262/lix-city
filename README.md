@@ -22,3 +22,11 @@ Upload every file directly to the repository root. Do not clear browser storage.
 - Separate storage keys for v2.7 additions; core save remains untouched
 - City/Game/Pet quick navigation from City Center
 - Mobile responsive modal UI
+
+## v2.7.1 UI / Navigation Fix
+- Command Center now has persistent Back and Close controls.
+- Command Center uses a full-screen scrollable layout so all sections remain reachable.
+- Legacy floating launchers are hidden while Command is open.
+- Command route for Achievements now opens the actual Achievements page instead of the Goals/Wardrobe route.
+- Wardrobe, Pets, Games, City and House routes use their intended modules when available.
+- No core save reset.

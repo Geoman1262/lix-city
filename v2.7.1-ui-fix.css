@@ -1,0 +1,25 @@
+/* LIX CITY v2.7.1 — Command UI */
+body.command-open{overflow:hidden!important}
+#v25panel{z-index:100000!important;align-items:stretch!important;padding:0!important;overflow-y:auto!important;overscroll-behavior:contain!important}
+#v25panel>*{width:min(620px,100%)!important;max-width:620px!important;margin-left:auto!important;margin-right:auto!important}
+#v25panel .v25top{position:sticky!important;top:0!important;min-height:62px!important;padding:10px 14px!important;background:#fff!important;border-bottom:1px solid #dbe7f2!important;box-shadow:0 3px 12px #17304b18!important;z-index:20!important}
+.v271-command-title{font-size:18px;font-weight:900;color:#17243a}
+.v271-head-actions{display:flex;gap:7px}
+.v271-head-actions button{width:auto!important;min-width:40px;height:40px!important;padding:0 12px!important;border-radius:12px!important;background:#eaf2fb!important;color:#17304b!important;font-weight:900!important}
+#v25panel .v25grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+#v25panel .v25grid button{min-height:68px!important;font-size:13px!important}
+#v25panel .v25grid button b{font-size:12px!important}
+#v25panel .v25card{margin-left:14px!important;margin-right:14px!important}
+.v271-footer{position:sticky!important;bottom:0!important;z-index:30!important;width:min(620px,100%)!important;display:flex!important;gap:10px!important;padding:10px 14px calc(10px + env(safe-area-inset-bottom))!important;background:#ffffffee!important;backdrop-filter:blur(10px)!important;border-top:1px solid #dbe7f2!important;box-shadow:0 -5px 18px #17304b18!important}
+.v271-footer button{flex:1!important;border:0!important;border-radius:14px!important;padding:13px 10px!important;background:#eaf2fb!important;color:#17304b!important;font-weight:900!important}
+.v271-footer button[data-v271="close"]{background:#1769e8!important;color:#fff!important}
+/* When Command is open, legacy floating launchers must never cover its content. */
+body.command-open #v25btn,body.command-open #lix24open,body.command-open #v26ArcadeBtn,body.command-open #v18btn,body.command-open #v21btn,body.command-open #v1HubBtn{display:none!important}
+/* Keep only the two modern launchers outside Command; prevent old top-position rules. */
+#lix24open,#v26ArcadeBtn{top:auto!important;bottom:84px!important}
+@media(max-width:520px){
+ #v25panel .v25top{min-height:58px!important}
+ #v25panel .v25grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ #v25panel .v25card{margin-left:10px!important;margin-right:10px!important}
+ .v271-footer{padding-left:10px!important;padding-right:10px!important}
+}
