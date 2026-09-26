@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#1769e8">
-<meta name="version" content="LIX CITY v1.2 MAJOR BUILD">
-<title>LIX CITY v1.2 — Major Build</title>
+<meta name="version" content="LIX CITY v1.3 ECONOMY BUILD">
+<title>LIX CITY v1.3 — Economy Build</title>
 <style>
 *{box-sizing:border-box}:root{--blue:#1769e8;--ink:#17243a;--muted:#68778a;--bg:#eef6ff;--line:#dce7f2}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif}button{font:inherit;border:0;cursor:pointer}.top{position:sticky;top:0;z-index:40;background:#fff;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand img{width:70px;max-height:35px;object-fit:contain}.stats{display:flex;gap:12px;font-weight:700;font-size:14px}.wrap{max-width:760px;margin:auto;padding:16px 16px 94px}.hero{background:linear-gradient(135deg,#1769e8,#4b94ef);border-radius:28px;color:#fff;padding:22px 18px;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:center}.hero h1{font-size:38px;line-height:1.05;margin:8px 0}.hero img{width:100%;max-height:300px;object-fit:contain}.card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:18px;margin-top:16px;box-shadow:0 5px 18px #233d5a0d}.title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.title h2{margin:0;font-size:22px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.tile{background:#f4f8fc;border-radius:20px;padding:16px;min-height:120px}.tile h3{margin:7px 0 3px}.tile small,.muted{color:var(--muted)}.btn.ghost{background:#fff;border:1px solid #d7e4ef;color:#17304b;padding:8px 10px;font-size:12px}.btn{background:var(--blue);color:#fff;border-radius:14px;padding:11px 16px;font-weight:700}.btn.alt{background:#e8f2ff;color:var(--blue)}.btn:disabled{opacity:.45}.row{display:flex;gap:10px;flex-wrap:wrap}.progress{height:12px;background:#e8eef5;border-radius:20px;overflow:hidden}.bar{height:100%;background:var(--blue);border-radius:20px}.mission{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 0;border-bottom:1px solid #edf1f5}.mission:last-child{border-bottom:0}.unlock{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #edf1f5}.unlock:last-child{border-bottom:0}.unlock b{font-size:15px}.badge{background:#e8f2ff;color:var(--blue);border-radius:999px;padding:5px 9px;font-size:12px;font-weight:700}.badge.now{background:#e7f7ed;color:#267342}
 
@@ -399,7 +399,16 @@
 .v76-stable-scene .v76-stable-lix{position:absolute!important;right:12%!important;bottom:18px!important;width:74px!important;height:auto!important;max-width:74px!important;max-height:150px!important;object-fit:contain!important;z-index:20!important;display:block!important;transform:none!important;filter:drop-shadow(0 7px 4px #17304b44)!important}
 .v76-stable-scene .v76-stable-pet{position:absolute!important;left:23%!important;bottom:16px!important;z-index:21!important;transform:scale(.82)!important;transform-origin:bottom!important}
 @media(max-width:520px){.v1-hub{padding:14px!important;border-radius:22px!important}.v1-hub-head{padding:16px!important;border-radius:18px!important}.v1-hub h2{font-size:24px!important}.v1-metrics{grid-template-columns:repeat(2,1fr)!important}.v1-actions{grid-template-columns:repeat(2,1fr)!important}.v1-system-grid{grid-template-columns:1fr!important}.v1-goals>div{display:block!important}.v76-stable-scene{height:225px!important}.v76-stable-scene .v76-stable-lix{right:8%!important;width:64px!important;max-width:64px!important;max-height:130px!important}}
-</style></head>
+</style>
+<style id="v13-economy-css">
+/* LIX CITY v1.3 — Economy */
+.econ-shell{margin:16px 0;background:#fff;border:1px solid #dce7f2;border-radius:26px;padding:16px;box-shadow:0 10px 30px rgba(23,36,58,.08)}
+.econ-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;background:linear-gradient(135deg,#0e4fae,#1769e8);color:#fff;border-radius:20px;padding:16px}.econ-head small{font-size:9px;letter-spacing:1.8px;font-weight:900;opacity:.8}.econ-head h2{margin:4px 0;font-size:24px}.econ-head p{margin:0;font-size:11px;opacity:.88}.econ-wallet{min-width:80px;background:#ffffff20;border:1px solid #ffffff33;border-radius:15px;padding:9px;text-align:center}.econ-wallet b,.econ-wallet span{display:block}.econ-wallet b{font-size:15px}.econ-wallet span{font-size:9px;opacity:.8;margin-top:3px}.econ-tabs{display:flex;gap:7px;margin:13px 0;overflow:auto}.econ-tab{border:0;background:#eef4fa;color:#42566b;border-radius:11px;padding:8px 13px;font-weight:900;font-size:11px}.econ-tab.active{background:#1769e8;color:#fff}.econ-products{display:grid;gap:8px}.econ-product{display:flex;align-items:center;gap:10px;padding:10px;background:#f7faff;border:1px solid #e0eaf3;border-radius:15px}.econ-logo{width:40px;height:40px;border-radius:12px;background:#fff;border:2px solid #dbe7f1;display:grid;place-items:center;font-weight:900;color:#1769e8}.econ-info{flex:1;min-width:0}.econ-info b,.econ-info small,.econ-info span{display:block}.econ-info b{font-size:12px}.econ-info small{font-size:10px;color:#516579;margin-top:2px}.econ-info span{font-size:9px;color:#718096;margin-top:2px}.econ-product button,.econ-market button{border:0;background:#1769e8;color:#fff;border-radius:10px;padding:9px 10px;font-size:10px;font-weight:900}.econ-market{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px;padding:12px;border-radius:15px;background:#edf7ff;border:1px solid #cfe5f5}.econ-market b,.econ-market small{display:block}.econ-market b{font-size:14px}.econ-market small{font-size:10px;color:#68778a;margin-top:3px}.econ-lock{margin-top:12px;padding:12px;border-radius:14px;background:#fff5df;color:#8a651d;font-size:12px}.econ-note{margin-top:10px;color:#718096;font-size:9px;line-height:1.4}
+/* Safety bounds for mascot assets inside panels */
+.v76-stable-lix,.v74-lix,.gc-lix,#worldLix.world-lix,.city-lix{max-width:140px!important;max-height:170px!important;object-fit:contain!important}
+@media(max-width:520px){.econ-head h2{font-size:21px}.econ-product button{padding:8px}.v76-stable-lix,.v74-lix,.gc-lix,#worldLix.world-lix,.city-lix{max-width:105px!important;max-height:135px!important}}
+</style>
+</head>
 <body>
 <div id="app"><main style="font-family:Arial,sans-serif;padding:28px;text-align:center;color:#123"><h2>🏙️ LIX CITY</h2><p>Loading…</p></main></div>
 <script>
@@ -1463,7 +1472,8 @@ document.addEventListener("click",e=>{const b=e.target.closest("#lixInstallButto
 <script src="building-interiors.js"></script>
 <script src="house-interior.js"></script>
 <script src="v1-core.js"></script>
-</body>
+<script src="economy-v1.js"></script>
+<div id="econHub"></div></body>
 </html>
 <style>
 /* v0.72 — HARD CITY VISUAL RECOVERY */

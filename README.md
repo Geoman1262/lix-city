@@ -85,3 +85,7 @@ Unified dashboard layer added on top of the existing City, House, Games, Pets, S
 
 ## v1.2 Critical UI/Render Fix
 Inline critical CSS was added to guarantee the Major Build dashboard styling and stable Lix sizing even if style.css cache is stale.
+
+
+## v1.3 Economy Build
+Added Cellix Store/Market economy UI, provider filtering, admin-managed external-link opening, and mascot size safety bounds.
