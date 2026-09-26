@@ -14,3 +14,10 @@ Lix, Coin, Dog, Cat and Horse remain separate files. Replacing an asset file doe
 
 ## Save
 Uses the existing save/localStorage system. Existing progress is preserved.
+
+
+## v2.0 Persistent Achievements
+- Achievements is a persistent first-class screen.
+- Player summary remains visible while browsing achievements.
+- Claiming an achievement keeps the player on the page and restores scroll position.
+- Full achievement list remains mounted as one page.
