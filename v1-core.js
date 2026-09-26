@@ -44,7 +44,7 @@
     const d=data(), now=Date.now();
     if(now-d.lastBonus<86400000){toast('🎁 Daily v1 Bonus is already claimed');return;}
     d.lastBonus=now; S.coins=(Number(S.coins)||0)+25;
-    if(typeof addXP==='function') addXP(10); else S.xp=(Number(S.xp)||0)+10;
+    if(typeof addXP==='function') addXP(10); else addXP(10);
     persist(); toast('🎁 v1 Daily Bonus: +25 Coins +10 XP');
     renderHub();
   }

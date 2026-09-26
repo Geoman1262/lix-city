@@ -13,7 +13,7 @@
   const esc=s=>String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
   const saveSafe=()=>{if(typeof window.save==='function')window.save()};
   const toast=t=>{if(typeof window.toast==='function'&&window.toast)window.toast(t)};
-  const addxp=n=>{if(typeof window.addXP==='function')window.addXP(n);else S.xp=(Number(S.xp)||0)+n};
+  const addxp=n=>{if(typeof window.addXP==='function')window.addXP(n);else addXP(n)};
   function ensure(){S.homeItems=S.homeItems&&typeof S.homeItems==='object'?S.homeItems:{};return S.homeItems}
   function homeRating(){
     const owned=Object.keys(ensure()).filter(k=>S.homeItems[k]).length;

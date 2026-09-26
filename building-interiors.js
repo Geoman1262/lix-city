@@ -16,7 +16,7 @@
   const esc=s=>String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
   const toastSafe=t=>{if(typeof toast==='function')toast(t)};
   const saveSafe=()=>{if(typeof save==='function')save()};
-  const xp=n=>{if(typeof addXP==='function')addXP(n);else S.xp=(Number(S.xp)||0)+n};
+  const xp=n=>{if(typeof addXP==='function')addXP(n);else addXP(n)};
   const close=()=>document.getElementById('cityPanel')?.classList.remove('show');
   function state(type){const d=defs[type]||defs.house;return {d,unlocked:Number(S?.level||1)>=d.req,lv:Number(S?.cityBuilds?.[type]?.level||1)}}
   function shell(body){const p=document.getElementById('cityPanel');if(!p)return;p.innerHTML=`<div class="v68-modal"><button class="v68-close" onclick="LixBuildingInteriors.close()">×</button>${body}</div>`;p.classList.add('show')}

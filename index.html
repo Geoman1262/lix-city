@@ -594,7 +594,7 @@ document.addEventListener("click",e=>{const b=e.target.closest("#lixInstallButto
     if(!window.S)return;
     if((Number(S.coins)||0)<cost){if(typeof toast==="function")toast("Not enough Coins");return;}
     S.coins-=cost;
-    S.xp=(Number(S.xp)||0)+Math.min(50,Math.round(cost/20));
+    addXP(Math.min(50,Math.round(cost/20)));
     S.v53Items=S.v53Items||[];
     if(!S.v53Items.includes(name))S.v53Items.push(name);
     if(typeof save==="function")save();
@@ -716,7 +716,7 @@ document.addEventListener("click",e=>{const b=e.target.closest("#lixInstallButto
       '<div class="v55-box"><b>🖼️ Art</b><small>1200 Coins</small><button class="v55-btn" onclick="v55Decor(1200,\'art\')">BUY</button></div></div></div>';
   }
   window.v55Event=function(){
-    ensure(); S.v55.eventPoints+=25; S.xp=(Number(S.xp)||0)+20;
+    ensure(); S.v55.eventPoints+=25; addXP(20);
     if(typeof save==="function")save(); render();
     if(typeof toast==="function")toast("🌟 +25 Event Points • +20 XP");
   };
@@ -724,7 +724,7 @@ document.addEventListener("click",e=>{const b=e.target.closest("#lixInstallButto
   window.v55Visit=function(){
     ensure(); if(Number(S.level)<30)return;
     if(S.v55.visitedToday){if(typeof toast==="function")toast("You already visited a city today.");return;}
-    S.v55.visitedToday=true; S.xp=(Number(S.xp)||0)+25;
+    S.v55.visitedToday=true; addXP(25);
     if(typeof save==="function")save(); render();
     if(typeof toast==="function")toast("🌍 City visited • +25 XP");
   };
@@ -735,7 +735,7 @@ document.addEventListener("click",e=>{const b=e.target.closest("#lixInstallButto
     else{
       if(!S.v55.petPlayedToday){
         S.v55.petPlayedToday=true; S.energy=Math.min(Number(S.maxEnergy)||10,(Number(S.energy)||0)+1);
-        S.xp=(Number(S.xp)||0)+25;
+        addXP(25);
       }
       S.petData.toys=(Number(S.petData.toys)||0)+1;
     }
@@ -744,7 +744,7 @@ document.addEventListener("click",e=>{const b=e.target.closest("#lixInstallButto
   };
   window.v55Decor=function(cost,item){
     ensure(); if((Number(S.coins)||0)<cost){if(typeof toast==="function")toast("Not enough Coins");return;}
-    S.coins-=cost; S.v55.decor.push(item); S.xp=(Number(S.xp)||0)+Math.min(50,Math.round(cost/25));
+    S.coins-=cost; S.v55.decor.push(item); addXP(Math.min(50,Math.round(cost/25)));
     if(typeof save==="function")save(); render();
     if(typeof toast==="function")toast("✨ "+item+" added to your city!");
   };
@@ -845,7 +845,7 @@ document.addEventListener("click",e=>{const b=e.target.closest("#lixInstallButto
   window.v57CollectCityCoin=function(){
     init();
     S.coins=(Number(S.coins)||0)+5;
-    S.xp=(Number(S.xp)||0)+5;
+    addXP(5);
     S.v57.cityCoinsCollected++;
     saveNow();render();
     if(typeof toast==="function")toast("🪙 +5 Coins • +5 XP");
@@ -979,7 +979,7 @@ document.addEventListener("click",e=>{const b=e.target.closest("#lixInstallButto
   const c=cost(d);if((Number(S.coins)||0)<c){toast('🪙 You need '+c+' Coins');return;}
   S.coins-=c;dev[id]=lv+1;
   if(typeof addXP==='function')addXP(Math.round(c/25));
-  else S.xp=(Number(S.xp)||0)+Math.round(c/25);
+  else addXP(Math.round(c/25));
   if(typeof save==='function')save();
   toast('🏙️ '+d.name+' upgraded to Lv.'+(lv+1));render();
  }
@@ -1033,7 +1033,7 @@ document.addEventListener("click",e=>{const b=e.target.closest("#lixInstallButto
 })();
 </script>
 <button id="lix23HubBtn" style="display:none!important">🧩 HUB</button><script src="app.js"></script><script src="mega-v26.js"></script><script src="v263-stability.js"></script><script src="mega-v27.js"></script>
-<script src="v2.7.2-performance-fix.js?v=272"></script></body>
+<link rel="stylesheet" href="v2.8.1-fix.css?v=281"><script src="v2.8.1-fix.js?v=281"></script></body>
 </html>
 <style>
 /* v0.72 — HARD CITY VISUAL RECOVERY */

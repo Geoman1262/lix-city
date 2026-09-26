@@ -5,7 +5,7 @@ window.LixCity = {
   collect(amount=5){
     if(!window.S) return;
     S.coins=(Number(S.coins)||0)+amount;
-    S.xp=(Number(S.xp)||0)+5;
+    addXP(5);
     try { if(typeof save==="function") save(); } catch(e){}
   }
 };

@@ -6,9 +6,21 @@ const BACKUP_KEY = "lixcity_player_save_backup_v1";
 const D={level:1,xp:0,coins:250,tickets:0,energy:10,maxEnergy:10,house:1,pet:1,petPlayed:0,lastSpin:0,game:{target:1,runner:1,catch:1},missions:[{t:"Play any game",xp:40,done:false},{t:"Earn 50 Coins",xp:40,done:false},{t:"Finish Lix Target",xp:50,done:false},{t:"Feed & play with your Pet",xp:50,done:false},{t:"Visit your City",xp:30,done:false}],city:{x:43,y:48,pet:false,collected:[]}};
 function cloneD(){return JSON.parse(JSON.stringify(D))}
 function readState(k){try{const raw=localStorage.getItem(k);return raw?JSON.parse(raw):null}catch(e){return null}}
+function need(l){return Math.round(500*l+300*Math.pow(Math.max(0,l-1),1.35))}
+function xpThreshold(level){let total=0;for(let l=1;l<level;l++)total+=need(l);return total}
+function levelFromTotal(total){let level=1;while(level<50 && total>=xpThreshold(level+1))level++;return level}
+function migrateXpToCumulative(s){
+  if(s.xpCumulative===true)return s;
+  const oldLevel=Math.max(1,Number(s.level)||1);
+  const oldProgress=Math.max(0,Number(s.xp)||0);
+  s.xp=xpThreshold(oldLevel)+oldProgress;
+  s.xpCumulative=true;
+  return s;
+}
 function normalizeState(raw){
   const s={...cloneD(),...(raw&&typeof raw==='object'?raw:{})};
-  s.level=Math.max(1,Number(s.level)||1); s.xp=Math.max(0,Number(s.xp)||0); s.coins=Math.max(0,Number(s.coins)||0);
+  migrateXpToCumulative(s);
+  s.xp=Math.max(0,Number(s.xp)||0); s.level=levelFromTotal(s.xp); s.coins=Math.max(0,Number(s.coins)||0);
   s.tickets=Math.max(0,Number(s.tickets)||0); s.maxEnergy=Math.max(10,Number(s.maxEnergy)||10);
   s.energy=Math.max(0,Math.min(s.maxEnergy,Number(s.energy) || 0)); s.house=Math.max(1,Number(s.house)||s.level);
   s.pet=Math.max(1,Number(s.pet)||1); s.petPlayed=Number(s.petPlayed)||0; s.lastSpin=Number(s.lastSpin)||0;
@@ -35,8 +47,22 @@ function save(){
   }catch(e){ console.warn('LIX CITY save failed',e); }
 }
 save();
-function need(l){return Math.round(500*l+300*Math.pow(Math.max(0,l-1),1.35))}function addXP(n){S.xp+=n;while(S.xp>=need(S.level)){S.xp-=need(S.level);S.level++;S.house=S.level;toast("🏠 House / Player Level "+S.level+"!")}save();render()}function spend(n){if(S.coins<n){toast("Not enough Coins");return false}S.coins-=n;save();return true}function energy(){if(S.energy<1){toast("⚡ No Energy");return false}S.energy--;save();render();return true}function coins(n){S.coins+=n;save();render()}function toast(t){let e=document.querySelector(".toast");if(!e)return;e.textContent=t;e.style.display="block";clearTimeout(window.tt);window.tt=setTimeout(()=>e.style.display="none",1800)}function nav(a){return`<div class="nav"><div class="navin"><button class="${a==="home"?"active":""}" onclick="show('home')"><b>🏠</b>Home</button><button class="${a==="city"?"active":""}" onclick="show('city')"><b>🏙️</b>City</button><button class="${a==="games"?"active":""}" onclick="show('games')"><b>🎮</b>Games</button><button class="${a==="pets"?"active":""}" onclick="show('pets')"><b>🐾</b>Pets</button><button class="${a==="more"?"active":""}" onclick="show('more')"><b>☰</b>More</button></div></div>`}function shell(c,a){document.getElementById("app").innerHTML=`<header class="top"><div class="brand"><img src="cellix-logo.webp"></div><div class="stats"><span>⭐ ${S.xp}</span><span><img class="coin-icon" src="coin.png"> ${S.coins}</span><span>⚡ ${S.energy}/${S.maxEnergy}</span></div></header><main class="wrap">${c}</main>${nav(a)}<div class="toast"></div>`}function show(p){({home,city,games,pets,more}[p])()}
-function home(){let n=need(S.level),pct=Math.min(100,S.xp/n*100);shell(`<section class="hero"><div><small>LIX CITY</small><h1>Welcome to your city</h1><p>PLAY → EARN → BUILD → PROGRESS</p><div class="level">HOUSE / PLAYER LEVEL <strong>${S.level}</strong></div></div><img src="lix.png"></section><section class="card"><div class="title"><h2>🏙️ My City</h2><small>House Lv. ${S.house}</small></div><div class="grid"><div class="tile"><div>🏠</div><h3>Lix House</h3><small>Level ${S.house}</small></div><div class="tile ${S.level<2?"locked":""}"><div>🎮</div><h3>Game Center</h3><small>${S.level<2?"Unlock Lv. 2":"Available"}</small></div><div class="tile ${S.level<4?"locked":""}"><div>🏪</div><h3>Cellix Store</h3><small>${S.level<4?"Unlock Lv. 4":"Available"}</small></div><div class="tile"><div>🛣️</div><h3>City Road</h3><small>Starting area</small></div></div></section><section class="card"><div class="title"><h2>📈 Progress</h2><b>Lv. ${S.level}</b></div><div class="progress"><div class="bar" style="width:${pct}%"></div></div><p>${S.xp} / ${n} XP to next level</p><div class="row"><button class="btn" onclick="show('games')">🎮 Play</button><button class="btn alt" onclick="show('city')">🏙️ Enter City</button></div></section><section class="card"><div class="title"><h2>📋 Daily Missions</h2><small>5 missions</small></div>${S.missions.map((m,i)=>`<div class="mission"><span>${m.done?"✅":"⬜"} ${m.t} <small>+${m.xp} XP</small></span>${m.done?"":"<button class='btn alt' onclick='claimMission("+i+")'>Claim</button>"}</div>`).join("")}</section>`,"home")}
+function addXP(n){
+  const amount=Math.max(0,Number(n)||0);
+  if(!amount)return;
+  const oldLevel=Number(S.level)||1;
+  S.xp=Math.max(0,Number(S.xp)||0)+amount;
+  S.xpCumulative=true;
+  const newLevel=levelFromTotal(S.xp);
+  if(newLevel>oldLevel){
+    S.level=newLevel;
+    S.house=Math.max(Number(S.house)||1,newLevel);
+    toast("🏠 House / Player Level "+S.level+"!");
+  }
+  save();render();
+}function xpInfo(){const lvl=Number(S.level)||1,total=Math.max(0,Number(S.xp)||0),start=xpThreshold(lvl),next=xpThreshold(lvl+1),progress=Math.max(0,total-start),needed=Math.max(1,next-start);return{level:lvl,total,start,next,progress,needed,pct:Math.min(100,progress/needed*100)}}
+function spend(n){if(S.coins<n){toast("Not enough Coins");return false}S.coins-=n;save();return true}function energy(){if(S.energy<1){toast("⚡ No Energy");return false}S.energy--;save();render();return true}function coins(n){S.coins+=n;save();render()}function toast(t){let e=document.querySelector(".toast");if(!e)return;e.textContent=t;e.style.display="block";clearTimeout(window.tt);window.tt=setTimeout(()=>e.style.display="none",1800)}function nav(a){return`<div class="nav"><div class="navin"><button class="${a==="home"?"active":""}" onclick="show('home')"><b>🏠</b>Home</button><button class="${a==="city"?"active":""}" onclick="show('city')"><b>🏙️</b>City</button><button class="${a==="games"?"active":""}" onclick="show('games')"><b>🎮</b>Games</button><button class="${a==="pets"?"active":""}" onclick="show('pets')"><b>🐾</b>Pets</button><button class="${a==="more"?"active":""}" onclick="show('more')"><b>☰</b>More</button></div></div>`}function shell(c,a){document.getElementById("app").innerHTML=`<header class="top"><div class="brand"><img src="cellix-logo.webp"></div><div class="stats"><span>⭐ ${S.xp}</span><span><img class="coin-icon" src="coin.png"> ${S.coins}</span><span>⚡ ${S.energy}/${S.maxEnergy}</span></div></header><main class="wrap">${c}</main>${nav(a)}<div class="toast"></div>`}function show(p){({home,city,games,pets,more}[p])()}
+function home(){let start=xpThreshold(S.level),next=xpThreshold(S.level+1),progress=Math.max(0,S.xp-start),n=Math.max(1,next-start),pct=Math.min(100,progress/n*100);shell(`<section class="hero"><div><small>LIX CITY</small><h1>Welcome to your city</h1><p>PLAY → EARN → BUILD → PROGRESS</p><div class="level">HOUSE / PLAYER LEVEL <strong>${S.level}</strong></div></div><img src="lix.png"></section><section class="card"><div class="title"><h2>🏙️ My City</h2><small>House Lv. ${S.house}</small></div><div class="grid"><div class="tile"><div>🏠</div><h3>Lix House</h3><small>Level ${S.house}</small></div><div class="tile ${S.level<2?"locked":""}"><div>🎮</div><h3>Game Center</h3><small>${S.level<2?"Unlock Lv. 2":"Available"}</small></div><div class="tile ${S.level<4?"locked":""}"><div>🏪</div><h3>Cellix Store</h3><small>${S.level<4?"Unlock Lv. 4":"Available"}</small></div><div class="tile"><div>🛣️</div><h3>City Road</h3><small>Starting area</small></div></div></section><section class="card"><div class="title"><h2>📈 Progress</h2><b>Lv. ${S.level}</b></div><div class="progress"><div class="bar" style="width:${pct}%"></div></div><p>${progress} / ${n} XP to next level • ⭐ Total XP: ${S.xp}</p><div class="row"><button class="btn" onclick="show('games')">🎮 Play</button><button class="btn alt" onclick="show('city')">🏙️ Enter City</button></div></section><section class="card"><div class="title"><h2>📋 Daily Missions</h2><small>5 missions</small></div>${S.missions.map((m,i)=>`<div class="mission"><span>${m.done?"✅":"⬜"} ${m.t} <small>+${m.xp} XP</small></span>${m.done?"":"<button class='btn alt' onclick='claimMission("+i+")'>Claim</button>"}</div>`).join("")}</section>`,"home")}
 function claimMission(i){if(S.missions[i].done)return;S.missions[i].done=true;addXP(S.missions[i].xp);toast("Mission complete! +"+S.missions[i].xp+" XP")}
 function city(){
   let x=S.city?.x??43, y=S.city?.y??48;

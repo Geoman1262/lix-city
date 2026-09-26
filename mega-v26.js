@@ -4,7 +4,7 @@ const defaults={best:{target:0,runner:0,catch:0},plays:{target:0,runner:0,catch:
 const get=()=>{try{return {...defaults,...JSON.parse(localStorage.getItem(K)||'{}')}}catch{return {...defaults}}};
 const save=(x)=>localStorage.setItem(K,JSON.stringify(x));
 const state=()=>{try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch{return {}}};
-function grant(coins,xp){let s=state();s.coins=Math.max(0,(s.coins||0)+coins);s.xp=Math.max(0,(s.xp||0)+xp);s.energy=Math.max(0,(s.energy||0)-1);if(window.normalizeState){try{s=window.normalizeState(s)}catch{}}localStorage.setItem(KEY,JSON.stringify(s));return s}
+function grant(coins,xp){let s=state();s.coins=Math.max(0,(s.coins||0)+coins);s.energy=Math.max(0,(s.energy||0)-1);if(typeof addXP==='function'){S.coins=s.coins;S.energy=s.energy;addXP(xp);s=S;save()}else{s.xp=Math.max(0,(s.xp||0)+xp);if(window.normalizeState){try{s=window.normalizeState(s)}catch{}}localStorage.setItem(KEY,JSON.stringify(s))}return s}
 function canPlay(){let s=state();if((s.energy||0)<1){alert('⚡ No Energy. Come back when Energy regenerates.');return false}return true}
 function close(){document.getElementById('v26Arcade')?.remove()}
 function shell(title,body){close();let d=document.createElement('div');d.id='v26Arcade';d.innerHTML=`<div class="v26shade"><div class="v26modal"><div class="v26head"><b>🎮 ${title}</b><button id="v26x">✕</button></div>${body}</div></div>`;document.body.appendChild(d);d.querySelector('#v26x').onclick=close}

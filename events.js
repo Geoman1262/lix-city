@@ -10,7 +10,7 @@ window.LixEvents = {
     if(!window.S) return;
     S.v57=S.v57||{};
     S.v57.eventPoints=(Number(S.v57.eventPoints)||0)+points;
-    S.xp=(Number(S.xp)||0)+20;
+    addXP(20);
     if(typeof save==="function") save();
   }
 };

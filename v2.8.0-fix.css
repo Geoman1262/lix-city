@@ -1,0 +1,12 @@
+/* LIX CITY v2.8.0 */
+#v25panel{flex-direction:column!important;align-items:center!important;justify-content:flex-start!important;overflow-y:auto!important;overflow-x:hidden!important;box-sizing:border-box!important;padding-bottom:72px!important}
+#v25panel>*{flex:0 0 auto!important}
+#v25panel .v25top{width:100%!important;max-width:560px!important;box-sizing:border-box!important}
+.v25stats{width:100%!important;max-width:560px!important;box-sizing:border-box!important}
+.v25grid{width:100%!important;max-width:560px!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;box-sizing:border-box!important}
+.v25card{width:calc(100% - 28px)!important;max-width:532px!important;box-sizing:border-box!important}
+.lix280-title{font-size:18px;font-weight:900}
+.lix280-actions{display:flex;gap:7px}.lix280-actions button{border:0;background:#eef4fb;border-radius:50%;width:34px;height:34px;font-size:20px;font-weight:900}
+.lix280-footer{position:sticky!important;bottom:0!important;z-index:100005!important;display:flex!important;gap:8px!important;width:100%!important;max-width:560px!important;padding:10px 14px!important;box-sizing:border-box!important;background:rgba(247,251,255,.96)!important;border-top:1px solid #dbe7f2!important;backdrop-filter:blur(8px)!important}
+.lix280-footer button{flex:1;border:0;border-radius:13px;padding:12px 8px;background:#1769e8;color:#fff;font-weight:900}
+@media(max-width:520px){#v25panel .v25stats{grid-template-columns:repeat(2,1fr)!important}.v25grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.v25card{width:calc(100% - 20px)!important;margin-left:10px!important;margin-right:10px!important}}

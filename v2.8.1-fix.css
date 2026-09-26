@@ -1,0 +1,52 @@
+/* LIX CITY v2.8.1 — Command must be a vertical mobile panel */
+#v25panel{
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  box-sizing:border-box!important;
+  padding-bottom:78px!important;
+}
+#v25panel>*{
+  flex:0 0 auto!important;
+  width:100%!important;
+  max-width:560px!important;
+  box-sizing:border-box!important;
+}
+#v25panel .v25top{width:100%!important;position:sticky!important;top:0!important;z-index:100006!important;box-sizing:border-box!important}
+#v25panel .v25stats{width:100%!important;max-width:560px!important;box-sizing:border-box!important}
+#v25panel .v25grid{width:100%!important;max-width:560px!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;box-sizing:border-box!important}
+#v25panel .v25card{width:calc(100% - 20px)!important;max-width:540px!important;margin-left:10px!important;margin-right:10px!important;box-sizing:border-box!important}
+
+.lix281-title{font-size:18px;font-weight:900}
+.lix281-actions{display:flex;gap:7px}
+.lix281-actions button{border:0;background:#eef4fb;border-radius:50%;width:36px;height:36px;font-size:20px;font-weight:900}
+.lix281-footer{
+  position:sticky!important;
+  bottom:0!important;
+  z-index:100007!important;
+  display:flex!important;
+  gap:8px!important;
+  width:100%!important;
+  max-width:560px!important;
+  padding:10px 14px calc(10px + env(safe-area-inset-bottom))!important;
+  box-sizing:border-box!important;
+  background:rgba(247,251,255,.97)!important;
+  border-top:1px solid #dbe7f2!important;
+  backdrop-filter:blur(8px)!important;
+}
+.lix281-footer button{flex:1;border:0;border-radius:13px;padding:12px 8px;background:#1769e8;color:#fff;font-weight:900}
+
+body.command-open #v25btn,
+body.command-open #lix24open,
+body.command-open #v26ArcadeBtn,
+body.command-open #v18btn,
+body.command-open #v21btn{display:none!important}
+
+/* Make the command's content one clean vertical flow on phones. */
+@media(max-width:520px){
+  #v25panel .v25stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  #v25panel .v25grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  #v25panel .v25card{width:calc(100% - 16px)!important;margin-left:8px!important;margin-right:8px!important}
+}

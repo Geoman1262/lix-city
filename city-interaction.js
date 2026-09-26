@@ -26,7 +26,7 @@
     const s=state(),now=Date.now();
     if(now-Number(s.greetedAt||0)<DAY){focus();return;}
     s.greetedAt=now;
-    if(typeof addXP==='function')addXP(5); else S.xp=(Number(S.xp)||0)+5;
+    if(typeof addXP==='function')addXP(5); else addXP(5);
     if(typeof save==='function')save();
     focus();
     if(typeof toast==='function')toast('🤖 Lix says hello! +5 XP');

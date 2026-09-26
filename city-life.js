@@ -22,7 +22,7 @@
   }
   function visit(){
     const s=state();s.visits=(Number(s.visits)||0)+1;
-    if(typeof addXP==='function')addXP(10); else S.xp=(Number(S.xp)||0)+10;
+    if(typeof addXP==='function')addXP(10); else addXP(10);
     if(typeof save==='function')save();toast('🏙️ City explored • +10 XP');
   }
   function render(){

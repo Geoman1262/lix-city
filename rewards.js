@@ -7,7 +7,7 @@ window.LixRewards={
   },
   grantXP(amount){
     if(!window.S)return;
-    S.xp=(Number(S.xp)||0)+Number(amount||0);
+    addXP(Number(amount||0));
     try{if(typeof save==="function")save()}catch(e){}
   }
 };
