@@ -7,7 +7,7 @@ const day=()=>new Date().toISOString().slice(0,10);
 const player=()=>{try{return typeof S==='object'&&S?S:null}catch{return null}};
 const notify=m=>{let n=document.getElementById('v25toast');if(n){n.textContent=m;n.classList.add('on');setTimeout(()=>n.classList.remove('on'),2200)}};
 const coins=n=>{let p=player();if(!p)return false;if((p.coins||0)<n){notify('Not enough Coins');return false}p.coins-=n;typeof save==='function'&&save();return true};
-const addXP=n=>{if(typeof addXP==='function'&&window.addXP!==addXP)window.addXP(n);else{let p=player();if(p){p.xp=(p.xp||0)+n;typeof save==='function'&&save()}}};
+const grantXP=n=>{const x=Number(n)||0;if(!x)return;if(typeof window.addXP==='function'){try{window.addXP(x);return}catch(e){}}const p=player();if(p){p.xp=(Number(p.xp)||0)+x;typeof save==='function'&&save()}};
 function daily(){if(D.missionDay!==day()){D.missionDay=day();D.missions=[['Play 2 games',()=>plays()>=2,35],['Earn 150 Coins',()=>coinEarned()>=150,45],['Visit the City',()=>true,25],['Use Energy',()=>usedEnergy()>0,30],['Open Command Center',()=>true,20]];D.missionStart={plays:plays(),coins:coinTotal(),energy:energy()};saveD()}}
 const plays=()=>{let p=player();return Number(p?.stats?.plays||p?.gameStats?.plays||D.sessionPlays||0)};
 const coinTotal=()=>Number(player()?.coins||0);
@@ -20,7 +20,7 @@ function missionOk(m){if(!m)return false;if(Array.isArray(m))return typeof m[1]=
 function missionTitle(m){return Array.isArray(m)?m[0]:(m?.t||m?.title||'Daily Mission')}
 function missionXP(m){return Array.isArray(m)?Number(m[2])||0:Number(m?.xp)||0}
 function normalizeMissions(){if(!Array.isArray(D.missions))D.missions=[];if(D.missions.length!==5||D.missions.some(m=>!Array.isArray(m)||typeof m[1]!=='function')){D.missions=[['Play 2 games',()=>plays()>=2,35],['Earn 150 Coins',()=>coinEarned()>=150,45],['Visit the City',()=>true,25],['Use Energy',()=>usedEnergy()>0,30],['Open Command Center',()=>true,20]];D.claimed=[];saveD();}}
-function claimMission(i){daily();normalizeMissions();let m=D.missions[i];if(!m||D.claimed.includes(i))return;if(!missionOk(m))return notify('Mission not completed yet');D.claimed.push(i);saveD();addXP(missionXP(m));notify('Mission claimed +'+missionXP(m)+' XP');render();}
+function claimMission(i){daily();normalizeMissions();let m=D.missions[i];if(!m||D.claimed.includes(i))return;if(!missionOk(m))return notify('Mission not completed yet');D.claimed.push(i);saveD();grantXP(missionXP(m));notify('Mission claimed +'+missionXP(m)+' XP');render();}
 function expand(){let cost=1000+(D.expansions*1500);if(!coins(cost))return;D.expansions++;D.cityXP+=100;saveD();notify('🏙️ City expanded');render();}
 function decorate(){let cost=120+(D.decor*80);if(!coins(cost))return;D.decor++;saveD();notify('✨ Decoration placed');render();}
 function like(){D.likes++;saveD();notify('❤️ City liked');render();}

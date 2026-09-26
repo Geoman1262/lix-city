@@ -1,0 +1,28 @@
+/* LIX CITY v2.6.3 — mobile UI stability */
+#lix24open,#v26ArcadeBtn{
+  position:fixed!important;
+  bottom:76px!important;
+  top:auto!important;
+  z-index:40!important;
+  box-sizing:border-box!important;
+  width:calc(50vw - 20px)!important;
+  max-width:205px!important;
+  min-width:0!important;
+  height:44px!important;
+  padding:10px 8px!important;
+  border-radius:999px!important;
+  font-size:12px!important;
+  line-height:1!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  margin:0!important;
+}
+#lix24open{left:12px!important;right:auto!important}
+#v26ArcadeBtn{right:12px!important;left:auto!important}
+#v25panel.open ~ #v26ArcadeBtn{display:none!important}
+#v25panel.open ~ #lix24open{display:none!important}
+#v26Arcade{display:block}
+@media(max-width:430px){
+  #lix24open,#v26ArcadeBtn{width:calc(50vw - 18px)!important;height:42px!important;font-size:11px!important;padding:9px 6px!important}
+}

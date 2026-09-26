@@ -1,13 +1,13 @@
-# LIX CITY v2.6.1 — Mobile UI Fix
+# LIX CITY v2.6.3 — Stable UI + Legacy Compatibility
 
-This patch is based on v2.6 Mega Gameplay.
+Upload all files directly to the GitHub Pages root.
 
-### Fixed
-- Removed legacy floating LIX HUB 1.8 launcher.
-- Removed legacy floating v2.3 HUB button.
-- Kept the current MEGA and LIX ARCADE controls.
-- Positioned both controls in a safe two-button dock above the mobile bottom navigation.
-- Added mobile width/overflow protection so buttons cannot cover each other or overflow the screen.
-- No player save data is reset or migrated.
+Fixes:
+- Legacy `window.adxXP is not a function` compatibility alias.
+- Safer XP granting in the v2.5 mission engine.
+- Prevents stale/duplicate launcher buttons from older bundles.
+- Mobile floating buttons are side-by-side and kept above the bottom navigation without covering each other.
+- Service-worker cache bumped to v2.6.3.
+- Main game save is not reset or migrated destructively.
 
-Upload all files directly to the repository root and replace the existing files.
+Do not delete localStorage or reset the game after upload.
